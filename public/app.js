@@ -310,7 +310,20 @@ function connectJob(jobId) {
     $('#start').disabled = false;
     const errors = state.result?.errors ?? [];
     const warnings = state.result?.warnings ?? [];
-    if (errors.length) {
+    const failedStage = state.result?.stages?.find((s) => s.status === 'failed');
+    if (failedStage?.id === 'collect') {
+      setBanner('error', 'Review collection failed', `${errors[0]?.message ?? 'The App Store feed returned no usable reviews.'}`, [
+        { action: 'retry', label: 'Retry', icon: 'rotate-cw' },
+        { action: 'import_json', label: 'Import JSON', icon: 'file-json-2' },
+        { action: 'import_csv', label: 'Import CSV', icon: 'file-spreadsheet' },
+        { action: 'demo', label: 'Use cached demo', icon: 'database' },
+      ]);
+    } else if (failedStage?.id === 'semantic' || failedStage?.id === 'prd' || failedStage?.id === 'tests') {
+      setBanner('error', 'Semantic stage unavailable', `${errors[0]?.message ?? 'The model call failed after retries.'}`, [
+        { action: 'retry', label: 'Retry', icon: 'rotate-cw' },
+        { action: 'demo', label: 'Use cached demo', icon: 'database' },
+      ]);
+    } else if (errors.length) {
       setBanner('error', 'Pipeline completed with errors', `${errors.length} errors; ${warnings.length} warnings. See evidence and traceability tabs.`);
     } else if (warnings.length) {
       setBanner('warning', 'Pipeline completed with warnings', `${warnings.length} warnings were recorded.`);
@@ -784,6 +797,10 @@ async function init() {
     } else if (action === 'demo') {
       setSource('demo');
       startAnalysis();
+    } else if (action === 'import_json') {
+      setSource('json');
+    } else if (action === 'import_csv') {
+      setSource('csv');
     }
   });
 
