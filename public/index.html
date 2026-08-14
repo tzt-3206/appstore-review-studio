@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Review Studio - App Store Review Intelligence</title>
+    <title>Review Studio - App Store 评论智能分析</title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
@@ -12,12 +12,12 @@
         <i data-lucide="scan-search"></i>
         <div class="brand-text">
           <strong>Review Studio</strong>
-          <span>App Store review intelligence</span>
+          <span>App Store 评论智能分析</span>
         </div>
       </div>
       <div class="topbar-actions">
-        <span id="model-status" class="badge muted"><i data-lucide="cpu"></i><span>Checking model...</span></span>
-        <span id="storefront-badge" class="badge muted hidden"><i data-lucide="map-pin"></i><span>US storefront</span></span>
+        <span id="model-status" class="badge muted"><i data-lucide="cpu"></i><span>正在检查模型...</span></span>
+        <span id="storefront-badge" class="badge muted hidden"><i data-lucide="map-pin"></i><span>美国区评论</span></span>
       </div>
     </header>
 
@@ -25,75 +25,75 @@
       <aside class="sidebar">
         <section class="panel form-panel">
           <div class="panel-head">
-            <h2>New analysis</h2>
+            <h2>新建分析</h2>
           </div>
 
-          <div class="source-tabs" role="tablist" aria-label="Data source">
-            <button class="source-tab active" data-source="url" role="tab"><i data-lucide="link"></i>App Store URL</button>
-            <button class="source-tab" data-source="json" role="tab"><i data-lucide="file-json-2"></i>JSON</button>
-            <button class="source-tab" data-source="csv" role="tab"><i data-lucide="file-spreadsheet"></i>CSV</button>
-            <button class="source-tab" data-source="demo" role="tab"><i data-lucide="database"></i>Demo</button>
+          <div class="source-tabs" role="tablist" aria-label="数据来源">
+            <button class="source-tab active" data-source="url" role="tab"><i data-lucide="link"></i>App Store 链接</button>
+            <button class="source-tab" data-source="json" role="tab"><i data-lucide="file-json-2"></i>JSON 导入</button>
+            <button class="source-tab" data-source="csv" role="tab"><i data-lucide="file-spreadsheet"></i>CSV 导入</button>
+            <button class="source-tab" data-source="demo" role="tab"><i data-lucide="database"></i>离线演示</button>
           </div>
 
           <div id="url-field" class="field">
-            <label for="url">App Store URL</label>
+            <label for="url">App Store 链接</label>
             <input id="url" type="url" spellcheck="false"
               value="https://apps.apple.com/us/app/workout-for-women-home-gym/id839285684" />
           </div>
           <div id="file-field" class="field hidden">
-            <label id="file-label" for="file">Review data file</label>
+            <label id="file-label" for="file">评论数据文件</label>
             <input id="file" type="file" accept=".json,.csv" />
-            <span class="hint">Fields: review_id, rating, title, content, version, date, language.</span>
+            <span class="hint">字段：review_id、rating、title、content、version、date、language</span>
           </div>
 
           <div class="field">
             <div class="label-row">
-              <label for="goal">Analysis goal</label>
-              <button id="clear-goal" class="text-btn" type="button">clear</button>
+              <label for="goal">分析目标</label>
+              <button id="clear-goal" class="text-btn" type="button">清空</button>
             </div>
-            <textarea id="goal" rows="4" spellcheck="false">Analyze subscription conversion problems and low-rated review themes. Focus on workout usability issues users mention.</textarea>
+            <textarea id="goal" rows="4" spellcheck="false">分析订阅转化问题与低评分评论主题，重点看用户提到的训练可用性问题。</textarea>
           </div>
 
-          <div class="chips" aria-label="Goal examples">
-            <button class="chip" type="button">subscription conversion</button>
-            <button class="chip" type="button">low-rated reviews</button>
-            <button class="chip" type="button">workout usability</button>
-            <button class="chip" type="button">version 8.2 regression</button>
+          <div class="chips" aria-label="目标示例">
+            <button class="chip" type="button">订阅转化</button>
+            <button class="chip" type="button">低评分评论</button>
+            <button class="chip" type="button">训练可用性</button>
+            <button class="chip" type="button">8.2 版本回归</button>
           </div>
 
           <details class="advanced">
-            <summary>Advanced constraints</summary>
+            <summary>高级筛选</summary>
             <div class="grid2">
               <div class="field">
-                <label for="min-rating">Min rating</label>
+                <label for="min-rating">最低评分</label>
                 <input id="min-rating" type="number" min="1" max="5" placeholder="1" />
               </div>
               <div class="field">
-                <label for="max-rating">Max rating</label>
+                <label for="max-rating">最高评分</label>
                 <input id="max-rating" type="number" min="1" max="5" placeholder="5" />
               </div>
               <div class="field">
-                <label for="versions">Versions</label>
+                <label for="versions">版本</label>
                 <input id="versions" type="text" placeholder="8.2, 8.3" spellcheck="false" />
               </div>
               <div class="field">
-                <label for="max-reviews">Max reviews</label>
-                <input id="max-reviews" type="number" min="1" placeholder="auto" />
+                <label for="max-reviews">最大评论数</label>
+                <input id="max-reviews" type="number" min="1" placeholder="自动" />
               </div>
             </div>
           </details>
 
-          <button id="start" class="btn primary wide" type="button"><i data-lucide="play"></i>Start analysis</button>
+          <button id="start" class="btn primary wide" type="button"><i data-lucide="play"></i>开始分析</button>
         </section>
 
         <section class="panel">
           <div class="panel-head">
-            <h2>Model runtime</h2>
+            <h2>模型运行时</h2>
           </div>
           <dl class="kv" id="model-detail">
-            <div><dt>Provider</dt><dd>checking...</dd></div>
-            <div><dt>Model</dt><dd>checking...</dd></div>
-            <div><dt>Structured output</dt><dd>JSON</dd></div>
+            <div><dt>服务商</dt><dd>检查中...</dd></div>
+            <div><dt>模型</dt><dd>检查中...</dd></div>
+            <div><dt>结构化输出</dt><dd>JSON</dd></div>
           </dl>
         </section>
       </aside>
@@ -103,11 +103,11 @@
 
         <section class="panel">
           <div class="panel-head row">
-            <h2>Workflow</h2>
+            <h2>工作流程</h2>
             <div class="legend">
-              <span class="legend-item"><i class="dot done"></i>done</span>
-              <span class="legend-item"><i class="dot warn"></i>warning</span>
-              <span class="legend-item"><i class="dot err"></i>failed</span>
+              <span class="legend-item"><i class="dot done"></i>完成</span>
+              <span class="legend-item"><i class="dot warn"></i>警告</span>
+              <span class="legend-item"><i class="dot err"></i>失败</span>
             </div>
           </div>
           <ol id="stages" class="stages"></ol>
@@ -115,28 +115,28 @@
 
         <section class="panel">
           <div class="panel-head row">
-            <h2>Execution log</h2>
-            <button id="clear-log" class="text-btn" type="button">clear</button>
+            <h2>执行日志</h2>
+            <button id="clear-log" class="text-btn" type="button">清空</button>
           </div>
           <div id="log" class="log">
-            <div class="empty-state compact"><p>No events yet.</p></div>
+            <div class="empty-state compact"><p>暂无事件。</p></div>
           </div>
         </section>
 
         <section class="panel results-panel">
           <div class="panel-head row">
-            <h2>Deliverables</h2>
+            <h2>分析交付物</h2>
             <div class="actions">
               <button id="export-json" class="btn small" type="button" disabled><i data-lucide="file-down"></i>JSON</button>
               <button id="export-csv" class="btn small" type="button" disabled><i data-lucide="file-down"></i>CSV</button>
               <button id="export-md" class="btn small" type="button" disabled><i data-lucide="file-down"></i>Markdown</button>
             </div>
           </div>
-          <nav id="tabs" class="tabs" aria-label="Deliverables"></nav>
+          <nav id="tabs" class="tabs" aria-label="分析交付物"></nav>
           <div id="content" class="content">
             <div class="empty-state">
               <i data-lucide="scan-search"></i>
-              <p>Start an analysis to generate scope, findings, PRD, tests, and traceability.</p>
+              <p>开始一次分析后，这里会展示范围、发现、PRD、测试用例与可追溯性结果。</p>
             </div>
           </div>
         </section>

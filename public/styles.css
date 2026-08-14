@@ -16,7 +16,7 @@
   --danger-soft: #fdeaea;
   --radius: 8px;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
 }
 
 * {
@@ -221,9 +221,11 @@ button {
   border-radius: var(--radius);
   background: var(--surface-2);
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
   padding: 6px 4px;
-  white-space: nowrap;
+  white-space: normal;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
 .source-tab svg {
@@ -373,6 +375,16 @@ input[type="file"] {
   background: #0b647d;
 }
 
+.btn,
+.chip,
+.source-tab,
+.tab,
+.item-card,
+.trace-node,
+.stat {
+  transition: border-color 0.12s ease, color 0.12s ease, background-color 0.12s ease;
+}
+
 .btn.wide {
   width: 100%;
 }
@@ -439,6 +451,73 @@ input[type="file"] {
   padding: 7px 8px;
   border-radius: 6px;
   min-height: 44px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.bars {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) 52px;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.bar-label {
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar-value {
+  color: var(--muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.bar-track {
+  height: 8px;
+  border-radius: 999px;
+  background: #e8edf2;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  min-width: 2px;
+}
+
+.bar-red {
+  background: #dc2626;
+}
+
+.bar-orange {
+  background: #ea580c;
+}
+
+.bar-amber {
+  background: #d97706;
+}
+
+.bar-teal {
+  background: #0e7490;
+}
+
+.bar-green {
+  background: #16a34a;
 }
 
 .stage + .stage {
@@ -947,4 +1026,3 @@ td.mono,
     grid-template-columns: repeat(2, 1fr);
   }
 }
-

@@ -32,7 +32,7 @@ function modelInfo(llm, config) {
     provider: llm.provider?.name ?? config.llm.provider,
     model: llm.provider?.model ?? 'unavailable',
     temperature: config.llm.temperature,
-    structured_output: 'JSON enforced by prompt schema and application-side validation',
+    structured_output: '由提示词 Schema 和应用侧校验共同约束的 JSON',
     prompt_files: [
       'prompts/scope_refinement.md',
       'prompts/topic_discovery.md',
@@ -43,16 +43,16 @@ function modelInfo(llm, config) {
       'prompts/prd_generation.md',
       'prompts/test_generation.md',
     ],
-    retry_strategy: `${config.llmMaxRetries} attempts with exponential backoff (2s, 4s, ...)`,
+    retry_strategy: `${config.llmMaxRetries} 次重试，指数退避（2s、4s、...）`,
     failure_strategy:
-      'Deterministic statistics remain available; semantic stages fall back to clearly labeled rule-based outputs or are marked unavailable.',
+      '确定性统计始终保留；语义阶段会回退到明确标注的规则结果，或标记为不可用。',
     hallucination_mitigations: [
-      'LLM is only allowed to reference review IDs present in the dataset',
-      'Every finding/requirement/test-case reference is validated against real review IDs',
-      'support_count is recomputed deterministically',
-      'Findings with insufficient evidence are marked as assumptions',
-      'Semantically unsupported findings are rejected or revised',
-      'Model conclusions and deterministic statistics are stored separately',
+      '模型只能引用数据集中真实存在的评论 ID',
+      '每条发现 / 需求 / 测试用例引用都会与真实评论 ID 校验',
+      'support_count 由确定性代码重新计算',
+      '证据不足的发现会被标记为假设',
+      '语义上不被支持的发现会被拒绝或修订',
+      '模型结论与确定性统计分开存储',
     ],
   };
 }
@@ -79,6 +79,10 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
     logs.push(event);
     onEvent?.(event);
   };
+  const emitArtifact = (key, value) => {
+    artifacts[key] = value;
+    onEvent?.({ type: 'artifact', key, value, time: new Date().toISOString() });
+  };
 
   if (input.source?.type === 'demo') {
     const cached = loadCachedDemo(rootDir);
@@ -92,7 +96,7 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       started_at: startedAt.toISOString(),
       completed_at: new Date().toISOString(),
     };
-    emit('info', 'Loaded cached demo result; no live collection or model calls were made.');
+    emit('info', '已加载离线演示结果，未进行实时采集或模型调用。');
     onEvent?.({ type: 'result', result: demoResult });
     return demoResult;
   }
@@ -139,21 +143,21 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       urlInfo = parseAppStoreUrl(input.source.url);
       if (!urlInfo.ok) throw new Error(urlInfo.error);
       metadata = await lookupAppMetadata(urlInfo.appId);
-      artifacts.scope_pre = {
+      emitArtifact('scope_pre', {
         url_info: urlInfo,
         metadata,
         country_note:
           urlInfo.country === 'us'
-            ? 'U.S. storefront page confirmed; reviews will be collected from the U.S. storefront.'
-            : `Page is from ${urlInfo.country.toUpperCase()}; reviews will still be collected from the U.S. storefront as required.`,
-      };
-      emit('info', `Resolved app "${metadata.name}" (id ${urlInfo.appId}) for U.S. storefront analysis.`);
+            ? '已确认美国区页面；评论按题目要求从美国区商店采集。'
+            : `页面来自 ${urlInfo.country.toUpperCase()} 区；评论仍从美国区商店采集。`,
+      });
+      emit('info', `已解析应用“${metadata.name}”（ID ${urlInfo.appId}），将使用美国区评论分析。`);
     } else {
-      artifacts.scope_pre = {
+      emitArtifact('scope_pre', {
         url_info: null,
         metadata: null,
-        country_note: 'Import mode: no storefront is involved; review data comes from the uploaded dataset.',
-      };
+        country_note: '导入模式不涉及商店区域，评论来自上传的数据集。',
+      });
     }
     finishStage('scope');
   } catch (error) {
@@ -169,40 +173,49 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       const collection = await collectAppStoreReviews(urlInfo.appId, {
         maxReviews: input.options?.max_reviews ?? config.maxReviews,
         requestDelayMs: config.requestDelayMs,
-        onProgress: (event) => emit('collect', event.message ?? `${event.sort} page ${event.page}`, { progress: event }),
+        onProgress: (event) => {
+          const sortLabel = event.sort === 'mostRecent' ? '最新评论' : '最有帮助';
+          const message =
+            event.type === 'page'
+              ? `已获取 ${sortLabel} 第 ${event.page} 页，共 ${event.count} 条`
+              : event.type === 'warning'
+                ? `警告：${sortLabel} 第 ${event.page} 页无数据或重复`
+                : `${sortLabel} 第 ${event.page} 页重试 ${event.attempt ?? ''} 次`;
+          emit('collect', message, { progress: event });
+        },
       });
       rawReviews = collection.rawReviews;
       metadata = metadata ?? null;
-      artifacts.collection = collection;
-      artifacts.raw_reviews = rawReviews;
-      emit('info', `Collected ${rawReviews.length} unique reviews from U.S. App Store RSS feed.`);
-      if (collection.warnings.length) warnings.push(...collection.warnings.map((w) => `Collection: ${w}`));
+      emitArtifact('collection', collection);
+      emitArtifact('raw_reviews', rawReviews);
+      emit('info', `已从美国区 App Store RSS Feed 采集 ${rawReviews.length} 条唯一评论。`);
+      if (collection.warnings.length) warnings.push(...collection.warnings.map((w) => `采集：${w}`));
     } else if (input.source?.type === 'json' || input.source?.type === 'csv') {
       rawReviews = parseImportByType(input.source.type, input.source.text ?? '');
-      artifacts.collection = {
+      emitArtifact('collection', {
         source: `uploaded ${input.source.type.toUpperCase()}`,
         file_name: input.source.fileName ?? '',
         raw_count: rawReviews.length,
-      };
-      artifacts.raw_reviews = rawReviews;
-      emit('info', `Parsed ${rawReviews.length} reviews from uploaded ${input.source.type.toUpperCase()}.`);
+      });
+      emitArtifact('raw_reviews', rawReviews);
+      emit('info', `已解析上传的 ${input.source.type.toUpperCase()} 文件，共 ${rawReviews.length} 条评论。`);
     } else {
       throw new Error(`Unsupported data source: ${input.source?.type}`);
     }
     finishStage('collect');
   } catch (error) {
     errors.push({ stage: 'collect', message: error.message });
-    warnings.push(`Collection failed: ${error.message}`);
+    warnings.push(`采集失败：${error.message}`);
     finishStage('collect', 'failed', error.message);
-    emit('error', `Review collection failed: ${error.message}`);
+    emit('error', `评论采集失败：${error.message}`);
     return finalize(result);
   }
 
   try {
     startStage('clean');
     const cleaning = cleanReviews(rawReviews, { source: input.source?.type === 'url' ? 'itunes_rss_us' : input.source?.type ?? 'import' });
-    artifacts.cleaning = cleaning;
-    emit('info', `Cleaning complete: ${cleaning.raw_count} raw, ${cleaning.valid_count} valid, ${cleaning.duplicate_count} duplicates removed, ${cleaning.invalid_count} invalid.`);
+    emitArtifact('cleaning', cleaning);
+    emit('info', `清洗完成：原始 ${cleaning.raw_count} 条，有效 ${cleaning.valid_count} 条，去重 ${cleaning.duplicate_count} 条，无效 ${cleaning.invalid_count} 条。`);
     finishStage('clean');
   } catch (error) {
     errors.push({ stage: 'clean', message: error.message });
@@ -224,29 +237,29 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       onEvent: (event) => emit('scope', event.message ?? '', event),
     });
     if (!scopeResult.ok) throw new Error(scopeResult.error);
-    artifacts.scope = scopeResult.scope;
-    artifacts.scope_analysis = scopeResult;
-    emit('info', `Scope ready: ${scopeResult.method === 'llm_refined' ? 'model-refined' : 'deterministic'} with ${scopeResult.scoped.reviews.length} reviews after filters.`);
+    emitArtifact('scope', scopeResult.scope);
+    emitArtifact('scope_analysis', scopeResult);
+    emit('info', `范围就绪：${scopeResult.method === 'llm_refined' ? '模型精化' : '确定性规则'}，过滤后剩余 ${scopeResult.scoped.reviews.length} 条评论。`);
     finishStage('scope');
   } catch (error) {
     errors.push({ stage: 'scope', message: error.message });
-    warnings.push(`Scope refinement failed; continuing with unfiltered reviews: ${error.message}`);
+    warnings.push(`范围精化失败，继续使用未过滤评论：${error.message}`);
     const fallback = applyScopeFilters(cleaned, { min_rating: 1, max_rating: 5, versions: [], languages: [], max_reviews: config.maxReviews });
-    artifacts.scope = {
-      summary: 'Deterministic scope fallback after model refinement failure.',
+    emitArtifact('scope', {
+      summary: '模型范围精化失败，使用确定性规则兜底。',
       focus_areas: [],
       filters: fallback.filters,
-      priority_rationale: 'Scope refinement failed; no priority rationale generated.',
-      data_sufficiency_notes: 'See evidence validation.',
+      priority_rationale: '范围精化失败，未生成优先级依据。',
+      data_sufficiency_notes: '请查看证据验证结果。',
       source_country: 'us',
       app: metadata,
-    };
-    artifacts.scope_analysis = { ok: true, method: 'fallback', scoped: fallback };
-    finishStage('scope', 'done', 'Used deterministic scope fallback.');
+    });
+    emitArtifact('scope_analysis', { ok: true, method: 'fallback', scoped: fallback });
+    finishStage('scope', 'done', '已使用确定性范围兜底。');
   }
 
   const scoped = artifacts.scope_analysis.scoped;
-  artifacts.scoped_reviews = scoped.reviews;
+  emitArtifact('scoped_reviews', scoped.reviews);
 
   try {
     startStage('semantic');
@@ -257,7 +270,7 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       modelMaxReviews: config.modelMaxReviews,
     });
     if (topicResult.degraded) {
-      warnings.push(`Topic discovery degraded: ${topicResult.error ?? 'fallback topics used.'}`);
+      warnings.push(`主题发现降级：${topicResult.error ?? '使用兜底主题。'}`);
     }
     const classificationResult = await runClassification({
       scoped,
@@ -267,15 +280,15 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       batchSize: config.classifyBatchSize,
     });
     if (classificationResult.degraded) {
-      warnings.push(`Classification degraded: ${classificationResult.errors.join('; ')}`);
+      warnings.push(`分类降级：${classificationResult.errors.join('；')}`);
     }
-    artifacts.topics = { ...topicResult };
-    artifacts.classification = { ...classificationResult };
-    emit('info', `Semantic analysis complete: ${topicResult.topics.length} topics, ${classificationResult.classified.length} reviews classified.`);
+    emitArtifact('topics', { ...topicResult });
+    emitArtifact('classification', { ...classificationResult });
+    emit('info', `语义分析完成：${topicResult.topics.length} 个主题，${classificationResult.classified.length} 条评论完成分类。`);
     finishStage('semantic');
   } catch (error) {
     errors.push({ stage: 'semantic', message: error.message });
-    warnings.push(`Semantic analysis failed: ${error.message}`);
+    warnings.push(`语义分析失败：${error.message}`);
     finishStage('semantic', 'failed', error.message);
     return finalize(result);
   }
@@ -290,9 +303,9 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       onEvent: (event) => emit('findings', event.message ?? '', event),
       minSupport: config.minFindingSupport,
     });
-    if (findingResult.degraded) warnings.push(`Finding generation degraded: ${findingResult.error ?? 'fallback findings used.'}`);
-    artifacts.findings = findingResult;
-    emit('info', `Findings generated: ${findingResult.findings.length} findings (${findingResult.method}).`);
+    if (findingResult.degraded) warnings.push(`问题发现降级：${findingResult.error ?? '使用兜底发现。'}`);
+    emitArtifact('findings', findingResult);
+    emit('info', `问题发现生成：${findingResult.findings.length} 条（方式：${findingResult.method}）。`);
     finishStage('findings');
   } catch (error) {
     errors.push({ stage: 'findings', message: error.message });
@@ -309,16 +322,17 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       onEvent: (event) => emit('evidence', event.message ?? '', event),
       minSupport: config.minFindingSupport,
     });
-    artifacts.evidence = evidenceResult;
+    emitArtifact('evidence', evidenceResult);
     revisions.push(...evidenceResult.applied.revisions);
     artifacts.findings.findings = evidenceResult.applied.findings;
+    emitArtifact('findings', artifacts.findings);
     const rejectedCount = evidenceResult.applied.revisions.length;
     const assumptionCount = evidenceResult.decisions.filter((d) => d.decision === 'mark_assumption').length;
-    emit('info', `Evidence validation complete: ${rejectedCount} rejected/revised, ${assumptionCount} marked as assumptions.`);
+    emit('info', `证据验证完成：${rejectedCount} 条被拒绝/修订，${assumptionCount} 条标记为假设。`);
     finishStage('evidence');
   } catch (error) {
     errors.push({ stage: 'evidence', message: error.message });
-    warnings.push(`Evidence validation failed: ${error.message}`);
+    warnings.push(`证据验证失败：${error.message}`);
     finishStage('evidence', 'failed', error.message);
     return finalize(result);
   }
@@ -333,24 +347,24 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       llm,
       onEvent: (event) => emit('versions', event.message ?? '', event),
     });
-    artifacts.version_planning = versionResult;
-    emit('info', `Version planning complete: ${versionResult.version_plan.versions.length} versions (${versionResult.method}).`);
+    emitArtifact('version_planning', versionResult);
+    emit('info', `版本规划完成：${versionResult.version_plan.versions.length} 个版本（方式：${versionResult.method}）。`);
     finishStage('versions');
   } catch (error) {
     errors.push({ stage: 'versions', message: error.message });
-    warnings.push(`Version planning failed: ${error.message}`);
-    artifacts.version_planning = { method: 'failed', error: error.message, version_plan: { versions: [] } };
+    warnings.push(`版本规划失败：${error.message}`);
+    emitArtifact('version_planning', { method: 'failed', error: error.message, version_plan: { versions: [] } });
     finishStage('versions', 'failed', error.message);
   }
 
   const versionPlan = artifacts.version_planning.version_plan ?? { versions: [] };
-  artifacts.requirements = [];
-  artifacts.test_cases = [];
+  emitArtifact('requirements', []);
+  emitArtifact('test_cases', []);
 
   try {
     startStage('prd');
     if (supportedFindings.length === 0 || versionPlan.versions.length === 0) {
-      throw new Error('PRD generation requires supported findings and a version plan.');
+      throw new Error('PRD 生成需要证据充分的问题发现和版本规划。');
     }
     const prdResult = await runPrdGeneration({
       findings: supportedFindings,
@@ -359,22 +373,23 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       llm,
       onEvent: (event) => emit('prd', event.message ?? '', event),
     });
-    artifacts.prd = prdResult;
-    artifacts.requirements = prdResult.requirements;
+    emitArtifact('prd', prdResult);
+    emitArtifact('requirements', prdResult.requirements);
     if (prdResult.method === 'failed') throw new Error(prdResult.error);
-    emit('info', `PRD generated: ${prdResult.requirements.length} requirements.`);
+    emit('info', `PRD 生成：${prdResult.requirements.length} 条需求。`);
     finishStage('prd');
   } catch (error) {
     errors.push({ stage: 'prd', message: error.message });
-    warnings.push(`PRD generation unavailable: ${error.message}`);
-    artifacts.prd = { method: 'failed', error: error.message, requirements: [] };
+    warnings.push(`PRD 生成不可用：${error.message}`);
+    emitArtifact('prd', { method: 'failed', error: error.message, requirements: [] });
+    emitArtifact('requirements', []);
     finishStage('prd', 'failed', error.message);
   }
 
   try {
     startStage('tests');
     if (artifacts.requirements.length === 0) {
-      throw new Error('Test generation requires generated requirements.');
+      throw new Error('测试用例生成需要已生成的 PRD 需求。');
     }
     const testResult = await runTestGeneration({
       requirements: artifacts.requirements,
@@ -382,15 +397,16 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       llm,
       onEvent: (event) => emit('tests', event.message ?? '', event),
     });
-    artifacts.tests = testResult;
-    artifacts.test_cases = testResult.test_cases;
+    emitArtifact('tests', testResult);
+    emitArtifact('test_cases', testResult.test_cases);
     if (testResult.method === 'failed') throw new Error(testResult.error);
-    emit('info', `Test cases generated: ${testResult.test_cases.length}.`);
+    emit('info', `测试用例生成：${testResult.test_cases.length} 条。`);
     finishStage('tests');
   } catch (error) {
     errors.push({ stage: 'tests', message: error.message });
-    warnings.push(`Test generation unavailable: ${error.message}`);
-    artifacts.tests = { method: 'failed', error: error.message, test_cases: [] };
+    warnings.push(`测试用例生成不可用：${error.message}`);
+    emitArtifact('tests', { method: 'failed', error: error.message, test_cases: [] });
+    emitArtifact('test_cases', []);
     finishStage('tests', 'failed', error.message);
   }
 
@@ -402,11 +418,11 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       requirements: artifacts.requirements,
       testCases: artifacts.test_cases,
     });
-    artifacts.traceability = trace;
+    emitArtifact('traceability', trace);
     for (const issue of trace.issues) {
       errors.push({ stage: 'trace', message: issue.message });
     }
-    emit('info', `Traceability validated: ${trace.summary.issues_total} issues, ${trace.valid ? 'all links valid' : 'invalid links found'}.`);
+    emit('info', `可追溯性验证：${trace.summary.issues_total} 个问题，${trace.valid ? '所有链接有效' : '发现无效链接'}。`);
     finishStage('trace', trace.valid ? 'done' : 'done', `${trace.summary.issues_total} issues`);
   } catch (error) {
     errors.push({ stage: 'trace', message: error.message });
