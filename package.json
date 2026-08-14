@@ -1,0 +1,21 @@
+{
+  "name": "appstore-review-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Model-driven App Store review analysis pipeline with evidence-grounded PRD and test case generation.",
+  "scripts": {
+    "start": "node --preserve-symlinks --preserve-symlinks-main src/server.js",
+    "dev": "node --preserve-symlinks --preserve-symlinks-main --watch src/server.js",
+    "test": "node --preserve-symlinks --preserve-symlinks-main --test tests/",
+    "collect:sample": "node --preserve-symlinks --preserve-symlinks-main scripts/collect-sample.js",
+    "cache:generate": "node --preserve-symlinks --preserve-symlinks-main scripts/generate-cache.js",
+    "seed:demo": "node --preserve-symlinks --preserve-symlinks-main scripts/generate-cache.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "lucide": "^1.31.0"
+  }
+}
