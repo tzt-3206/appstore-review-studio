@@ -130,6 +130,9 @@ from model conclusions. See [docs/AI_USAGE.md](docs/AI_USAGE.md) for full detail
 it never pretends to be a live run. The same data can be re-analyzed live through the
 JSON import tab, or a new URL can be analyzed through the App Store URL tab.
 
+Successful live runs are also saved automatically to `data/cache/live/` (gitignored)
+so an analysis can be reviewed again without re-running the model.
+
 ## Tests
 
 ```bash
@@ -164,4 +167,3 @@ docs/              methodology and AI usage documentation
 
 See `.env.example`. API keys are loaded only from the environment or `.env` and are
 gitignored.
-
