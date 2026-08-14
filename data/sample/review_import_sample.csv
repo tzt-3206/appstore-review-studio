@@ -1,0 +1,5 @@
+review_id,rating,title,content,version,date,language
+R-001,1,Subscription issue,I thought this feature was free but the app charged me after the trial.,8.2.0,2026-08-01,en
+R-002,2,Timer resets,The workout timer resets whenever I switch apps.,8.2.1,2026-08-02,en
+R-003,5,Love it,Great variety and easy to follow workouts.,8.3.0,2026-08-03,en
+

@@ -1,0 +1,30 @@
+[
+  {
+    "review_id": "R-001",
+    "rating": 1,
+    "title": "Subscription issue",
+    "content": "I thought this feature was free but the app charged me after the trial.",
+    "version": "8.2.0",
+    "date": "2026-08-01",
+    "language": "en"
+  },
+  {
+    "review_id": "R-002",
+    "rating": 2,
+    "title": "Timer resets",
+    "content": "The workout timer resets whenever I switch apps.",
+    "version": "8.2.1",
+    "date": "2026-08-02",
+    "language": "en"
+  },
+  {
+    "review_id": "R-003",
+    "rating": 5,
+    "title": "Love it",
+    "content": "Great variety and easy to follow workouts.",
+    "version": "8.3.0",
+    "date": "2026-08-03",
+    "language": "en"
+  }
+]
+
