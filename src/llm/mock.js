@@ -68,6 +68,7 @@ export function createMockProvider() {
           excerpts: items.slice(0, 3).map((i) => `${i.review_id}: ${(i.content || i.title || '').slice(0, 120)}`),
           support_count: items.length,
           confidence: items.length >= 3 ? 'high' : 'low',
+          severity: items.length >= 3 ? 'P1' : 'P2',
           conflicting_review_ids: [],
           statistical_basis: { average_rating: null },
           model_conclusion: true,

@@ -22,7 +22,8 @@ labeled cached sample, then runs this workflow in the browser:
 Every finding, requirement, and test case must trace back to real review IDs. The
 application does not hardcode app-specific categories; topics, findings, PRD
 requirements, version names, and test cases are generated from the input dataset and
-analysis goal at runtime.
+analysis goal at runtime. Findings include a P0-P3 severity, confidence, support
+counts, and conflicting evidence; the web UI is fully localized in Chinese.
 
 ## Quick Start
 

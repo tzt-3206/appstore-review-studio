@@ -1,6 +1,7 @@
 import { computeReviewStats } from '../data/stats.js';
 
 const CONFIDENCE_LEVELS = new Set(['high', 'medium', 'low']);
+const SEVERITY_LEVELS = new Set(['P0', 'P1', 'P2', 'P3']);
 
 function excerptFor(review, limit = 180) {
   const text = (review.content || review.title || '').slice(0, limit);
@@ -60,6 +61,7 @@ export function validateFindings(findings, { reviewIds, topicIds, minSupport, cl
     f.conflicting_review_ids = (f.conflicting_review_ids ?? []).filter((id) => reviewIds.has(id));
     if (!Array.isArray(f.excerpts)) f.excerpts = [];
     if (!CONFIDENCE_LEVELS.has(f.confidence)) f.confidence = 'low';
+    if (!SEVERITY_LEVELS.has(f.severity)) f.severity = 'P2';
     if (!f.model_conclusion) f.model_conclusion = false;
     const evidence = deterministicEvidenceStrength(f, classified ?? [], minSupport);
     f.support_count = evidence.support_count;
@@ -93,6 +95,7 @@ function fallbackFindings(topics, classification, minSupport) {
         excerpts: members.slice(0, 3).map(excerptFor),
         support_count: reviewIds.length,
         confidence: 'low',
+        severity: 'P2',
         conflicting_review_ids: [],
         statistical_basis: {
           average_rating: stats.average_rating,
@@ -180,4 +183,3 @@ export async function runFindingGeneration({ scoped, topics, classification, llm
     validation_issues: validationIssues,
   };
 }
-

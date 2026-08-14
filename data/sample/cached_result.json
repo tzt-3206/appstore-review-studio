@@ -19,7 +19,7 @@
     "provider": "openai-compatible",
     "model": "deepseek-v4-pro",
     "temperature": 0.2,
-    "structured_output": "JSON enforced by prompt schema and application-side validation",
+    "structured_output": "由提示词 Schema 和应用侧校验共同约束的 JSON",
     "prompt_files": [
       "prompts/scope_refinement.md",
       "prompts/topic_discovery.md",
@@ -30,107 +30,107 @@
       "prompts/prd_generation.md",
       "prompts/test_generation.md"
     ],
-    "retry_strategy": "3 attempts with exponential backoff (2s, 4s, ...)",
-    "failure_strategy": "Deterministic statistics remain available; semantic stages fall back to clearly labeled rule-based outputs or are marked unavailable.",
+    "retry_strategy": "3 次重试，指数退避（2s、4s、...）",
+    "failure_strategy": "确定性统计始终保留；语义阶段会回退到明确标注的规则结果，或标记为不可用。",
     "hallucination_mitigations": [
-      "LLM is only allowed to reference review IDs present in the dataset",
-      "Every finding/requirement/test-case reference is validated against real review IDs",
-      "support_count is recomputed deterministically",
-      "Findings with insufficient evidence are marked as assumptions",
-      "Semantically unsupported findings are rejected or revised",
-      "Model conclusions and deterministic statistics are stored separately"
+      "模型只能引用数据集中真实存在的评论 ID",
+      "每条发现 / 需求 / 测试用例引用都会与真实评论 ID 校验",
+      "support_count 由确定性代码重新计算",
+      "证据不足的发现会被标记为假设",
+      "语义上不被支持的发现会被拒绝或修订",
+      "模型结论与确定性统计分开存储"
     ]
   },
-  "started_at": "2026-08-14T10:18:18.915Z",
+  "started_at": "2026-08-14T11:36:41.592Z",
   "stages": [
     {
       "id": "scope",
       "name": "Scope Analysis",
       "status": "done",
-      "started_at": "2026-08-14T10:18:18.926Z",
-      "ended_at": "2026-08-14T10:18:45.415Z",
-      "duration_ms": 26489,
+      "started_at": "2026-08-14T11:36:41.601Z",
+      "ended_at": "2026-08-14T11:37:22.997Z",
+      "duration_ms": 41396,
       "message": ""
     },
     {
       "id": "collect",
       "name": "Review Collection",
       "status": "done",
-      "started_at": "2026-08-14T10:18:18.920Z",
-      "ended_at": "2026-08-14T10:18:18.921Z",
-      "duration_ms": 1,
+      "started_at": "2026-08-14T11:36:41.595Z",
+      "ended_at": "2026-08-14T11:36:41.595Z",
+      "duration_ms": 0,
       "message": ""
     },
     {
       "id": "clean",
       "name": "Cleaning & Dedup",
       "status": "done",
-      "started_at": "2026-08-14T10:18:18.921Z",
-      "ended_at": "2026-08-14T10:18:18.926Z",
-      "duration_ms": 5,
+      "started_at": "2026-08-14T11:36:41.595Z",
+      "ended_at": "2026-08-14T11:36:41.601Z",
+      "duration_ms": 6,
       "message": ""
     },
     {
       "id": "semantic",
       "name": "Semantic Analysis",
       "status": "done",
-      "started_at": "2026-08-14T10:18:45.415Z",
-      "ended_at": "2026-08-14T10:20:28.387Z",
-      "duration_ms": 102972,
+      "started_at": "2026-08-14T11:37:22.997Z",
+      "ended_at": "2026-08-14T11:39:11.429Z",
+      "duration_ms": 108432,
       "message": ""
     },
     {
       "id": "findings",
       "name": "Findings",
       "status": "done",
-      "started_at": "2026-08-14T10:20:28.388Z",
-      "ended_at": "2026-08-14T10:22:11.311Z",
-      "duration_ms": 102923,
+      "started_at": "2026-08-14T11:39:11.429Z",
+      "ended_at": "2026-08-14T11:40:43.557Z",
+      "duration_ms": 92128,
       "message": ""
     },
     {
       "id": "evidence",
       "name": "Evidence Validation",
       "status": "done",
-      "started_at": "2026-08-14T10:22:11.311Z",
-      "ended_at": "2026-08-14T10:23:01.238Z",
-      "duration_ms": 49927,
+      "started_at": "2026-08-14T11:40:43.557Z",
+      "ended_at": "2026-08-14T11:41:17.559Z",
+      "duration_ms": 34002,
       "message": ""
     },
     {
       "id": "versions",
       "name": "Version Planning",
       "status": "done",
-      "started_at": "2026-08-14T10:23:01.238Z",
-      "ended_at": "2026-08-14T10:24:17.446Z",
-      "duration_ms": 76208,
+      "started_at": "2026-08-14T11:41:17.560Z",
+      "ended_at": "2026-08-14T11:41:31.495Z",
+      "duration_ms": 13935,
       "message": ""
     },
     {
       "id": "prd",
       "name": "PRD Generation",
       "status": "done",
-      "started_at": "2026-08-14T10:24:17.446Z",
-      "ended_at": "2026-08-14T10:25:25.327Z",
-      "duration_ms": 67881,
+      "started_at": "2026-08-14T11:41:31.495Z",
+      "ended_at": "2026-08-14T11:42:08.581Z",
+      "duration_ms": 37086,
       "message": ""
     },
     {
       "id": "tests",
       "name": "Test Generation",
       "status": "done",
-      "started_at": "2026-08-14T10:25:25.327Z",
-      "ended_at": "2026-08-14T10:26:59.820Z",
-      "duration_ms": 94493,
+      "started_at": "2026-08-14T11:42:08.581Z",
+      "ended_at": "2026-08-14T11:42:43.825Z",
+      "duration_ms": 35244,
       "message": ""
     },
     {
       "id": "trace",
       "name": "Traceability Validation",
       "status": "done",
-      "started_at": "2026-08-14T10:26:59.821Z",
-      "ended_at": "2026-08-14T10:26:59.821Z",
-      "duration_ms": 0,
+      "started_at": "2026-08-14T11:42:43.825Z",
+      "ended_at": "2026-08-14T11:42:43.826Z",
+      "duration_ms": 1,
       "message": "0 issues"
     }
   ],
@@ -138,7 +138,7 @@
     "scope_pre": {
       "url_info": null,
       "metadata": null,
-      "country_note": "Import mode: no storefront is involved; review data comes from the uploaded dataset."
+      "country_note": "导入模式不涉及商店区域，评论来自上传的数据集。"
     },
     "collection": {
       "source": "uploaded JSON",
@@ -1541,13 +1541,12 @@
       "source": "json"
     },
     "scope": {
-      "summary": "Analysis of 21 low-rated (1-2 star) reviews from the provided sample to identify subscription conversion problems and workout usability pain points. Explicit rating filter 1-2, no version or language restrictions. Findings will focus on paywall complaints, billing/trial issues, ad interruptions, content quality, and personalization/customization failures that may drive cancellations and negative word-of-mouth.",
+      "summary": "Low-rated (1-2 star) reviews, across all available versions and languages, centered on subscription conversion blockers and workout usability issues raised by users.",
       "focus_areas": [
-        "Subscription paywall & forced upgrade complaints",
-        "Billing, trial, and cancellation support issues",
-        "Ad experience and navigation blockers",
-        "Workout content quality (AI-generated, consistency, effectiveness)",
-        "Personalization and usability gaps (injury/customization mismatch)"
+        "Paywall and loss of free access blocking workouts (R-0003, R-0008, R-0013, R-0025, R-0032, R-0034, R-0035, R-0039)",
+        "Subscription billing and trial problems (R-0005, R-0024)",
+        "Ad-related usability issues (R-0002)",
+        "AI-generated content and declining app quality (R-0006, R-0010, R-0018, R-0033, R-0035)"
       ],
       "filters": {
         "min_rating": 1,
@@ -1562,8 +1561,8 @@
           "usability"
         ]
       },
-      "priority_rationale": "The explicit goal centers on subscription conversion problems and low-rated themes. The 1-2 star filter yields 21 reviews dominated by paywall complaints (e.g., R-0003, R-0008, R-0013, R-0025, R-0039), billing/trial issues (R-0005), and ads/navigation (R-0002, R-0035). These are high priority because they directly affect conversion and retention. Workout usability issues such as personalization mismatch (R-0021) and content quality declines (R-0012, R-0018) also appear and can inform product fixes.",
-      "data_sufficiency_notes": "The provided sample contains 50 total reviews, with 21 low-rated (1-2 star) reviews matching the filter. Sample is predominantly English (48 en, 2 pl) and concentrated in versions 8.4.26-8.5.0. While sufficient for initial thematic analysis of low-rated pain points, it may not capture all subscription funnel drop-off reasons or rare usability bugs. Additional quantitative funnel data and more reviews from non-English users and upcoming versions would strengthen conclusions. No app metadata provided, so competitive context is unavailable.",
+      "priority_rationale": "The goal emphasizes subscription conversion and low-rated themes. Filters restrict to 1–2 star reviews, which heavily feature paywall complaints, billing/trial issues, and usability problems. Workout usability concerns surface through ad exit failures, AI-generated routine quality, and loss of free exercise access. These themes are prioritized because they directly map to conversion blockers and user churn signals.",
+      "data_sufficiency_notes": "The provided review sample includes 40 reviews (15 low-rated) out of a total of 50 reviews in the dataset. No version or language filters were applied, so insights draw from all available versions and languages. While common themes are evident, the limited number of low-rated reviews may not capture all edge cases; additional data on specific subscription flows, ad behavior, and version-specific issues would strengthen the analysis.",
       "source_country": "us",
       "page_country": null,
       "app": null
@@ -1604,13 +1603,12 @@
         "note": "Explicit rating, version, language, and count constraints parsed deterministically."
       },
       "llm_refinement": {
-        "scope_summary": "Analysis of 21 low-rated (1-2 star) reviews from the provided sample to identify subscription conversion problems and workout usability pain points. Explicit rating filter 1-2, no version or language restrictions. Findings will focus on paywall complaints, billing/trial issues, ad interruptions, content quality, and personalization/customization failures that may drive cancellations and negative word-of-mouth.",
+        "scope_summary": "Low-rated (1-2 star) reviews, across all available versions and languages, centered on subscription conversion blockers and workout usability issues raised by users.",
         "focus_areas": [
-          "Subscription paywall & forced upgrade complaints",
-          "Billing, trial, and cancellation support issues",
-          "Ad experience and navigation blockers",
-          "Workout content quality (AI-generated, consistency, effectiveness)",
-          "Personalization and usability gaps (injury/customization mismatch)"
+          "Paywall and loss of free access blocking workouts (R-0003, R-0008, R-0013, R-0025, R-0032, R-0034, R-0035, R-0039)",
+          "Subscription billing and trial problems (R-0005, R-0024)",
+          "Ad-related usability issues (R-0002)",
+          "AI-generated content and declining app quality (R-0006, R-0010, R-0018, R-0033, R-0035)"
         ],
         "filters": {
           "min_rating": 1,
@@ -1619,18 +1617,17 @@
           "languages": [],
           "max_reviews": 100
         },
-        "priority_rationale": "The explicit goal centers on subscription conversion problems and low-rated themes. The 1-2 star filter yields 21 reviews dominated by paywall complaints (e.g., R-0003, R-0008, R-0013, R-0025, R-0039), billing/trial issues (R-0005), and ads/navigation (R-0002, R-0035). These are high priority because they directly affect conversion and retention. Workout usability issues such as personalization mismatch (R-0021) and content quality declines (R-0012, R-0018) also appear and can inform product fixes.",
-        "data_sufficiency_notes": "The provided sample contains 50 total reviews, with 21 low-rated (1-2 star) reviews matching the filter. Sample is predominantly English (48 en, 2 pl) and concentrated in versions 8.4.26-8.5.0. While sufficient for initial thematic analysis of low-rated pain points, it may not capture all subscription funnel drop-off reasons or rare usability bugs. Additional quantitative funnel data and more reviews from non-English users and upcoming versions would strengthen conclusions. No app metadata provided, so competitive context is unavailable."
+        "priority_rationale": "The goal emphasizes subscription conversion and low-rated themes. Filters restrict to 1–2 star reviews, which heavily feature paywall complaints, billing/trial issues, and usability problems. Workout usability concerns surface through ad exit failures, AI-generated routine quality, and loss of free exercise access. These themes are prioritized because they directly map to conversion blockers and user churn signals.",
+        "data_sufficiency_notes": "The provided review sample includes 40 reviews (15 low-rated) out of a total of 50 reviews in the dataset. No version or language filters were applied, so insights draw from all available versions and languages. While common themes are evident, the limited number of low-rated reviews may not capture all edge cases; additional data on specific subscription flows, ad behavior, and version-specific issues would strengthen the analysis."
       },
       "method": "llm_refined",
       "scope": {
-        "summary": "Analysis of 21 low-rated (1-2 star) reviews from the provided sample to identify subscription conversion problems and workout usability pain points. Explicit rating filter 1-2, no version or language restrictions. Findings will focus on paywall complaints, billing/trial issues, ad interruptions, content quality, and personalization/customization failures that may drive cancellations and negative word-of-mouth.",
+        "summary": "Low-rated (1-2 star) reviews, across all available versions and languages, centered on subscription conversion blockers and workout usability issues raised by users.",
         "focus_areas": [
-          "Subscription paywall & forced upgrade complaints",
-          "Billing, trial, and cancellation support issues",
-          "Ad experience and navigation blockers",
-          "Workout content quality (AI-generated, consistency, effectiveness)",
-          "Personalization and usability gaps (injury/customization mismatch)"
+          "Paywall and loss of free access blocking workouts (R-0003, R-0008, R-0013, R-0025, R-0032, R-0034, R-0035, R-0039)",
+          "Subscription billing and trial problems (R-0005, R-0024)",
+          "Ad-related usability issues (R-0002)",
+          "AI-generated content and declining app quality (R-0006, R-0010, R-0018, R-0033, R-0035)"
         ],
         "filters": {
           "min_rating": 1,
@@ -1645,8 +1642,8 @@
             "usability"
           ]
         },
-        "priority_rationale": "The explicit goal centers on subscription conversion problems and low-rated themes. The 1-2 star filter yields 21 reviews dominated by paywall complaints (e.g., R-0003, R-0008, R-0013, R-0025, R-0039), billing/trial issues (R-0005), and ads/navigation (R-0002, R-0035). These are high priority because they directly affect conversion and retention. Workout usability issues such as personalization mismatch (R-0021) and content quality declines (R-0012, R-0018) also appear and can inform product fixes.",
-        "data_sufficiency_notes": "The provided sample contains 50 total reviews, with 21 low-rated (1-2 star) reviews matching the filter. Sample is predominantly English (48 en, 2 pl) and concentrated in versions 8.4.26-8.5.0. While sufficient for initial thematic analysis of low-rated pain points, it may not capture all subscription funnel drop-off reasons or rare usability bugs. Additional quantitative funnel data and more reviews from non-English users and upcoming versions would strengthen conclusions. No app metadata provided, so competitive context is unavailable.",
+        "priority_rationale": "The goal emphasizes subscription conversion and low-rated themes. Filters restrict to 1–2 star reviews, which heavily feature paywall complaints, billing/trial issues, and usability problems. Workout usability concerns surface through ad exit failures, AI-generated routine quality, and loss of free exercise access. These themes are prioritized because they directly map to conversion blockers and user churn signals.",
+        "data_sufficiency_notes": "The provided review sample includes 40 reviews (15 low-rated) out of a total of 50 reviews in the dataset. No version or language filters were applied, so insights draw from all available versions and languages. While common themes are evident, the limited number of low-rated reviews may not capture all edge cases; additional data on specific subscription flows, ad behavior, and version-specific issues would strengthen the analysis.",
         "source_country": "us",
         "page_country": null,
         "app": null
@@ -2339,22 +2336,21 @@
       "topics": [
         {
           "id": "T-01",
-          "name": "Paywall and Loss of Free Access",
-          "description": "Users repeatedly state the app used to be free or offered free workouts, but now most or all features are behind a subscription paywall, blocking access to basic workouts without payment.",
+          "name": "Paywall & Loss of Free Access",
+          "description": "Users express frustration that the app, once free, now requires a subscription or locks previously free workouts behind a paywall; some also feel the 'free' labeling is misleading.",
           "example_review_ids": [
             "R-0008",
             "R-0025",
-            "R-0034",
             "R-0045",
             "R-0047",
-            "R-0039"
+            "R-0013"
           ],
           "rating_bias": "negative"
         },
         {
           "id": "T-02",
-          "name": "Billing and Subscription Problems",
-          "description": "Many reviews describe issues with charges and subscriptions, including unexpected charges after free trials, confusing pricing (monthly vs yearly), difficulty canceling, and lack of cancellation reminders.",
+          "name": "Billing & Subscription Issues",
+          "description": "Users report billing problems such as unexpected charges after a trial, unclear subscription terms (e.g., monthly vs yearly pricing), and difficulty canceling subscriptions.",
           "example_review_ids": [
             "R-0005",
             "R-0041",
@@ -2365,48 +2361,34 @@
         },
         {
           "id": "T-03",
-          "name": "Intrusive and Difficult Ads",
-          "description": "Users report ads that interrupt workouts, are impossible to exit, or open external websites without user interaction, creating a frustrating experience.",
+          "name": "Intrusive or Broken Ads",
+          "description": "Reviews complain about intrusive or broken ad experiences, including ads that cannot be exited after viewing, and ads that force-open external websites or interrupt workouts.",
           "example_review_ids": [
             "R-0002",
-            "R-0048",
-            "R-0035"
+            "R-0048"
           ],
           "rating_bias": "negative"
         },
         {
           "id": "T-04",
-          "name": "Customer Support and Account Access Issues",
-          "description": "Complaints about inability to log into accounts, support messages being rejected or not submitted, and difficulty managing subscriptions or contacting the company.",
+          "name": "AI Content & Quality Decline",
+          "description": "Long-time users feel the app's quality has declined, citing the replacement of original content with AI-generated workouts and images, and overall worsening with updates.",
           "example_review_ids": [
-            "R-0043",
-            "R-0024",
-            "R-0039"
+            "R-0003",
+            "R-0010",
+            "R-0018",
+            "R-0033"
           ],
           "rating_bias": "negative"
         },
         {
           "id": "T-05",
-          "name": "Deceptive Practices and False Advertising",
-          "description": "Users feel misled by claims of free access or free trials that are not honored, with content labeled free actually requiring payment.",
+          "name": "Customer Support & Account Access Failures",
+          "description": "Users describe account login failures after paying, inability to contact support due to messages being flagged as spam, and cancellation requests not going through, indicating poor account and support handling.",
           "example_review_ids": [
-            "R-0013",
-            "R-0050",
-            "R-0039",
-            "R-0034"
-          ],
-          "rating_bias": "negative"
-        },
-        {
-          "id": "T-06",
-          "name": "AI-Generated Content and Quality Decline",
-          "description": "Reviews criticize the use of AI for workouts and avatars, saying the app has lost its original quality and feels generic or worse with updates.",
-          "example_review_ids": [
-            "R-0003",
-            "R-0010",
-            "R-0018",
-            "R-0033",
-            "R-0006"
+            "R-0043",
+            "R-0024",
+            "R-0039"
           ],
           "rating_bias": "negative"
         }
@@ -2418,29 +2400,29 @@
       "topic_stats": [
         {
           "topic_id": "T-01",
-          "name": "Paywall and Loss of Free Access",
-          "member_count": 6,
+          "name": "Paywall & Loss of Free Access",
+          "member_count": 5,
           "stats": {
-            "total": 6,
-            "average_rating": 1.17,
+            "total": 5,
+            "average_rating": 1,
             "rating_distribution": {
               "1": 5,
-              "2": 1,
+              "2": 0,
               "3": 0,
               "4": 0,
               "5": 0
             },
-            "negative_count": 6,
+            "negative_count": 5,
             "positive_count": 0,
             "neutral_count": 0,
             "negative_share": 1,
             "positive_share": 0,
             "languages": {
-              "en": 6
+              "en": 4,
+              "pl": 1
             },
             "versions": {
-              "8.4.28": 2,
-              "8.4.27": 2,
+              "8.4.28": 3,
               "8.4.26": 2
             },
             "date_range": {
@@ -2451,7 +2433,7 @@
         },
         {
           "topic_id": "T-02",
-          "name": "Billing and Subscription Problems",
+          "name": "Billing & Subscription Issues",
           "member_count": 4,
           "stats": {
             "total": 4,
@@ -2484,29 +2466,28 @@
         },
         {
           "topic_id": "T-03",
-          "name": "Intrusive and Difficult Ads",
-          "member_count": 3,
+          "name": "Intrusive or Broken Ads",
+          "member_count": 2,
           "stats": {
-            "total": 3,
+            "total": 2,
             "average_rating": 1,
             "rating_distribution": {
-              "1": 3,
+              "1": 2,
               "2": 0,
               "3": 0,
               "4": 0,
               "5": 0
             },
-            "negative_count": 3,
+            "negative_count": 2,
             "positive_count": 0,
             "neutral_count": 0,
             "negative_share": 1,
             "positive_share": 0,
             "languages": {
-              "en": 3
+              "en": 2
             },
             "versions": {
               "8.5.0": 1,
-              "8.4.27": 1,
               "8.4.25": 1
             },
             "date_range": {
@@ -2517,7 +2498,40 @@
         },
         {
           "topic_id": "T-04",
-          "name": "Customer Support and Account Access Issues",
+          "name": "AI Content & Quality Decline",
+          "member_count": 4,
+          "stats": {
+            "total": 4,
+            "average_rating": 1.25,
+            "rating_distribution": {
+              "1": 3,
+              "2": 1,
+              "3": 0,
+              "4": 0,
+              "5": 0
+            },
+            "negative_count": 4,
+            "positive_count": 0,
+            "neutral_count": 0,
+            "negative_share": 1,
+            "positive_share": 0,
+            "languages": {
+              "en": 4
+            },
+            "versions": {
+              "8.4.28": 2,
+              "8.4.29": 1,
+              "8.4.27": 1
+            },
+            "date_range": {
+              "start": "2026-07-19T15:49:42.000Z",
+              "end": "2026-08-10T01:06:39.000Z"
+            }
+          }
+        },
+        {
+          "topic_id": "T-05",
+          "name": "Customer Support & Account Access Failures",
           "member_count": 3,
           "stats": {
             "total": 3,
@@ -2547,73 +2561,6 @@
               "end": "2026-07-24T15:11:57.000Z"
             }
           }
-        },
-        {
-          "topic_id": "T-05",
-          "name": "Deceptive Practices and False Advertising",
-          "member_count": 4,
-          "stats": {
-            "total": 4,
-            "average_rating": 1.25,
-            "rating_distribution": {
-              "1": 3,
-              "2": 1,
-              "3": 0,
-              "4": 0,
-              "5": 0
-            },
-            "negative_count": 4,
-            "positive_count": 0,
-            "neutral_count": 0,
-            "negative_share": 1,
-            "positive_share": 0,
-            "languages": {
-              "en": 3,
-              "pl": 1
-            },
-            "versions": {
-              "8.4.27": 2,
-              "8.4.28": 1,
-              "8.4.26": 1
-            },
-            "date_range": {
-              "start": "2026-07-08T00:45:43.000Z",
-              "end": "2026-07-30T06:50:13.000Z"
-            }
-          }
-        },
-        {
-          "topic_id": "T-06",
-          "name": "AI-Generated Content and Quality Decline",
-          "member_count": 5,
-          "stats": {
-            "total": 5,
-            "average_rating": 1.2,
-            "rating_distribution": {
-              "1": 4,
-              "2": 1,
-              "3": 0,
-              "4": 0,
-              "5": 0
-            },
-            "negative_count": 5,
-            "positive_count": 0,
-            "neutral_count": 0,
-            "negative_share": 1,
-            "positive_share": 0,
-            "languages": {
-              "en": 5
-            },
-            "versions": {
-              "8.4.29": 2,
-              "8.4.28": 2,
-              "8.4.27": 1
-            },
-            "date_range": {
-              "start": "2026-07-19T15:49:42.000Z",
-              "end": "2026-08-10T01:06:39.000Z"
-            }
-          }
         }
       ]
     },
@@ -2637,7 +2584,7 @@
             "T-03"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Ads impossible to exit."
+          "classification_explanation": "Complains about ads being impossible to exit."
         },
         {
           "review_id": "R-0003",
@@ -2654,11 +2601,10 @@
           "source": "json",
           "dedupe_key": "6473d2a3f412ff83f847aa2f1fad568906596d6f3f5d54446b37677651c7b0f3",
           "topics": [
-            "T-01",
-            "T-06"
+            "T-01"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Loss of free access and AI-generated workouts."
+          "classification_explanation": "Frustrated that the app is no longer free."
         },
         {
           "review_id": "R-0005",
@@ -2676,10 +2622,10 @@
           "dedupe_key": "fab6fcef0c5d7c2c40074ff76eba26983d154afac1a4d95546669bfdf24b533b",
           "topics": [
             "T-02",
-            "T-05"
+            "T-04"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Hidden charges and unexpected trial billing."
+          "classification_explanation": "Mentions hidden charges and overall quality decline."
         },
         {
           "review_id": "R-0006",
@@ -2696,10 +2642,10 @@
           "source": "json",
           "dedupe_key": "decac756194651cd7ae9ecce53d1e6c70d5b37a0f6076a03161d87a72aa3fc1c",
           "topics": [
-            "T-06"
+            "T-01"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Questionnaire feels generic, like other apps."
+          "classification_explanation": "Rule-based fallback assignment by rating."
         },
         {
           "review_id": "R-0008",
@@ -2719,7 +2665,7 @@
             "T-01"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Free option removed; forced to pay."
+          "classification_explanation": "Forced out of free option after years of free use."
         },
         {
           "review_id": "R-0010",
@@ -2737,10 +2683,10 @@
           "dedupe_key": "38c6828aa2361c2f0ca8cd48592c1ba41d3abdc5348331ab6efc2b9cbfb0820e",
           "topics": [
             "T-01",
-            "T-06"
+            "T-04"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Loss of free access and AI-generated quality decline."
+          "classification_explanation": "Complains about AI-generated content and paywall."
         },
         {
           "review_id": "R-0013",
@@ -2757,10 +2703,10 @@
           "source": "json",
           "dedupe_key": "a04e97508ab566e7ee4cecd7238f6c47050d8c8bce5ed36e41960c0ccce65312",
           "topics": [
-            "T-05"
+            "T-01"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Content labeled free actually requires payment."
+          "classification_explanation": "Calls out misleading free labeling."
         },
         {
           "review_id": "R-0018",
@@ -2778,10 +2724,10 @@
           "dedupe_key": "17cbce657ef576de01e42d64b00b2ea05ed16f155aa04d212c8cf6a3c7916f3e",
           "topics": [
             "T-01",
-            "T-06"
+            "T-04"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Loss of free workouts and AI avatars."
+          "classification_explanation": "Loss of free real workouts and replaced by AI content."
         },
         {
           "review_id": "R-0024",
@@ -2799,10 +2745,10 @@
           "dedupe_key": "7be6f9e3c5eb2e027cffbde3793b650135ff9ab348edfcd84576e256e840f780",
           "topics": [
             "T-02",
-            "T-04"
+            "T-05"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Cancellation issues and customer support failure."
+          "classification_explanation": "Cancellation problems and account handling issues."
         },
         {
           "review_id": "R-0025",
@@ -2822,7 +2768,7 @@
             "T-01"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Everything behind paywall; free access lost."
+          "classification_explanation": "Everything behind a paywall after being free."
         },
         {
           "review_id": "R-0032",
@@ -2842,7 +2788,7 @@
             "T-01"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Paywall complaint."
+          "classification_explanation": "Dislikes having to pay to use features."
         },
         {
           "review_id": "R-0033",
@@ -2859,10 +2805,10 @@
           "source": "json",
           "dedupe_key": "8e020e143ed01e68c12d4308931af728648c96f985424b3142442b418598f56e",
           "topics": [
-            "T-06"
+            "T-04"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Quality declines with updates."
+          "classification_explanation": "App quality worsens with every update."
         },
         {
           "review_id": "R-0034",
@@ -2882,7 +2828,7 @@
             "T-01"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Premium paywall blocks exercise access."
+          "classification_explanation": "Rule-based fallback assignment by rating."
         },
         {
           "review_id": "R-0035",
@@ -2900,10 +2846,10 @@
           "dedupe_key": "bb65fe3c9f1d2d7871c4c94803b91dd9841c7653fb26a1ab41a5044737b3b1d6",
           "topics": [
             "T-01",
-            "T-03"
+            "T-04"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Paywall imposed and redirect ads during workouts."
+          "classification_explanation": "Mentions previously free workouts and quality declining."
         },
         {
           "review_id": "R-0039",
@@ -2920,11 +2866,10 @@
           "source": "json",
           "dedupe_key": "331562c81b7c56add474b810d947d467081aba220af0c02025b60c6e0aa80d80",
           "topics": [
-            "T-01",
-            "T-05"
+            "T-01"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Paywall despite claims of free use."
+          "classification_explanation": "No longer free despite claims."
         },
         {
           "review_id": "R-0041",
@@ -2944,7 +2889,7 @@
             "T-02"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Confusing subscription pricing and no trial reminder."
+          "classification_explanation": "Unexpected charge after trial without warning."
         },
         {
           "review_id": "R-0043",
@@ -2961,10 +2906,10 @@
           "source": "json",
           "dedupe_key": "cbf01ed8faccd2a5c1a8a0a7185805465d962fa906affd6bab8b59883f00a0e0",
           "topics": [
-            "T-04"
+            "T-05"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Account access failure and support issues."
+          "classification_explanation": "Account login failure and support contact issues."
         },
         {
           "review_id": "R-0045",
@@ -2984,7 +2929,7 @@
             "T-01"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Everything requires money, paywall frustration."
+          "classification_explanation": "Everything requires money behind a paywall."
         },
         {
           "review_id": "R-0047",
@@ -3004,7 +2949,7 @@
             "T-01"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Previously free app now behind paywall."
+          "classification_explanation": "Loss of free access after years of use."
         },
         {
           "review_id": "R-0048",
@@ -3024,7 +2969,7 @@
             "T-03"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Intrusive ads open external websites."
+          "classification_explanation": "Ads force-open external websites during workouts."
         },
         {
           "review_id": "R-0050",
@@ -3041,11 +2986,10 @@
           "source": "json",
           "dedupe_key": "effe4da49da6c63229d35ae656f4dbb24fa8b85370f5a8634a68b99d4c5a1199",
           "topics": [
-            "T-02",
-            "T-05"
+            "T-02"
           ],
           "sentiment": "negative",
-          "classification_explanation": "Free trial charged immediately, misleading."
+          "classification_explanation": "Free trial was charged immediately."
         }
       ],
       "assignments": [
@@ -3055,33 +2999,24 @@
             "T-03"
           ],
           "sentiment": "negative",
-          "explanation": "Ads impossible to exit."
+          "explanation": "Complains about ads being impossible to exit."
         },
         {
           "review_id": "R-0003",
           "topics": [
-            "T-01",
-            "T-06"
+            "T-01"
           ],
           "sentiment": "negative",
-          "explanation": "Loss of free access and AI-generated workouts."
+          "explanation": "Frustrated that the app is no longer free."
         },
         {
           "review_id": "R-0005",
           "topics": [
             "T-02",
-            "T-05"
+            "T-04"
           ],
           "sentiment": "negative",
-          "explanation": "Hidden charges and unexpected trial billing."
-        },
-        {
-          "review_id": "R-0006",
-          "topics": [
-            "T-06"
-          ],
-          "sentiment": "negative",
-          "explanation": "Questionnaire feels generic, like other apps."
+          "explanation": "Mentions hidden charges and overall quality decline."
         },
         {
           "review_id": "R-0008",
@@ -3089,42 +3024,42 @@
             "T-01"
           ],
           "sentiment": "negative",
-          "explanation": "Free option removed; forced to pay."
+          "explanation": "Forced out of free option after years of free use."
         },
         {
           "review_id": "R-0010",
           "topics": [
             "T-01",
-            "T-06"
+            "T-04"
           ],
           "sentiment": "negative",
-          "explanation": "Loss of free access and AI-generated quality decline."
+          "explanation": "Complains about AI-generated content and paywall."
         },
         {
           "review_id": "R-0013",
           "topics": [
-            "T-05"
+            "T-01"
           ],
           "sentiment": "negative",
-          "explanation": "Content labeled free actually requires payment."
+          "explanation": "Calls out misleading free labeling."
         },
         {
           "review_id": "R-0018",
           "topics": [
             "T-01",
-            "T-06"
+            "T-04"
           ],
           "sentiment": "negative",
-          "explanation": "Loss of free workouts and AI avatars."
+          "explanation": "Loss of free real workouts and replaced by AI content."
         },
         {
           "review_id": "R-0024",
           "topics": [
             "T-02",
-            "T-04"
+            "T-05"
           ],
           "sentiment": "negative",
-          "explanation": "Cancellation issues and customer support failure."
+          "explanation": "Cancellation problems and account handling issues."
         },
         {
           "review_id": "R-0025",
@@ -3132,7 +3067,7 @@
             "T-01"
           ],
           "sentiment": "negative",
-          "explanation": "Everything behind paywall; free access lost."
+          "explanation": "Everything behind a paywall after being free."
         },
         {
           "review_id": "R-0032",
@@ -3140,41 +3075,32 @@
             "T-01"
           ],
           "sentiment": "negative",
-          "explanation": "Paywall complaint."
+          "explanation": "Dislikes having to pay to use features."
         },
         {
           "review_id": "R-0033",
           "topics": [
-            "T-06"
+            "T-04"
           ],
           "sentiment": "negative",
-          "explanation": "Quality declines with updates."
-        },
-        {
-          "review_id": "R-0034",
-          "topics": [
-            "T-01"
-          ],
-          "sentiment": "negative",
-          "explanation": "Premium paywall blocks exercise access."
+          "explanation": "App quality worsens with every update."
         },
         {
           "review_id": "R-0035",
           "topics": [
             "T-01",
-            "T-03"
+            "T-04"
           ],
           "sentiment": "negative",
-          "explanation": "Paywall imposed and redirect ads during workouts."
+          "explanation": "Mentions previously free workouts and quality declining."
         },
         {
           "review_id": "R-0039",
           "topics": [
-            "T-01",
-            "T-05"
+            "T-01"
           ],
           "sentiment": "negative",
-          "explanation": "Paywall despite claims of free use."
+          "explanation": "No longer free despite claims."
         },
         {
           "review_id": "R-0041",
@@ -3182,15 +3108,15 @@
             "T-02"
           ],
           "sentiment": "negative",
-          "explanation": "Confusing subscription pricing and no trial reminder."
+          "explanation": "Unexpected charge after trial without warning."
         },
         {
           "review_id": "R-0043",
           "topics": [
-            "T-04"
+            "T-05"
           ],
           "sentiment": "negative",
-          "explanation": "Account access failure and support issues."
+          "explanation": "Account login failure and support contact issues."
         },
         {
           "review_id": "R-0045",
@@ -3198,7 +3124,7 @@
             "T-01"
           ],
           "sentiment": "negative",
-          "explanation": "Everything requires money, paywall frustration."
+          "explanation": "Everything requires money behind a paywall."
         },
         {
           "review_id": "R-0047",
@@ -3206,7 +3132,7 @@
             "T-01"
           ],
           "sentiment": "negative",
-          "explanation": "Previously free app now behind paywall."
+          "explanation": "Loss of free access after years of use."
         },
         {
           "review_id": "R-0048",
@@ -3214,49 +3140,67 @@
             "T-03"
           ],
           "sentiment": "negative",
-          "explanation": "Intrusive ads open external websites."
+          "explanation": "Ads force-open external websites during workouts."
         },
         {
           "review_id": "R-0050",
           "topics": [
-            "T-02",
-            "T-05"
+            "T-02"
           ],
           "sentiment": "negative",
-          "explanation": "Free trial charged immediately, misleading."
+          "explanation": "Free trial was charged immediately."
+        },
+        {
+          "review_id": "R-0006",
+          "topics": [
+            "T-01"
+          ],
+          "sentiment": "negative",
+          "explanation": "Rule-based fallback assignment by rating.",
+          "fallback": true
+        },
+        {
+          "review_id": "R-0034",
+          "topics": [
+            "T-01"
+          ],
+          "sentiment": "negative",
+          "explanation": "Rule-based fallback assignment by rating.",
+          "fallback": true
         }
       ],
-      "degraded": false,
+      "degraded": true,
       "errors": [],
       "topic_stats": [
         {
           "topic_id": "T-01",
-          "name": "Paywall and Loss of Free Access",
-          "member_count": 11,
-          "average_rating": 1.18,
+          "name": "Paywall & Loss of Free Access",
+          "member_count": 13,
+          "average_rating": 1.15,
           "stats": {
-            "total": 11,
-            "average_rating": 1.18,
+            "total": 13,
+            "average_rating": 1.15,
             "rating_distribution": {
-              "1": 9,
+              "1": 11,
               "2": 2,
               "3": 0,
               "4": 0,
               "5": 0
             },
-            "negative_count": 11,
+            "negative_count": 13,
             "positive_count": 0,
             "neutral_count": 0,
             "negative_share": 1,
             "positive_share": 0,
             "languages": {
-              "en": 11
+              "en": 12,
+              "pl": 1
             },
             "versions": {
-              "8.4.28": 4,
+              "8.4.28": 5,
               "8.4.27": 4,
-              "8.4.26": 2,
-              "8.4.29": 1
+              "8.4.29": 2,
+              "8.4.26": 2
             },
             "date_range": {
               "start": "2026-07-09T00:10:06.000Z",
@@ -3265,15 +3209,15 @@
           },
           "example_review_ids": [
             "R-0003",
+            "R-0006",
             "R-0008",
             "R-0010",
-            "R-0018",
-            "R-0025"
+            "R-0013"
           ]
         },
         {
           "topic_id": "T-02",
-          "name": "Billing and Subscription Problems",
+          "name": "Billing & Subscription Issues",
           "member_count": 4,
           "average_rating": 1.25,
           "stats": {
@@ -3313,30 +3257,29 @@
         },
         {
           "topic_id": "T-03",
-          "name": "Intrusive and Difficult Ads",
-          "member_count": 3,
+          "name": "Intrusive or Broken Ads",
+          "member_count": 2,
           "average_rating": 1,
           "stats": {
-            "total": 3,
+            "total": 2,
             "average_rating": 1,
             "rating_distribution": {
-              "1": 3,
+              "1": 2,
               "2": 0,
               "3": 0,
               "4": 0,
               "5": 0
             },
-            "negative_count": 3,
+            "negative_count": 2,
             "positive_count": 0,
             "neutral_count": 0,
             "negative_share": 1,
             "positive_share": 0,
             "languages": {
-              "en": 3
+              "en": 2
             },
             "versions": {
               "8.5.0": 1,
-              "8.4.27": 1,
               "8.4.25": 1
             },
             "date_range": {
@@ -3346,13 +3289,53 @@
           },
           "example_review_ids": [
             "R-0002",
-            "R-0035",
             "R-0048"
           ]
         },
         {
           "topic_id": "T-04",
-          "name": "Customer Support and Account Access Issues",
+          "name": "AI Content & Quality Decline",
+          "member_count": 5,
+          "average_rating": 1.2,
+          "stats": {
+            "total": 5,
+            "average_rating": 1.2,
+            "rating_distribution": {
+              "1": 4,
+              "2": 1,
+              "3": 0,
+              "4": 0,
+              "5": 0
+            },
+            "negative_count": 5,
+            "positive_count": 0,
+            "neutral_count": 0,
+            "negative_share": 1,
+            "positive_share": 0,
+            "languages": {
+              "en": 5
+            },
+            "versions": {
+              "8.4.28": 2,
+              "8.4.27": 2,
+              "8.4.29": 1
+            },
+            "date_range": {
+              "start": "2026-07-17T14:12:19.000Z",
+              "end": "2026-08-07T05:38:14.000Z"
+            }
+          },
+          "example_review_ids": [
+            "R-0005",
+            "R-0010",
+            "R-0018",
+            "R-0033",
+            "R-0035"
+          ]
+        },
+        {
+          "topic_id": "T-05",
+          "name": "Customer Support & Account Access Failures",
           "member_count": 2,
           "average_rating": 1.5,
           "stats": {
@@ -3386,89 +3369,6 @@
             "R-0024",
             "R-0043"
           ]
-        },
-        {
-          "topic_id": "T-05",
-          "name": "Deceptive Practices and False Advertising",
-          "member_count": 4,
-          "average_rating": 1.25,
-          "stats": {
-            "total": 4,
-            "average_rating": 1.25,
-            "rating_distribution": {
-              "1": 3,
-              "2": 1,
-              "3": 0,
-              "4": 0,
-              "5": 0
-            },
-            "negative_count": 4,
-            "positive_count": 0,
-            "neutral_count": 0,
-            "negative_share": 1,
-            "positive_share": 0,
-            "languages": {
-              "en": 3,
-              "pl": 1
-            },
-            "versions": {
-              "8.4.29": 1,
-              "8.4.28": 1,
-              "8.4.27": 1,
-              "8.4.26": 1
-            },
-            "date_range": {
-              "start": "2026-07-08T00:45:43.000Z",
-              "end": "2026-08-07T05:38:14.000Z"
-            }
-          },
-          "example_review_ids": [
-            "R-0005",
-            "R-0013",
-            "R-0039",
-            "R-0050"
-          ]
-        },
-        {
-          "topic_id": "T-06",
-          "name": "AI-Generated Content and Quality Decline",
-          "member_count": 5,
-          "average_rating": 1.2,
-          "stats": {
-            "total": 5,
-            "average_rating": 1.2,
-            "rating_distribution": {
-              "1": 4,
-              "2": 1,
-              "3": 0,
-              "4": 0,
-              "5": 0
-            },
-            "negative_count": 5,
-            "positive_count": 0,
-            "neutral_count": 0,
-            "negative_share": 1,
-            "positive_share": 0,
-            "languages": {
-              "en": 5
-            },
-            "versions": {
-              "8.4.29": 2,
-              "8.4.28": 2,
-              "8.4.27": 1
-            },
-            "date_range": {
-              "start": "2026-07-19T15:49:42.000Z",
-              "end": "2026-08-10T01:06:39.000Z"
-            }
-          },
-          "example_review_ids": [
-            "R-0003",
-            "R-0006",
-            "R-0010",
-            "R-0018",
-            "R-0033"
-          ]
         }
       ]
     },
@@ -3476,13 +3376,15 @@
       "findings": [
         {
           "finding_id": "F-01",
-          "title": "Paywall and Loss of Free Access",
-          "summary": "Users widely report that the app used to offer free workouts but now most or all features are locked behind a subscription, blocking access to basic exercises without payment.",
+          "title": "Paywall & Loss of Free Access",
+          "summary": "Numerous long-time users report that the app, previously free, now requires a subscription and locks basic workouts behind a paywall. Some users say the app still claims to offer free use, which they find misleading.",
           "topic_id": "T-01",
           "review_ids": [
             "R-0003",
+            "R-0006",
             "R-0008",
             "R-0010",
+            "R-0013",
             "R-0018",
             "R-0025",
             "R-0032",
@@ -3495,38 +3397,36 @@
           "excerpts": [
             "R-0003: I used to love this app for daily, quick workouts, but they recently changed it so you are unable to use it for free.",
             "R-0008: I’ve been using this app for years for free and recently they’ve refused to let me work out using their app unless I pay, saying I’ve used my limit, which is absolutely ridiculous",
-            "R-0010: I used to use this app alllll the time in 2020 I recently decided I wanted to use it again, but it’s not the same at ALL. It’s all AI slip and you have to pay.",
-            "R-0018: I used to love workout women, before they were bought out. I’d use the free workouts every time",
+            "R-0013: Stop putting stuff under free thats not free if I wanted to pay for it I would get a personal trainer",
             "R-0025: I have used this app for YEARS. I loved it due to it being free and also easy but now everything is behind a paywall. I can’t even use basic workouts I used to do for free anymore.",
-            "R-0032: You have to pay to feel proud and I don’t like that",
-            "R-0034: when I tried to click to do an exercise, all wou",
-            "R-0035: I’ve been using this app since 2018. I used to really love it. Every workout was free (without ads) and there was a lot to choose from.",
-            "R-0039: Now after recent update, it won’t let me do anything without a subscription. Still claims that you can use for free, so please fix th",
+            "R-0039: I’ve been using and loving this app for years. Now after recent update, it won’t let me do anything without a subscription. Still claims that you can use for free, so please fix th",
             "R-0045: i used this app back in 2023 to lose weight i downloaded it back in 2026 EVERYTHING requires money , everything is behind a paywall.. why make a app free if you’re gonna do mini in",
-            "R-0047: It was free forever, then recently required 90sec ads to do workouts, which was fine."
+            "R-0047: I used to LOVE this app. It allowed me to access work outs on my own time, in my own way. It was free forever, then recently required 90sec ads to do workouts, which was fine. All"
           ],
-          "support_count": 11,
-          "confidence": "medium",
+          "support_count": 13,
+          "confidence": "high",
+          "severity": "P0",
           "conflicting_review_ids": [],
           "statistical_basis": {
-            "average_rating": 1.18,
+            "average_rating": 1.15,
             "negative_share": 1
           },
           "model_conclusion": true,
           "assumptions": [
-            "Ratings 1-2 considered negative; topic assignment based on provided classification; finding summarizes semantic complaints about paywall."
+            "Topic classification from the provided dataset is used to group reviews.",
+            "User reports are treated as truthful accounts of their experience."
           ],
           "deterministic_evidence": {
-            "support_count": 11,
+            "support_count": 13,
             "conflict_count": 0,
             "conflict_share": 0,
-            "average_rating": 1.18,
+            "average_rating": 1.15,
             "negative_share": 1,
             "positive_share": 0,
             "consistency": 1,
-            "evidence_score": 11,
+            "evidence_score": 13,
             "evidence_status": "supported",
-            "confidence": "medium"
+            "confidence": "high"
           },
           "model_confidence": "high",
           "evidence_status": "supported",
@@ -3535,8 +3435,8 @@
         },
         {
           "finding_id": "F-02",
-          "title": "Billing and Subscription Problems",
-          "summary": "Reviews report unexpected charges after free trials, confusing pricing, difficulty canceling subscriptions, and lack of cancellation reminders.",
+          "title": "Billing & Subscription Issues",
+          "summary": "Users report billing problems such as unexpected charges after a free trial, unclear subscription terms, and difficulty cancelling subscriptions. Some accounts are not recognized when trying to manage subscriptions.",
           "topic_id": "T-02",
           "review_ids": [
             "R-0005",
@@ -3545,13 +3445,14 @@
             "R-0050"
           ],
           "excerpts": [
-            "R-0005: This app has become a money grab. I have used this app for a long time, but the current version is extremely disappointing. The biggest issue is the subscription trap.",
-            "R-0024: Workout part was fine BUT Wanting to cancel my year long payment from renewing but unable to figure out how.",
+            "R-0005: This app has become a money grab. I have used this app for a long time, but the current version is extremely disappointing. The biggest issue is the subscription trap. I signed up ",
+            "R-0024: Workout part was fine BUT Wanting to cancel my year long payment from renewing but unable to figure out how. The app doesn’t have an account with my email and when I tried asking t",
             "R-0041: I subscribed to what I thought was a year plan for 39.99 and a 6 day trial. It did not let me know before the trail was over so I couldn’t cancel it.",
-            "R-0050: I wanted to try the free trial, I was told in app that there would be no charge until the end of the free trial and you guys immediately charged me!"
+            "R-0050: I wanted to try the free trial, I was told in app that there would be no charge until the end of the free trial and you guys immediately charged me! Now there is just a charge pend"
           ],
           "support_count": 4,
           "confidence": "low",
+          "severity": "P0",
           "conflicting_review_ids": [],
           "statistical_basis": {
             "average_rating": 1.25,
@@ -3559,7 +3460,8 @@
           },
           "model_conclusion": true,
           "assumptions": [
-            "Ratings 1-2 considered negative; topic assignment based on provided classification; finding summarizes semantic complaints about billing and subscriptions."
+            "Topic classification from the provided dataset is used to group reviews.",
+            "User reports are treated as truthful accounts of their experience."
           ],
           "deterministic_evidence": {
             "support_count": 4,
@@ -3573,28 +3475,27 @@
             "evidence_status": "supported",
             "confidence": "low"
           },
-          "model_confidence": "high",
+          "model_confidence": "medium",
           "evidence_status": "supported",
           "status": "supported",
           "evidence_decision": "supported"
         },
         {
           "finding_id": "F-03",
-          "title": "Intrusive and Difficult Ads",
-          "summary": "Users complain about ads that interrupt workouts, are impossible to exit, or open external websites unexpectedly.",
+          "title": "Intrusive or Broken Ads",
+          "summary": "Users experience ads that cannot be exited after viewing and ads that force-open external websites during workouts, disrupting the app experience.",
           "topic_id": "T-03",
           "review_ids": [
             "R-0002",
-            "R-0035",
             "R-0048"
           ],
           "excerpts": [
             "R-0002: Even after you watch the 90 second ads, there’s no way to get out of it and proceed to the app. Total waste of time.",
-            "R-0035: Every workout was free (without ads) and there was a lot to choose from.",
             "R-0048: While you’re working out, the app will close and the Shein website will open and this will happen multiple times without you prompting or touching your phone"
           ],
-          "support_count": 3,
+          "support_count": 2,
           "confidence": "low",
+          "severity": "P1",
           "conflicting_review_ids": [],
           "statistical_basis": {
             "average_rating": 1,
@@ -3602,19 +3503,70 @@
           },
           "model_conclusion": true,
           "assumptions": [
-            "Ratings 1-2 considered negative; topic assignment based on provided classification; finding summarizes semantic complaints about ads."
+            "Topic classification from the provided dataset is used to group reviews.",
+            "User reports are treated as truthful accounts of their experience.",
+            "Insufficient evidence: Only 2 supporting reviews; below min 3."
           ],
           "deterministic_evidence": {
-            "support_count": 3,
+            "support_count": 2,
             "conflict_count": 0,
             "conflict_share": 0,
             "average_rating": 1,
             "negative_share": 1,
             "positive_share": 0,
             "consistency": 1,
-            "evidence_score": 3,
-            "evidence_status": "supported",
+            "evidence_score": 2,
+            "evidence_status": "insufficient_evidence",
             "confidence": "low"
+          },
+          "model_confidence": "low",
+          "evidence_status": "insufficient_evidence",
+          "status": "assumption",
+          "evidence_decision": "assumption"
+        },
+        {
+          "finding_id": "F-04",
+          "title": "AI Content & Quality Decline",
+          "summary": "Long-time users feel the app's quality has declined, citing replacement of original content with AI-generated workouts and images, and an overall worsening with updates.",
+          "topic_id": "T-04",
+          "review_ids": [
+            "R-0005",
+            "R-0010",
+            "R-0018",
+            "R-0033",
+            "R-0035"
+          ],
+          "excerpts": [
+            "R-0005: This app has become a money grab. I have used this app for a long time, but the current version is extremely disappointing.",
+            "R-0010: it’s not the same at ALL. It’s all AI slip and you have to pay.",
+            "R-0018: when it was real women avatars during the workouts and not some cheesy AI mockups s",
+            "R-0033: Loved this app, paid for it. Sadly it gets worse with every update.",
+            "R-0035: I’ve been using this app since 2018. I used to really love it. Every workout was free (without ads) and there was a lot to choose from. In the past couple months they’ve put everyt"
+          ],
+          "support_count": 5,
+          "confidence": "medium",
+          "severity": "P1",
+          "conflicting_review_ids": [],
+          "statistical_basis": {
+            "average_rating": 1.2,
+            "negative_share": 1
+          },
+          "model_conclusion": true,
+          "assumptions": [
+            "Topic classification from the provided dataset is used to group reviews.",
+            "User reports are treated as truthful accounts of their experience."
+          ],
+          "deterministic_evidence": {
+            "support_count": 5,
+            "conflict_count": 0,
+            "conflict_share": 0,
+            "average_rating": 1.2,
+            "negative_share": 1,
+            "positive_share": 0,
+            "consistency": 1,
+            "evidence_score": 5,
+            "evidence_status": "supported",
+            "confidence": "medium"
           },
           "model_confidence": "medium",
           "evidence_status": "supported",
@@ -3622,20 +3574,21 @@
           "evidence_decision": "supported"
         },
         {
-          "finding_id": "F-04",
-          "title": "Customer Support and Account Access Issues",
-          "summary": "Users cannot log into accounts or contact support; support messages are rejected or not submitted, making subscription management difficult.",
-          "topic_id": "T-04",
+          "finding_id": "F-05",
+          "title": "Customer Support & Account Access Failures",
+          "summary": "Users report account login failures after paying and inability to contact support due to messages being flagged as spam, indicating poor account and support handling.",
+          "topic_id": "T-05",
           "review_ids": [
             "R-0024",
             "R-0043"
           ],
           "excerpts": [
-            "R-0024: The app doesn’t have an account with my email and when I tried asking t",
+            "R-0024: Workout part was fine BUT Wanting to cancel my year long payment from renewing but unable to figure out how. The app doesn’t have an account with my email and when I tried asking t",
             "R-0043: I paid for a year membership and I cannot log into the account because it says it does not exist. I’ve tried to message the company and it says my message seems like spam and my in"
           ],
           "support_count": 2,
           "confidence": "low",
+          "severity": "P1",
           "conflicting_review_ids": [],
           "statistical_basis": {
             "average_rating": 1.5,
@@ -3643,7 +3596,8 @@
           },
           "model_conclusion": true,
           "assumptions": [
-            "Ratings 1-2 considered negative; topic assignment based on provided classification; finding summarizes semantic complaints about support and account access.",
+            "Topic classification from the provided dataset is used to group reviews.",
+            "User reports are treated as truthful accounts of their experience.",
             "Insufficient evidence: Only 2 supporting reviews; below min 3."
           ],
           "deterministic_evidence": {
@@ -3658,102 +3612,10 @@
             "evidence_status": "insufficient_evidence",
             "confidence": "low"
           },
-          "model_confidence": "medium",
+          "model_confidence": "low",
           "evidence_status": "insufficient_evidence",
           "status": "assumption",
           "evidence_decision": "assumption"
-        },
-        {
-          "finding_id": "F-05",
-          "title": "Deceptive Practices and False Advertising",
-          "summary": "Users feel misled by free access or free trial claims that are not honored; content labeled free requires payment or charges occur immediately.",
-          "topic_id": "T-05",
-          "review_ids": [
-            "R-0005",
-            "R-0013",
-            "R-0039",
-            "R-0050"
-          ],
-          "excerpts": [
-            "R-0005: This app has become a money grab. I have used this app for a long time, but the current version is extremely disappointing. The biggest issue is the subscription trap.",
-            "R-0013: Stop putting stuff under free thats not free if I wanted to pay for it I would get a personal trainer",
-            "R-0039: Still claims that you can use for free, so please fix th",
-            "R-0050: I wanted to try the free trial, I was told in app that there would be no charge until the end of the free trial and you guys immediately charged me!"
-          ],
-          "support_count": 4,
-          "confidence": "low",
-          "conflicting_review_ids": [],
-          "statistical_basis": {
-            "average_rating": 1.25,
-            "negative_share": 1
-          },
-          "model_conclusion": true,
-          "assumptions": [
-            "Ratings 1-2 considered negative; topic assignment based on provided classification; finding summarizes semantic complaints about deceptive practices."
-          ],
-          "deterministic_evidence": {
-            "support_count": 4,
-            "conflict_count": 0,
-            "conflict_share": 0,
-            "average_rating": 1.25,
-            "negative_share": 1,
-            "positive_share": 0,
-            "consistency": 1,
-            "evidence_score": 4,
-            "evidence_status": "supported",
-            "confidence": "low"
-          },
-          "model_confidence": "high",
-          "evidence_status": "supported",
-          "status": "supported",
-          "evidence_decision": "supported"
-        },
-        {
-          "finding_id": "F-06",
-          "title": "AI-Generated Content and Quality Decline",
-          "summary": "Reviews criticize the use of AI for workouts and avatars, saying the app has lost its original quality and feels generic or worse after updates.",
-          "topic_id": "T-06",
-          "review_ids": [
-            "R-0003",
-            "R-0006",
-            "R-0010",
-            "R-0018",
-            "R-0033"
-          ],
-          "excerpts": [
-            "R-0003: Very disappointed in the changes this app has had, lots of AI",
-            "R-0006: I downloaded this app, thinking it would be different from all the other Workout apps that I used in the past, but that is not the case",
-            "R-0010: It’s all AI slip and you have to pay.",
-            "R-0018: I’d use the free workouts every time, when it was real women avatars during the workouts and not some cheesy AI mockups",
-            "R-0033: Loved this app, paid for it. Sadly it gets worse with every update."
-          ],
-          "support_count": 5,
-          "confidence": "medium",
-          "conflicting_review_ids": [],
-          "statistical_basis": {
-            "average_rating": 1.2,
-            "negative_share": 1
-          },
-          "model_conclusion": true,
-          "assumptions": [
-            "Ratings 1-2 considered negative; topic assignment based on provided classification; finding summarizes semantic complaints about AI content and quality decline."
-          ],
-          "deterministic_evidence": {
-            "support_count": 5,
-            "conflict_count": 0,
-            "conflict_share": 0,
-            "average_rating": 1.2,
-            "negative_share": 1,
-            "positive_share": 0,
-            "consistency": 1,
-            "evidence_score": 5,
-            "evidence_status": "supported",
-            "confidence": "medium"
-          },
-          "model_confidence": "high",
-          "evidence_status": "supported",
-          "status": "supported",
-          "evidence_decision": "supported"
         }
       ],
       "method": "model",
@@ -3768,7 +3630,7 @@
             "finding_id": "F-01",
             "review_ids_exist": true,
             "support_count_matches": true,
-            "support_count": 11,
+            "support_count": 13,
             "min_support": 3,
             "insufficient_evidence": false,
             "conflict_count": 0,
@@ -3790,17 +3652,6 @@
             "finding_id": "F-03",
             "review_ids_exist": true,
             "support_count_matches": true,
-            "support_count": 3,
-            "min_support": 3,
-            "insufficient_evidence": false,
-            "conflict_count": 0,
-            "has_conflicting_evidence": false,
-            "issues": []
-          },
-          {
-            "finding_id": "F-04",
-            "review_ids_exist": true,
-            "support_count_matches": true,
             "support_count": 2,
             "min_support": 3,
             "insufficient_evidence": true,
@@ -3811,18 +3662,7 @@
             ]
           },
           {
-            "finding_id": "F-05",
-            "review_ids_exist": true,
-            "support_count_matches": true,
-            "support_count": 4,
-            "min_support": 3,
-            "insufficient_evidence": false,
-            "conflict_count": 0,
-            "has_conflicting_evidence": false,
-            "issues": []
-          },
-          {
-            "finding_id": "F-06",
+            "finding_id": "F-04",
             "review_ids_exist": true,
             "support_count_matches": true,
             "support_count": 5,
@@ -3831,10 +3671,24 @@
             "conflict_count": 0,
             "has_conflicting_evidence": false,
             "issues": []
+          },
+          {
+            "finding_id": "F-05",
+            "review_ids_exist": true,
+            "support_count_matches": true,
+            "support_count": 2,
+            "min_support": 3,
+            "insufficient_evidence": true,
+            "conflict_count": 0,
+            "has_conflicting_evidence": false,
+            "issues": [
+              "Only 2 supporting reviews; below min 3."
+            ]
           }
         ],
         "issues": [
-          "F-04 has insufficient evidence."
+          "F-03 has insufficient evidence.",
+          "F-05 has insufficient evidence."
         ]
       },
       "semantic_checks": [
@@ -3842,7 +3696,7 @@
           "finding_id": "F-01",
           "semantically_supported": true,
           "reasons": [
-            "Reviews explicitly mention that the app used to be free but now requires payment, e.g., 'unable to use it for free' (R-0003), 'refused to let me work out unless I pay' (R-0008), 'everything is behind a paywall' (R-0025)."
+            "Multiple excerpts explicitly state the app used to be free and now requires payment or locks basic workouts behind a paywall (R-0003, R-0008, R-0025). R-0013 supports the claim that some free-labeled content is not actually free. R-0006 is not directly relevant but does not conflict."
           ],
           "suggested_revisions": []
         },
@@ -3850,7 +3704,7 @@
           "finding_id": "F-02",
           "semantically_supported": true,
           "reasons": [
-            "Reviews describe billing issues such as unexpected charge after trial (R-0050), lack of trial end reminder (R-0041), difficulty canceling subscription (R-0024), and general subscription money grab complaint (R-0005)."
+            "Excerpts describe unexpected charges after a free trial (R-0050, R-0041), difficulty cancelling a subscription (R-0024), and subscription-related disappointment (R-0005). These collectively support billing and subscription issues."
           ],
           "suggested_revisions": []
         },
@@ -3858,7 +3712,7 @@
           "finding_id": "F-03",
           "semantically_supported": true,
           "reasons": [
-            "R-0002 describes ads that cannot be exited, R-0048 describes external websites opening unexpectedly, and R-0035 indicates a shift from ad-free to ad-supported, supporting the finding."
+            "R-0002 describes ads that cannot be exited after viewing, and R-0048 describes the app closing and opening an external website during workouts, both directly supporting intrusive or broken ads."
           ],
           "suggested_revisions": []
         },
@@ -3866,7 +3720,7 @@
           "finding_id": "F-04",
           "semantically_supported": true,
           "reasons": [
-            "R-0024 describes difficulty managing subscription due to account issues, and R-0043 directly states inability to log in and message company, supporting the finding."
+            "R-0010 and R-0018 mention AI content replacing previous content, R-0033 explicitly states the app gets worse with updates, and R-0005 and R-0035 indicate disappointment with the current version. The claim is supported."
           ],
           "suggested_revisions": []
         },
@@ -3874,15 +3728,7 @@
           "finding_id": "F-05",
           "semantically_supported": true,
           "reasons": [
-            "R-0013 mentions content under free that is not free, R-0039 states the app claims free but requires subscription, and R-0050 describes immediate charge during a free trial, supporting deceptive practices."
-          ],
-          "suggested_revisions": []
-        },
-        {
-          "finding_id": "F-06",
-          "semantically_supported": true,
-          "reasons": [
-            "R-0010 explicitly mentions 'AI slip', R-0018 contrasts real women avatars with 'not some', implying AI or quality change, and R-0033 states the app gets worse with updates, supporting AI-generated content and quality decline."
+            "R-0043 explicitly describes login failure after paying and messages being flagged as spam, and R-0024 describes an account email not being recognized, supporting account access and support failures."
           ],
           "suggested_revisions": []
         }
@@ -3897,7 +3743,7 @@
             "finding_id": "F-01",
             "review_ids_exist": true,
             "support_count_matches": true,
-            "support_count": 11,
+            "support_count": 13,
             "min_support": 3,
             "insufficient_evidence": false,
             "conflict_count": 0,
@@ -3908,7 +3754,7 @@
             "finding_id": "F-01",
             "semantically_supported": true,
             "reasons": [
-              "Reviews explicitly mention that the app used to be free but now requires payment, e.g., 'unable to use it for free' (R-0003), 'refused to let me work out unless I pay' (R-0008), 'everything is behind a paywall' (R-0025)."
+              "Multiple excerpts explicitly state the app used to be free and now requires payment or locks basic workouts behind a paywall (R-0003, R-0008, R-0025). R-0013 supports the claim that some free-labeled content is not actually free. R-0006 is not directly relevant but does not conflict."
             ],
             "suggested_revisions": []
           }
@@ -3932,41 +3778,17 @@
             "finding_id": "F-02",
             "semantically_supported": true,
             "reasons": [
-              "Reviews describe billing issues such as unexpected charge after trial (R-0050), lack of trial end reminder (R-0041), difficulty canceling subscription (R-0024), and general subscription money grab complaint (R-0005)."
+              "Excerpts describe unexpected charges after a free trial (R-0050, R-0041), difficulty cancelling a subscription (R-0024), and subscription-related disappointment (R-0005). These collectively support billing and subscription issues."
             ],
             "suggested_revisions": []
           }
         },
         {
           "finding_id": "F-03",
-          "decision": "keep",
-          "reason": "",
-          "deterministic_check": {
-            "finding_id": "F-03",
-            "review_ids_exist": true,
-            "support_count_matches": true,
-            "support_count": 3,
-            "min_support": 3,
-            "insufficient_evidence": false,
-            "conflict_count": 0,
-            "has_conflicting_evidence": false,
-            "issues": []
-          },
-          "semantic_check": {
-            "finding_id": "F-03",
-            "semantically_supported": true,
-            "reasons": [
-              "R-0002 describes ads that cannot be exited, R-0048 describes external websites opening unexpectedly, and R-0035 indicates a shift from ad-free to ad-supported, supporting the finding."
-            ],
-            "suggested_revisions": []
-          }
-        },
-        {
-          "finding_id": "F-04",
           "decision": "mark_assumption",
           "reason": "Only 2 supporting reviews; below min 3.",
           "deterministic_check": {
-            "finding_id": "F-04",
+            "finding_id": "F-03",
             "review_ids_exist": true,
             "support_count_matches": true,
             "support_count": 2,
@@ -3979,44 +3801,20 @@
             ]
           },
           "semantic_check": {
+            "finding_id": "F-03",
+            "semantically_supported": true,
+            "reasons": [
+              "R-0002 describes ads that cannot be exited after viewing, and R-0048 describes the app closing and opening an external website during workouts, both directly supporting intrusive or broken ads."
+            ],
+            "suggested_revisions": []
+          }
+        },
+        {
+          "finding_id": "F-04",
+          "decision": "keep",
+          "reason": "",
+          "deterministic_check": {
             "finding_id": "F-04",
-            "semantically_supported": true,
-            "reasons": [
-              "R-0024 describes difficulty managing subscription due to account issues, and R-0043 directly states inability to log in and message company, supporting the finding."
-            ],
-            "suggested_revisions": []
-          }
-        },
-        {
-          "finding_id": "F-05",
-          "decision": "keep",
-          "reason": "",
-          "deterministic_check": {
-            "finding_id": "F-05",
-            "review_ids_exist": true,
-            "support_count_matches": true,
-            "support_count": 4,
-            "min_support": 3,
-            "insufficient_evidence": false,
-            "conflict_count": 0,
-            "has_conflicting_evidence": false,
-            "issues": []
-          },
-          "semantic_check": {
-            "finding_id": "F-05",
-            "semantically_supported": true,
-            "reasons": [
-              "R-0013 mentions content under free that is not free, R-0039 states the app claims free but requires subscription, and R-0050 describes immediate charge during a free trial, supporting deceptive practices."
-            ],
-            "suggested_revisions": []
-          }
-        },
-        {
-          "finding_id": "F-06",
-          "decision": "keep",
-          "reason": "",
-          "deterministic_check": {
-            "finding_id": "F-06",
             "review_ids_exist": true,
             "support_count_matches": true,
             "support_count": 5,
@@ -4027,10 +3825,36 @@
             "issues": []
           },
           "semantic_check": {
-            "finding_id": "F-06",
+            "finding_id": "F-04",
             "semantically_supported": true,
             "reasons": [
-              "R-0010 explicitly mentions 'AI slip', R-0018 contrasts real women avatars with 'not some', implying AI or quality change, and R-0033 states the app gets worse with updates, supporting AI-generated content and quality decline."
+              "R-0010 and R-0018 mention AI content replacing previous content, R-0033 explicitly states the app gets worse with updates, and R-0005 and R-0035 indicate disappointment with the current version. The claim is supported."
+            ],
+            "suggested_revisions": []
+          }
+        },
+        {
+          "finding_id": "F-05",
+          "decision": "mark_assumption",
+          "reason": "Only 2 supporting reviews; below min 3.",
+          "deterministic_check": {
+            "finding_id": "F-05",
+            "review_ids_exist": true,
+            "support_count_matches": true,
+            "support_count": 2,
+            "min_support": 3,
+            "insufficient_evidence": true,
+            "conflict_count": 0,
+            "has_conflicting_evidence": false,
+            "issues": [
+              "Only 2 supporting reviews; below min 3."
+            ]
+          },
+          "semantic_check": {
+            "finding_id": "F-05",
+            "semantically_supported": true,
+            "reasons": [
+              "R-0043 explicitly describes login failure after paying and messages being flagged as spam, and R-0024 describes an account email not being recognized, supporting account access and support failures."
             ],
             "suggested_revisions": []
           }
@@ -4040,13 +3864,15 @@
         "findings": [
           {
             "finding_id": "F-01",
-            "title": "Paywall and Loss of Free Access",
-            "summary": "Users widely report that the app used to offer free workouts but now most or all features are locked behind a subscription, blocking access to basic exercises without payment.",
+            "title": "Paywall & Loss of Free Access",
+            "summary": "Numerous long-time users report that the app, previously free, now requires a subscription and locks basic workouts behind a paywall. Some users say the app still claims to offer free use, which they find misleading.",
             "topic_id": "T-01",
             "review_ids": [
               "R-0003",
+              "R-0006",
               "R-0008",
               "R-0010",
+              "R-0013",
               "R-0018",
               "R-0025",
               "R-0032",
@@ -4059,38 +3885,36 @@
             "excerpts": [
               "R-0003: I used to love this app for daily, quick workouts, but they recently changed it so you are unable to use it for free.",
               "R-0008: I’ve been using this app for years for free and recently they’ve refused to let me work out using their app unless I pay, saying I’ve used my limit, which is absolutely ridiculous",
-              "R-0010: I used to use this app alllll the time in 2020 I recently decided I wanted to use it again, but it’s not the same at ALL. It’s all AI slip and you have to pay.",
-              "R-0018: I used to love workout women, before they were bought out. I’d use the free workouts every time",
+              "R-0013: Stop putting stuff under free thats not free if I wanted to pay for it I would get a personal trainer",
               "R-0025: I have used this app for YEARS. I loved it due to it being free and also easy but now everything is behind a paywall. I can’t even use basic workouts I used to do for free anymore.",
-              "R-0032: You have to pay to feel proud and I don’t like that",
-              "R-0034: when I tried to click to do an exercise, all wou",
-              "R-0035: I’ve been using this app since 2018. I used to really love it. Every workout was free (without ads) and there was a lot to choose from.",
-              "R-0039: Now after recent update, it won’t let me do anything without a subscription. Still claims that you can use for free, so please fix th",
+              "R-0039: I’ve been using and loving this app for years. Now after recent update, it won’t let me do anything without a subscription. Still claims that you can use for free, so please fix th",
               "R-0045: i used this app back in 2023 to lose weight i downloaded it back in 2026 EVERYTHING requires money , everything is behind a paywall.. why make a app free if you’re gonna do mini in",
-              "R-0047: It was free forever, then recently required 90sec ads to do workouts, which was fine."
+              "R-0047: I used to LOVE this app. It allowed me to access work outs on my own time, in my own way. It was free forever, then recently required 90sec ads to do workouts, which was fine. All"
             ],
-            "support_count": 11,
-            "confidence": "medium",
+            "support_count": 13,
+            "confidence": "high",
+            "severity": "P0",
             "conflicting_review_ids": [],
             "statistical_basis": {
-              "average_rating": 1.18,
+              "average_rating": 1.15,
               "negative_share": 1
             },
             "model_conclusion": true,
             "assumptions": [
-              "Ratings 1-2 considered negative; topic assignment based on provided classification; finding summarizes semantic complaints about paywall."
+              "Topic classification from the provided dataset is used to group reviews.",
+              "User reports are treated as truthful accounts of their experience."
             ],
             "deterministic_evidence": {
-              "support_count": 11,
+              "support_count": 13,
               "conflict_count": 0,
               "conflict_share": 0,
-              "average_rating": 1.18,
+              "average_rating": 1.15,
               "negative_share": 1,
               "positive_share": 0,
               "consistency": 1,
-              "evidence_score": 11,
+              "evidence_score": 13,
               "evidence_status": "supported",
-              "confidence": "medium"
+              "confidence": "high"
             },
             "model_confidence": "high",
             "evidence_status": "supported",
@@ -4099,8 +3923,8 @@
           },
           {
             "finding_id": "F-02",
-            "title": "Billing and Subscription Problems",
-            "summary": "Reviews report unexpected charges after free trials, confusing pricing, difficulty canceling subscriptions, and lack of cancellation reminders.",
+            "title": "Billing & Subscription Issues",
+            "summary": "Users report billing problems such as unexpected charges after a free trial, unclear subscription terms, and difficulty cancelling subscriptions. Some accounts are not recognized when trying to manage subscriptions.",
             "topic_id": "T-02",
             "review_ids": [
               "R-0005",
@@ -4109,13 +3933,14 @@
               "R-0050"
             ],
             "excerpts": [
-              "R-0005: This app has become a money grab. I have used this app for a long time, but the current version is extremely disappointing. The biggest issue is the subscription trap.",
-              "R-0024: Workout part was fine BUT Wanting to cancel my year long payment from renewing but unable to figure out how.",
+              "R-0005: This app has become a money grab. I have used this app for a long time, but the current version is extremely disappointing. The biggest issue is the subscription trap. I signed up ",
+              "R-0024: Workout part was fine BUT Wanting to cancel my year long payment from renewing but unable to figure out how. The app doesn’t have an account with my email and when I tried asking t",
               "R-0041: I subscribed to what I thought was a year plan for 39.99 and a 6 day trial. It did not let me know before the trail was over so I couldn’t cancel it.",
-              "R-0050: I wanted to try the free trial, I was told in app that there would be no charge until the end of the free trial and you guys immediately charged me!"
+              "R-0050: I wanted to try the free trial, I was told in app that there would be no charge until the end of the free trial and you guys immediately charged me! Now there is just a charge pend"
             ],
             "support_count": 4,
             "confidence": "low",
+            "severity": "P0",
             "conflicting_review_ids": [],
             "statistical_basis": {
               "average_rating": 1.25,
@@ -4123,7 +3948,8 @@
             },
             "model_conclusion": true,
             "assumptions": [
-              "Ratings 1-2 considered negative; topic assignment based on provided classification; finding summarizes semantic complaints about billing and subscriptions."
+              "Topic classification from the provided dataset is used to group reviews.",
+              "User reports are treated as truthful accounts of their experience."
             ],
             "deterministic_evidence": {
               "support_count": 4,
@@ -4137,28 +3963,27 @@
               "evidence_status": "supported",
               "confidence": "low"
             },
-            "model_confidence": "high",
+            "model_confidence": "medium",
             "evidence_status": "supported",
             "status": "supported",
             "evidence_decision": "supported"
           },
           {
             "finding_id": "F-03",
-            "title": "Intrusive and Difficult Ads",
-            "summary": "Users complain about ads that interrupt workouts, are impossible to exit, or open external websites unexpectedly.",
+            "title": "Intrusive or Broken Ads",
+            "summary": "Users experience ads that cannot be exited after viewing and ads that force-open external websites during workouts, disrupting the app experience.",
             "topic_id": "T-03",
             "review_ids": [
               "R-0002",
-              "R-0035",
               "R-0048"
             ],
             "excerpts": [
               "R-0002: Even after you watch the 90 second ads, there’s no way to get out of it and proceed to the app. Total waste of time.",
-              "R-0035: Every workout was free (without ads) and there was a lot to choose from.",
               "R-0048: While you’re working out, the app will close and the Shein website will open and this will happen multiple times without you prompting or touching your phone"
             ],
-            "support_count": 3,
+            "support_count": 2,
             "confidence": "low",
+            "severity": "P1",
             "conflicting_review_ids": [],
             "statistical_basis": {
               "average_rating": 1,
@@ -4166,19 +3991,70 @@
             },
             "model_conclusion": true,
             "assumptions": [
-              "Ratings 1-2 considered negative; topic assignment based on provided classification; finding summarizes semantic complaints about ads."
+              "Topic classification from the provided dataset is used to group reviews.",
+              "User reports are treated as truthful accounts of their experience.",
+              "Insufficient evidence: Only 2 supporting reviews; below min 3."
             ],
             "deterministic_evidence": {
-              "support_count": 3,
+              "support_count": 2,
               "conflict_count": 0,
               "conflict_share": 0,
               "average_rating": 1,
               "negative_share": 1,
               "positive_share": 0,
               "consistency": 1,
-              "evidence_score": 3,
-              "evidence_status": "supported",
+              "evidence_score": 2,
+              "evidence_status": "insufficient_evidence",
               "confidence": "low"
+            },
+            "model_confidence": "low",
+            "evidence_status": "insufficient_evidence",
+            "status": "assumption",
+            "evidence_decision": "assumption"
+          },
+          {
+            "finding_id": "F-04",
+            "title": "AI Content & Quality Decline",
+            "summary": "Long-time users feel the app's quality has declined, citing replacement of original content with AI-generated workouts and images, and an overall worsening with updates.",
+            "topic_id": "T-04",
+            "review_ids": [
+              "R-0005",
+              "R-0010",
+              "R-0018",
+              "R-0033",
+              "R-0035"
+            ],
+            "excerpts": [
+              "R-0005: This app has become a money grab. I have used this app for a long time, but the current version is extremely disappointing.",
+              "R-0010: it’s not the same at ALL. It’s all AI slip and you have to pay.",
+              "R-0018: when it was real women avatars during the workouts and not some cheesy AI mockups s",
+              "R-0033: Loved this app, paid for it. Sadly it gets worse with every update.",
+              "R-0035: I’ve been using this app since 2018. I used to really love it. Every workout was free (without ads) and there was a lot to choose from. In the past couple months they’ve put everyt"
+            ],
+            "support_count": 5,
+            "confidence": "medium",
+            "severity": "P1",
+            "conflicting_review_ids": [],
+            "statistical_basis": {
+              "average_rating": 1.2,
+              "negative_share": 1
+            },
+            "model_conclusion": true,
+            "assumptions": [
+              "Topic classification from the provided dataset is used to group reviews.",
+              "User reports are treated as truthful accounts of their experience."
+            ],
+            "deterministic_evidence": {
+              "support_count": 5,
+              "conflict_count": 0,
+              "conflict_share": 0,
+              "average_rating": 1.2,
+              "negative_share": 1,
+              "positive_share": 0,
+              "consistency": 1,
+              "evidence_score": 5,
+              "evidence_status": "supported",
+              "confidence": "medium"
             },
             "model_confidence": "medium",
             "evidence_status": "supported",
@@ -4186,20 +4062,21 @@
             "evidence_decision": "supported"
           },
           {
-            "finding_id": "F-04",
-            "title": "Customer Support and Account Access Issues",
-            "summary": "Users cannot log into accounts or contact support; support messages are rejected or not submitted, making subscription management difficult.",
-            "topic_id": "T-04",
+            "finding_id": "F-05",
+            "title": "Customer Support & Account Access Failures",
+            "summary": "Users report account login failures after paying and inability to contact support due to messages being flagged as spam, indicating poor account and support handling.",
+            "topic_id": "T-05",
             "review_ids": [
               "R-0024",
               "R-0043"
             ],
             "excerpts": [
-              "R-0024: The app doesn’t have an account with my email and when I tried asking t",
+              "R-0024: Workout part was fine BUT Wanting to cancel my year long payment from renewing but unable to figure out how. The app doesn’t have an account with my email and when I tried asking t",
               "R-0043: I paid for a year membership and I cannot log into the account because it says it does not exist. I’ve tried to message the company and it says my message seems like spam and my in"
             ],
             "support_count": 2,
             "confidence": "low",
+            "severity": "P1",
             "conflicting_review_ids": [],
             "statistical_basis": {
               "average_rating": 1.5,
@@ -4207,7 +4084,8 @@
             },
             "model_conclusion": true,
             "assumptions": [
-              "Ratings 1-2 considered negative; topic assignment based on provided classification; finding summarizes semantic complaints about support and account access.",
+              "Topic classification from the provided dataset is used to group reviews.",
+              "User reports are treated as truthful accounts of their experience.",
               "Insufficient evidence: Only 2 supporting reviews; below min 3."
             ],
             "deterministic_evidence": {
@@ -4222,102 +4100,10 @@
               "evidence_status": "insufficient_evidence",
               "confidence": "low"
             },
-            "model_confidence": "medium",
+            "model_confidence": "low",
             "evidence_status": "insufficient_evidence",
             "status": "assumption",
             "evidence_decision": "assumption"
-          },
-          {
-            "finding_id": "F-05",
-            "title": "Deceptive Practices and False Advertising",
-            "summary": "Users feel misled by free access or free trial claims that are not honored; content labeled free requires payment or charges occur immediately.",
-            "topic_id": "T-05",
-            "review_ids": [
-              "R-0005",
-              "R-0013",
-              "R-0039",
-              "R-0050"
-            ],
-            "excerpts": [
-              "R-0005: This app has become a money grab. I have used this app for a long time, but the current version is extremely disappointing. The biggest issue is the subscription trap.",
-              "R-0013: Stop putting stuff under free thats not free if I wanted to pay for it I would get a personal trainer",
-              "R-0039: Still claims that you can use for free, so please fix th",
-              "R-0050: I wanted to try the free trial, I was told in app that there would be no charge until the end of the free trial and you guys immediately charged me!"
-            ],
-            "support_count": 4,
-            "confidence": "low",
-            "conflicting_review_ids": [],
-            "statistical_basis": {
-              "average_rating": 1.25,
-              "negative_share": 1
-            },
-            "model_conclusion": true,
-            "assumptions": [
-              "Ratings 1-2 considered negative; topic assignment based on provided classification; finding summarizes semantic complaints about deceptive practices."
-            ],
-            "deterministic_evidence": {
-              "support_count": 4,
-              "conflict_count": 0,
-              "conflict_share": 0,
-              "average_rating": 1.25,
-              "negative_share": 1,
-              "positive_share": 0,
-              "consistency": 1,
-              "evidence_score": 4,
-              "evidence_status": "supported",
-              "confidence": "low"
-            },
-            "model_confidence": "high",
-            "evidence_status": "supported",
-            "status": "supported",
-            "evidence_decision": "supported"
-          },
-          {
-            "finding_id": "F-06",
-            "title": "AI-Generated Content and Quality Decline",
-            "summary": "Reviews criticize the use of AI for workouts and avatars, saying the app has lost its original quality and feels generic or worse after updates.",
-            "topic_id": "T-06",
-            "review_ids": [
-              "R-0003",
-              "R-0006",
-              "R-0010",
-              "R-0018",
-              "R-0033"
-            ],
-            "excerpts": [
-              "R-0003: Very disappointed in the changes this app has had, lots of AI",
-              "R-0006: I downloaded this app, thinking it would be different from all the other Workout apps that I used in the past, but that is not the case",
-              "R-0010: It’s all AI slip and you have to pay.",
-              "R-0018: I’d use the free workouts every time, when it was real women avatars during the workouts and not some cheesy AI mockups",
-              "R-0033: Loved this app, paid for it. Sadly it gets worse with every update."
-            ],
-            "support_count": 5,
-            "confidence": "medium",
-            "conflicting_review_ids": [],
-            "statistical_basis": {
-              "average_rating": 1.2,
-              "negative_share": 1
-            },
-            "model_conclusion": true,
-            "assumptions": [
-              "Ratings 1-2 considered negative; topic assignment based on provided classification; finding summarizes semantic complaints about AI content and quality decline."
-            ],
-            "deterministic_evidence": {
-              "support_count": 5,
-              "conflict_count": 0,
-              "conflict_share": 0,
-              "average_rating": 1.2,
-              "negative_share": 1,
-              "positive_share": 0,
-              "consistency": 1,
-              "evidence_score": 5,
-              "evidence_status": "supported",
-              "confidence": "medium"
-            },
-            "model_confidence": "high",
-            "evidence_status": "supported",
-            "status": "supported",
-            "evidence_decision": "supported"
           }
         ],
         "revisions": []
@@ -4328,28 +4114,19 @@
         "versions": [
           {
             "id": "v1.1",
-            "name": "Critical paywall and billing trust restoration",
-            "rationale": "Findings F-01, F-02, and F-05 all relate to monetization trust and access: loss of free access, unexpected billing, and deceptive practices. They share subscription/payment implementation scope and have the highest combined user impact, with F-01 alone supported by 11 reviews. Grouping them allows a focused release to restore free access and billing transparency.",
+            "name": "1.1 Critical subscription and billing trust fixes",
+            "rationale": "F-01 and F-02 both represent P0 monetization and subscription trust issues with high combined user impact and immediate revenue/churn risk; F-01 has strong evidence and high support, while F-02 is included despite lower confidence due to severity and thematic dependency.",
             "finding_ids": [
               "F-01",
-              "F-02",
-              "F-05"
+              "F-02"
             ]
           },
           {
             "id": "v1.2",
-            "name": "Reversing AI-generated content quality decline",
-            "rationale": "Finding F-06 has medium confidence and support (5 reviews), indicating a distinct issue of content quality degradation from AI-generated workouts and avatars. This requires separate implementation work in the content pipeline and is prioritized before lower-impact ad issues.",
+            "name": "1.2 Content quality and AI generation improvements",
+            "rationale": "F-04 is a P1 quality decline theme supported by medium confidence and moderate user reports; it is scheduled after critical trust fixes because it is less severe and likely has broader content pipeline scope.",
             "finding_ids": [
-              "F-06"
-            ]
-          },
-          {
-            "id": "v1.3",
-            "name": "Reducing intrusive ad interruptions",
-            "rationale": "Finding F-03, while lower support (3 reviews) and low confidence, still represents a recurring user pain point with ads disrupting workouts. It is scheduled as a separate lower-priority milestone because its implementation scope (ad integration and exit flows) differs from subscription/content fixes.",
-            "finding_ids": [
-              "F-03"
+              "F-04"
             ]
           }
         ],
@@ -4362,64 +4139,50 @@
       "scoring": [
         {
           "finding_id": "F-01",
-          "score": 52.7
+          "score": 81.5
         },
         {
           "finding_id": "F-02",
-          "score": 32.8
+          "score": 52.5
         },
         {
-          "finding_id": "F-03",
-          "score": 32.1
-        },
-        {
-          "finding_id": "F-05",
-          "score": 32.8
-        },
-        {
-          "finding_id": "F-06",
-          "score": 48.5
+          "finding_id": "F-04",
+          "score": 57.3
         }
       ]
     },
     "requirements": [
       {
         "requirement_id": "REQ-001",
-        "title": "Restore free access to basic workouts",
-        "problem": "Users report that the app used to offer free workouts but now most or all features are locked behind a paywall, preventing access to basic exercises without payment.",
+        "title": "Restore Free Core Workouts and End Misleading Free Claims",
+        "problem": "Long-time users report that the app previously offered free workouts but now locks basic workouts behind a subscription while still claiming free use, causing frustration and broken trust.",
         "finding_id": "F-01",
         "source_review_ids": [
           "R-0003",
           "R-0008",
-          "R-0010",
-          "R-0018",
+          "R-0013",
           "R-0025",
-          "R-0032",
-          "R-0034",
-          "R-0035",
-          "R-0039",
-          "R-0045",
-          "R-0047"
+          "R-0035"
         ],
-        "user_need": "I want to access a set of basic workouts for free so that I can stay fit without being forced into a subscription.",
-        "description": "Provide a clearly defined free tier with a meaningful set of basic workouts accessible without payment or payment information. Ensure previously free content is not locked behind a subscription and clearly separate free vs. premium content in the UI.",
+        "user_need": "As a returning non-subscriber, I want to keep accessing a defined set of core free workouts and see accurate, clear labelling so I know what is free before I download or start.",
+        "description": "Provide a clearly identified free tier containing core beginner and maintenance workouts. Ensure all paywalled content is visually labelled with a lock or subscription badge. Remove or revise any 'free' app store or onboarding messaging that implies all content is free.",
         "acceptance_criteria": [
-          "A user without a subscription can access at least one full basic workout without entering payment information.",
-          "The paywall is not displayed before starting or completing a basic free workout.",
-          "The workout library clearly indicates which items are free and which require premium.",
-          "No previously free workout is moved to premium without an equivalent free alternative."
+          "Non-subscribed users can access at least 10 core workouts without encountering a paywall.",
+          "Every paywalled workout displays a lock or subscription badge before the user taps start.",
+          "No onboarding screen or app store description includes unqualified 'free' language if core content requires subscription.",
+          "Existing users who previously had free access are automatically assigned the free tier without requiring a new account."
         ],
         "priority": "P0",
         "target_version_id": "v1.1",
-        "evidence_strength": "medium",
+        "evidence_strength": "high",
         "assumptions": [
-          "Consumers expect at least some free basic workouts; if this conflicts with business strategy, the free tier must be validated with user research."
+          "Assume a free tier is feasible under the current business model; specific free workout selection to be confirmed with product and licensing."
         ]
       },
       {
         "requirement_id": "REQ-002",
-        "title": "Transparent billing and easy cancellation",
-        "problem": "Reviews report unexpected charges after free trials, confusing pricing, difficulty canceling subscriptions, and no cancellation reminders.",
+        "title": "Transparent Billing and Easy Cancellation",
+        "problem": "Users report unexpected charges after free trials, unclear subscription terms, and difficulty finding or completing cancellation. Some accounts are not recognized when managing subscriptions, adding support friction.",
         "finding_id": "F-02",
         "source_review_ids": [
           "R-0005",
@@ -4427,96 +4190,47 @@
           "R-0041",
           "R-0050"
         ],
-        "user_need": "I want clear pricing and an easy way to cancel so that I am not charged unexpectedly and feel in control of my subscription.",
-        "description": "Improve subscription flows to show trial terms, renewal price, and cancellation deadline before purchase. Provide an in-app cancellation path and pre-renewal reminders.",
+        "user_need": "As a subscriber or trial user, I want clear subscription terms before purchase, a simple way to cancel, and confidence that my account is recognized for billing support.",
+        "description": "Clarify subscription terms at the point of purchase and before trial conversion. Provide a visible cancellation path from account settings that follows platform requirements. Improve account lookup for billing support by allowing order or receipt-based lookup.",
         "acceptance_criteria": [
-          "Before a user starts a free trial, the UI displays trial duration, price after trial, and cancellation deadline.",
-          "A user can cancel their subscription from within the app in no more than 3 steps.",
-          "No further charges occur after a user successfully cancels; confirmation is shown and emailed.",
-          "A reminder notification is sent at least 24 hours before a free trial converts to a paid subscription."
+          "At least 48 hours before a free trial converts, users receive a push or email notification with price, date, and cancellation instructions.",
+          "Account settings includes a subscription management link that takes users to the platform subscription page with one tap or click.",
+          "Cancellation from the platform page completes without app-specific barriers; the app opens directly to subscription management.",
+          "Support can locate a user's subscription by app store order ID or receipt."
         ],
         "priority": "P0",
         "target_version_id": "v1.1",
         "evidence_strength": "low",
         "assumptions": [
-          "Low review volume; assumed that billing complaints are representative of a broader user base. Requires validation via support tickets and chargeback data."
+          "Finding has low confidence due to limited review volume, but severity justifies action.",
+          "Exact root cause of unrecognized accounts is unknown; may require platform store integration changes.",
+          "Cancellation flow is partially controlled by Apple and Google."
         ]
       },
       {
         "requirement_id": "REQ-003",
-        "title": "Eliminate deceptive free and trial claims",
-        "problem": "Users feel misled by free access or free trial claims that are not honored; content labeled free requires payment or charges occur immediately.",
-        "finding_id": "F-05",
+        "title": "Improve Content Quality and Restore Non-AI Experience",
+        "problem": "Long-time users perceive a decline in app quality, reporting replacement of original workouts and images with AI-generated content that feels lower quality or off-brand.",
+        "finding_id": "F-04",
         "source_review_ids": [
-          "R-0005",
-          "R-0013",
-          "R-0039",
-          "R-0050"
-        ],
-        "user_need": "I want marketing and in-app labels to accurately reflect what is free and what is paid so that I do not feel tricked.",
-        "description": "Audit all user-facing claims related to free access and trial offers. Ensure any content labeled 'free' is accessible without payment, and trial offers clearly state billing terms.",
-        "acceptance_criteria": [
-          "All content labeled 'free' in marketing or in-app is accessible without entering payment information.",
-          "Marketing and trial offers are audited and match actual access and billing behavior.",
-          "No charge occurs immediately after a user selects a free trial without an explicit consent step that discloses the charge.",
-          "Any reported deceptive claim is corrected within one release cycle."
-        ],
-        "priority": "P0",
-        "target_version_id": "v1.1",
-        "evidence_strength": "low",
-        "assumptions": [
-          "Low evidence volume; assumes the issue is inconsistent labeling rather than intentional deception. A full compliance audit is recommended."
-        ]
-      },
-      {
-        "requirement_id": "REQ-004",
-        "title": "Reverse AI-generated content quality decline",
-        "problem": "Reviews criticize the use of AI for workouts and avatars, saying the app has lost its original quality and feels generic or worse after updates.",
-        "finding_id": "F-06",
-        "source_review_ids": [
-          "R-0003",
-          "R-0006",
           "R-0010",
           "R-0018",
-          "R-0033"
+          "R-0033",
+          "R-0035"
         ],
-        "user_need": "I want high-quality, non-generic workout content so that the app continues to meet my fitness expectations.",
-        "description": "Remove or clearly label AI-generated workouts and avatars. Restore and promote original, human-created workout content, and provide a filter or separate channel for users who prefer non-AI content.",
+        "user_need": "As a long-time user, I want the app's original high-quality content restored or AI content clearly improved and labelled so I can trust workouts.",
+        "description": "Audit current library for AI-generated workouts and images that replace original content. Restore high-quality original content where available, and establish quality standards for any AI-generated content. If AI content remains, label it clearly.",
         "acceptance_criteria": [
-          "AI-generated workout avatars and scripts are either removed or explicitly labeled as AI-generated.",
-          "A filter or channel is available for users to select non-AI workout content only.",
-          "User satisfaction score for workout content returns to the pre-AI-update baseline within 3 months."
+          "All AI-generated workout images or descriptions are tagged with an 'AI-generated' label.",
+          "A content quality checklist is applied before publishing any AI-generated workout; workouts failing the checklist are not published.",
+          "Users can filter or identify non-AI original workouts in the library.",
+          "No AI-generated imagery is used in marketing or as a replacement for original exercise photography."
         ],
         "priority": "P1",
         "target_version_id": "v1.2",
         "evidence_strength": "medium",
         "assumptions": [
-          "Assumes AI-generated content is perceived as lower quality by a significant subset of users; further content audit and user research needed to identify specific quality gaps."
-        ]
-      },
-      {
-        "requirement_id": "REQ-005",
-        "title": "Reduce intrusive ad interruptions",
-        "problem": "Users complain about ads that interrupt workouts, are impossible to exit, or open external websites unexpectedly.",
-        "finding_id": "F-03",
-        "source_review_ids": [
-          "R-0002",
-          "R-0035",
-          "R-0048"
-        ],
-        "user_need": "I want ads that do not disrupt my workout and that I can easily close so that I can focus on exercise.",
-        "description": "Rework ad placement and behavior so ads do not interrupt active workout sessions, all ad units have a working close control, and external navigation is only triggered by explicit user action.",
-        "acceptance_criteria": [
-          "No ad is displayed during an active workout session.",
-          "All ad units include a visible close button that exits the ad within 2 seconds.",
-          "No ad opens an external website or app store without the user tapping the ad's call-to-action.",
-          "Ad-related complaints in support and reviews decrease by at least 50% after release."
-        ],
-        "priority": "P2",
-        "target_version_id": "v1.3",
-        "evidence_strength": "low",
-        "assumptions": [
-          "Low evidence volume; assumes ad behavior is an unintended bug rather than a deliberate ad strategy. Requires analysis of ad implementation and user session logs."
+          "Finding is perception-based; review sample is moderate; content team must validate which items are AI-generated versus originally licensed."
         ]
       }
     ],
@@ -4528,30 +4242,25 @@
         "source_review_ids": [
           "R-0003",
           "R-0008",
-          "R-0010",
-          "R-0018",
+          "R-0013",
           "R-0025",
-          "R-0032",
-          "R-0034",
-          "R-0035",
-          "R-0039",
-          "R-0045",
-          "R-0047"
+          "R-0035"
         ],
-        "title": "Access free basic workout without payment info",
+        "title": "Verify non-subscribed users can access at least 10 core workouts without paywall",
         "preconditions": [
-          "App is freshly installed or user is logged in without any active subscription.",
-          "Workout library is accessible."
+          "User is not subscribed to any paid plan",
+          "App is installed and user is logged in",
+          "Device has network connectivity"
         ],
         "steps": [
-          "Open the app and navigate to the workout library.",
-          "Locate a workout that is marked as 'Free' or 'Basic'.",
-          "Tap on the free workout to open its detail page.",
-          "Tap the 'Start Workout' button."
+          "Navigate to the workout library",
+          "Filter or browse to the core workouts category",
+          "Attempt to start each core workout",
+          "Count the number of core workouts that open successfully without prompting for subscription"
         ],
         "expected_results": [
-          "The workout starts and the user can complete it in full.",
-          "No prompt to enter payment information or subscribe is displayed at any point before or during the workout."
+          "At least 10 distinct core workouts are accessible",
+          "No paywall or subscription prompt appears when starting these workouts"
         ],
         "priority": "P0"
       },
@@ -4562,30 +4271,24 @@
         "source_review_ids": [
           "R-0003",
           "R-0008",
-          "R-0010",
-          "R-0018",
+          "R-0013",
           "R-0025",
-          "R-0032",
-          "R-0034",
-          "R-0035",
-          "R-0039",
-          "R-0045",
-          "R-0047"
+          "R-0035"
         ],
-        "title": "No paywall before starting or completing free workout",
+        "title": "Verify paywalled workouts display lock or subscription badge before user taps start",
         "preconditions": [
-          "User is on a free workout detail page.",
-          "User has not entered any payment information."
+          "User is not subscribed to any paid plan",
+          "App contains at least one paywalled workout",
+          "User is on the workout detail screen of a paywalled workout"
         ],
         "steps": [
-          "Start the free workout.",
-          "Perform the workout as instructed until completion.",
-          "Observe the screen for any paywall or subscription prompt during the session."
+          "Navigate to any paywalled workout",
+          "Observe the workout detail screen before tapping start",
+          "Check for visual indicators such as a lock icon or subscription badge"
         ],
         "expected_results": [
-          "The paywall is not displayed before the workout starts.",
-          "The paywall is not displayed at any point during the workout.",
-          "The paywall is not displayed after the workout is completed."
+          "A lock icon or subscription badge is clearly visible on the paywalled workout detail screen",
+          "The indicator appears before any user action to start the workout"
         ],
         "priority": "P0"
       },
@@ -4596,30 +4299,23 @@
         "source_review_ids": [
           "R-0003",
           "R-0008",
-          "R-0010",
-          "R-0018",
+          "R-0013",
           "R-0025",
-          "R-0032",
-          "R-0034",
-          "R-0035",
-          "R-0039",
-          "R-0045",
-          "R-0047"
+          "R-0035"
         ],
-        "title": "Clear indication of free vs premium content",
+        "title": "Verify no unqualified 'free' language in onboarding and app store description",
         "preconditions": [
-          "App is open and user is viewing the workout library.",
-          "User may or may not be logged in."
+          "App onboarding flow is accessible",
+          "App store listing is accessible"
         ],
         "steps": [
-          "Browse the workout library list.",
-          "Observe each workout entry for labels, icons, or filters indicating free or premium status.",
-          "Use any available filter or toggle to view only free workouts."
+          "Review all onboarding screens and text",
+          "Review the app store description and marketing copy",
+          "Check for any unqualified use of the word 'free'"
         ],
         "expected_results": [
-          "Each workout item clearly displays a 'Free' or 'Premium' label or icon.",
-          "A filter or sorting option allows the user to see only free workouts.",
-          "The labels are consistent and easy to understand."
+          "No onboarding screen contains unqualified 'free' language implying all content is free if core content requires subscription",
+          "App store description does not include unqualified 'free' language in the same context"
         ],
         "priority": "P0"
       },
@@ -4630,29 +4326,24 @@
         "source_review_ids": [
           "R-0003",
           "R-0008",
-          "R-0010",
-          "R-0018",
+          "R-0013",
           "R-0025",
-          "R-0032",
-          "R-0034",
-          "R-0035",
-          "R-0039",
-          "R-0045",
-          "R-0047"
+          "R-0035"
         ],
-        "title": "No free workout moved to premium without alternative",
+        "title": "Verify existing users are automatically assigned free tier without new account",
         "preconditions": [
-          "A list of previously free workouts from before the latest update is available.",
-          "User has access to the current workout library."
+          "User has an existing account from before free access was removed",
+          "User is not currently subscribed",
+          "User logs in to the app"
         ],
         "steps": [
-          "Identify any workouts that were previously free but are now marked as premium.",
-          "For each such workout, search for an equivalent free alternative workout in the library.",
-          "Verify that the alternative covers similar exercise type, duration, and difficulty."
+          "Log in with existing credentials",
+          "Navigate to account settings or subscription status",
+          "Check the assigned tier"
         ],
         "expected_results": [
-          "If a previously free workout is now premium, there exists at least one equivalent free workout.",
-          "The free alternative is accessible to users without a subscription."
+          "User is automatically assigned the free tier",
+          "No prompt to create a new account appears"
         ],
         "priority": "P0"
       },
@@ -4666,20 +4357,20 @@
           "R-0041",
           "R-0050"
         ],
-        "title": "Trial terms displayed before start",
+        "title": "Verify pre-trial notification is sent at least 48 hours before conversion",
         "preconditions": [
-          "App is installed and user is on the screen to start a free trial.",
-          "User has not started the trial yet."
+          "User has started a free trial",
+          "Trial conversion date is set",
+          "User has enabled push notifications and/or email"
         ],
         "steps": [
-          "Navigate to the subscription or trial sign-up screen.",
-          "Observe the information presented about the trial.",
-          "Check for the following details: trial duration, price after trial, and cancellation deadline."
+          "Initiate a free trial",
+          "Simulate time to 48 hours before trial conversion",
+          "Check for push notification or email"
         ],
         "expected_results": [
-          "The UI clearly displays the trial duration (e.g., '7 days free').",
-          "The UI clearly displays the price that will be charged after the trial ends.",
-          "The UI clearly displays the cancellation deadline (e.g., 'Cancel before July 15, 2025 to avoid charge')."
+          "User receives a notification (push or email) at least 48 hours before trial conversion",
+          "Notification includes price, conversion date, and cancellation instructions"
         ],
         "priority": "P0"
       },
@@ -4693,20 +4384,20 @@
           "R-0041",
           "R-0050"
         ],
-        "title": "Cancellation within 3 steps",
+        "title": "Verify subscription management link works from account settings",
         "preconditions": [
-          "User has an active subscription.",
-          "User is logged into the app."
+          "User is logged in",
+          "User has an active subscription",
+          "User is on account settings screen"
         ],
         "steps": [
-          "From the main home screen, navigate to account settings.",
-          "Locate the subscription management section.",
-          "Initiate cancellation and complete the process.",
-          "Count the number of taps or clicks required from the home screen to successful cancellation."
+          "Navigate to account settings",
+          "Locate subscription management link or button",
+          "Tap or click the link"
         ],
         "expected_results": [
-          "The cancellation process is completed in 3 or fewer taps/clicks.",
-          "A confirmation message is displayed after cancellation."
+          "Link opens the platform subscription management page (App Store/Google Play) with one tap/click",
+          "No additional login or navigation required"
         ],
         "priority": "P0"
       },
@@ -4720,21 +4411,20 @@
           "R-0041",
           "R-0050"
         ],
-        "title": "No charges after cancellation",
+        "title": "Verify cancellation from platform page completes and app opens directly to subscription management",
         "preconditions": [
-          "User has an active subscription and cancels it through the app.",
-          "User has access to their payment method statements."
+          "User has an active subscription",
+          "User is on the platform subscription management page",
+          "App is installed"
         ],
         "steps": [
-          "Cancel the subscription using the in-app cancellation flow.",
-          "Note the cancellation date and any confirmation details.",
-          "Wait until the next expected billing date.",
-          "Check the app's subscription status and the user's payment method statement for any charges."
+          "Initiate cancellation from the platform subscription page",
+          "Complete cancellation process",
+          "Return to the app and navigate to subscription management"
         ],
         "expected_results": [
-          "No charge is made after the cancellation date.",
-          "The app shows the subscription as inactive or cancelled.",
-          "A cancellation confirmation email is received."
+          "Cancellation completes without app-specific barriers",
+          "App opens directly to its subscription management screen when accessed"
         ],
         "priority": "P0"
       },
@@ -4748,350 +4438,159 @@
           "R-0041",
           "R-0050"
         ],
-        "title": "Pre-renewal reminder sent",
+        "title": "Verify support can locate subscription by app store order ID or receipt",
         "preconditions": [
-          "User has started a free trial that is about to convert to a paid subscription within 48 hours.",
-          "User has notifications enabled for the app."
+          "A user has a subscription and an app store order ID or receipt",
+          "Support agent has access to billing support tools"
         ],
         "steps": [
-          "Ensure the free trial is scheduled to convert in 24-48 hours.",
-          "Check the device notifications and in-app notifications for any reminder.",
-          "Note the timestamp of the reminder relative to the conversion time."
+          "Provide support agent with app store order ID or receipt",
+          "Agent searches for the user's subscription using that identifier"
         ],
         "expected_results": [
-          "A reminder notification is received at least 24 hours before the trial converts to a paid subscription.",
-          "The reminder includes details about the conversion and upcoming charge."
+          "Subscription is located successfully using order ID or receipt",
+          "Support agent can view subscription details"
         ],
         "priority": "P0"
       },
       {
         "test_case_id": "TC-009",
         "requirement_id": "REQ-003",
-        "finding_id": "F-05",
+        "finding_id": "F-04",
         "source_review_ids": [
-          "R-0005",
-          "R-0013",
-          "R-0039",
-          "R-0050"
+          "R-0010",
+          "R-0018",
+          "R-0033",
+          "R-0035"
         ],
-        "title": "Free content accessible without payment info",
+        "title": "Verify AI-generated content is tagged with AI-generated label",
         "preconditions": [
-          "App is installed and user is logged out or logged in without payment info.",
-          "Marketing materials (ads, app store screenshots) and in-app labels are available for review."
+          "Content library contains AI-generated workout images or descriptions",
+          "User is browsing workout library"
         ],
         "steps": [
-          "Review all marketing materials and in-app elements that claim content is 'free'.",
-          "For each such claim, attempt to access the corresponding content in the app.",
-          "Check whether any payment information is requested during the access attempt."
+          "Open any AI-generated workout",
+          "Inspect the workout images and descriptions",
+          "Check for an 'AI-generated' label"
         ],
         "expected_results": [
-          "All content labeled 'free' is accessible without entering payment information.",
-          "No payment information prompt appears for any content labeled 'free'."
+          "Every AI-generated image or description displays an 'AI-generated' label",
+          "Label is clearly visible and associated with the content"
         ],
-        "priority": "P0"
+        "priority": "P1"
       },
       {
         "test_case_id": "TC-010",
         "requirement_id": "REQ-003",
-        "finding_id": "F-05",
+        "finding_id": "F-04",
         "source_review_ids": [
-          "R-0005",
-          "R-0013",
-          "R-0039",
-          "R-0050"
+          "R-0010",
+          "R-0018",
+          "R-0033",
+          "R-0035"
         ],
-        "title": "Marketing and trial claims match actual behavior",
+        "title": "Verify quality checklist is applied before publishing AI-generated workouts",
         "preconditions": [
-          "A list of all current marketing claims and trial offers is available.",
-          "The app is at the latest released version."
+          "A new AI-generated workout is submitted for publishing",
+          "Quality checklist is available to content reviewers"
         ],
         "steps": [
-          "For each marketing claim (e.g., '7-day free trial', 'free workouts'), test the actual app behavior.",
-          "For trial offers, verify the billing terms shown in the app match the marketing (duration, price, etc.).",
-          "Document any discrepancies between the claim and the actual user experience."
+          "Submit an AI-generated workout for review",
+          "Check that the quality checklist is applied",
+          "Attempt to publish a workout that fails the checklist"
         ],
         "expected_results": [
-          "All marketing claims accurately reflect actual access and billing behavior.",
-          "Any identified discrepancy is logged and assigned for correction."
+          "Quality checklist is used to evaluate the workout",
+          "Workouts failing the checklist are not published"
         ],
-        "priority": "P0"
+        "priority": "P1"
       },
       {
         "test_case_id": "TC-011",
         "requirement_id": "REQ-003",
-        "finding_id": "F-05",
+        "finding_id": "F-04",
         "source_review_ids": [
-          "R-0005",
-          "R-0013",
-          "R-0039",
-          "R-0050"
+          "R-0010",
+          "R-0018",
+          "R-0033",
+          "R-0035"
         ],
-        "title": "Explicit consent before trial charge",
+        "title": "Verify users can filter or identify non-AI original workouts",
         "preconditions": [
-          "User is on the free trial sign-up screen.",
-          "The free trial includes a subsequent charge if not cancelled."
+          "Content library includes both AI and non-AI original workouts",
+          "User is on the workout library screen"
         ],
         "steps": [
-          "Begin the free trial sign-up process.",
-          "Observe each step for any explicit disclosure of the charge that will occur after the trial.",
-          "Check for a clear consent mechanism (e.g., a checkbox, confirm button, or separate screen) that requires user action to acknowledge the charge.",
-          "Verify that no immediate charge occurs before the explicit consent is given."
+          "Look for filter or sorting options",
+          "Apply filter to show only non-AI original workouts",
+          "Observe the results"
         ],
         "expected_results": [
-          "The app does not charge the user immediately upon starting the free trial without an explicit consent step.",
-          "A clear consent step discloses the charge that will occur and requires the user to agree."
+          "A filter or identification mechanism exists to distinguish non-AI original workouts",
+          "Applying the filter shows only non-AI original workouts"
         ],
-        "priority": "P0"
+        "priority": "P1"
       },
       {
         "test_case_id": "TC-012",
         "requirement_id": "REQ-003",
-        "finding_id": "F-05",
+        "finding_id": "F-04",
         "source_review_ids": [
-          "R-0005",
-          "R-0013",
-          "R-0039",
-          "R-0050"
-        ],
-        "title": "Deceptive claims corrected within one release cycle",
-        "preconditions": [
-          "There is at least one previously reported deceptive claim (from user reviews or internal audits).",
-          "A new app version is released after the claim is reported."
-        ],
-        "steps": [
-          "Identify the reported deceptive claim from previous release.",
-          "Update the app to the new release.",
-          "Check the specific feature or content associated with the claim.",
-          "Verify that the claim has been corrected or removed."
-        ],
-        "expected_results": [
-          "The deceptive claim is no longer present or has been modified to accurately reflect the user experience.",
-          "The correction is implemented within one release cycle of the report."
-        ],
-        "priority": "P0"
-      },
-      {
-        "test_case_id": "TC-013",
-        "requirement_id": "REQ-004",
-        "finding_id": "F-06",
-        "source_review_ids": [
-          "R-0003",
-          "R-0006",
           "R-0010",
           "R-0018",
-          "R-0033"
+          "R-0033",
+          "R-0035"
         ],
-        "title": "AI-generated content removed or labeled",
+        "title": "Verify no AI-generated imagery in marketing or as replacement for original photography",
         "preconditions": [
-          "App is open and workout content is accessible.",
-          "A list of all workout avatars and scripts is available."
+          "Marketing materials and app screens are accessible",
+          "Content library includes workouts with images"
         ],
         "steps": [
-          "Browse through a representative sample of workout avatars and scripts.",
-          "For each, determine if it is AI-generated (by visual inspection, metadata, or developer-provided list).",
-          "Check if such content is either completely absent or has a clear 'AI-generated' label."
+          "Review all marketing materials (app store screenshots, ads, etc.)",
+          "Check if any imagery appears AI-generated",
+          "Check if any original exercise photography has been replaced with AI imagery"
         ],
         "expected_results": [
-          "All AI-generated workout avatars and scripts are either removed or explicitly labeled.",
-          "No unlabeled AI-generated content is found."
+          "No AI-generated imagery is used in marketing materials",
+          "No original exercise photography is replaced with AI-generated imagery"
         ],
         "priority": "P1"
-      },
-      {
-        "test_case_id": "TC-014",
-        "requirement_id": "REQ-004",
-        "finding_id": "F-06",
-        "source_review_ids": [
-          "R-0003",
-          "R-0006",
-          "R-0010",
-          "R-0018",
-          "R-0033"
-        ],
-        "title": "Filter for non-AI content available",
-        "preconditions": [
-          "App is open and user is on the workout library screen.",
-          "Both AI-generated and non-AI content exist in the library."
-        ],
-        "steps": [
-          "Look for a filter, toggle, or channel that allows selecting only non-AI workouts.",
-          "Apply the filter or switch to the non-AI channel.",
-          "Observe the list of workouts displayed."
-        ],
-        "expected_results": [
-          "A clear filter or channel is available.",
-          "After applying, only non-AI workouts are shown.",
-          "The filter works correctly and can be deactivated."
-        ],
-        "priority": "P1"
-      },
-      {
-        "test_case_id": "TC-015",
-        "requirement_id": "REQ-004",
-        "finding_id": "F-06",
-        "source_review_ids": [
-          "R-0003",
-          "R-0006",
-          "R-0010",
-          "R-0018",
-          "R-0033"
-        ],
-        "title": "User satisfaction returns to baseline",
-        "preconditions": [
-          "The fix for AI content has been released.",
-          "Baseline user satisfaction score for workout content from before the AI update is known.",
-          "User satisfaction data collection mechanisms are in place (e.g., app store ratings, in-app surveys)."
-        ],
-        "steps": [
-          "Monitor user satisfaction scores for workout content over a period of three months after the release.",
-          "Collect data from relevant sources (app store reviews, survey responses).",
-          "Compare the rolling average satisfaction score to the pre-AI-update baseline."
-        ],
-        "expected_results": [
-          "The satisfaction score returns to or exceeds the pre-AI-update baseline within three months."
-        ],
-        "priority": "P1"
-      },
-      {
-        "test_case_id": "TC-016",
-        "requirement_id": "REQ-005",
-        "finding_id": "F-03",
-        "source_review_ids": [
-          "R-0002",
-          "R-0035",
-          "R-0048"
-        ],
-        "title": "No ads during active workout session",
-        "preconditions": [
-          "User is logged in (free or premium).",
-          "A workout is selected and ready to start."
-        ],
-        "steps": [
-          "Start the workout.",
-          "Perform the workout for its entire duration.",
-          "Observe the screen at all times for any ad display."
-        ],
-        "expected_results": [
-          "No advertisement is displayed at any point during the active workout session."
-        ],
-        "priority": "P2"
-      },
-      {
-        "test_case_id": "TC-017",
-        "requirement_id": "REQ-005",
-        "finding_id": "F-03",
-        "source_review_ids": [
-          "R-0002",
-          "R-0035",
-          "R-0048"
-        ],
-        "title": "Ad close button visible and functional",
-        "preconditions": [
-          "An ad unit is displayed (e.g., between workouts or on a free content screen).",
-          "The ad has a close control."
-        ],
-        "steps": [
-          "When the ad appears, observe the ad for a close button.",
-          "Verify the close button is visible and tappable.",
-          "Tap the close button.",
-          "Measure the time from tapping the close button to the ad disappearing."
-        ],
-        "expected_results": [
-          "The close button is visible on the ad.",
-          "The ad exits within 2 seconds of tapping the close button."
-        ],
-        "priority": "P2"
-      },
-      {
-        "test_case_id": "TC-018",
-        "requirement_id": "REQ-005",
-        "finding_id": "F-03",
-        "source_review_ids": [
-          "R-0002",
-          "R-0035",
-          "R-0048"
-        ],
-        "title": "External navigation only on explicit tap",
-        "preconditions": [
-          "An ad unit is displayed.",
-          "The ad contains a call-to-action button or link."
-        ],
-        "steps": [
-          "Observe the ad without interacting with it.",
-          "Check if any external navigation (e.g., opening a website or app store) occurs automatically.",
-          "Then, tap on the ad's call-to-action button.",
-          "Observe the behavior."
-        ],
-        "expected_results": [
-          "No external navigation occurs without tapping the call-to-action.",
-          "Tapping the call-to-action opens the external destination as expected."
-        ],
-        "priority": "P2"
-      },
-      {
-        "test_case_id": "TC-019",
-        "requirement_id": "REQ-005",
-        "finding_id": "F-03",
-        "source_review_ids": [
-          "R-0002",
-          "R-0035",
-          "R-0048"
-        ],
-        "title": "Ad-related complaints decrease by 50%",
-        "preconditions": [
-          "The ad reduction changes have been released.",
-          "Baseline data on ad-related complaints (from support tickets and app store reviews) from before the release is available."
-        ],
-        "steps": [
-          "Monitor support tickets and app store reviews for ad-related complaints for a defined period after release (e.g., one month).",
-          "Count the number of ad-related complaints.",
-          "Compare the post-release complaint count to the pre-release baseline."
-        ],
-        "expected_results": [
-          "The number of ad-related complaints after release is at least 50% lower than the pre-release baseline."
-        ],
-        "priority": "P2"
       }
     ],
     "prd": {
       "requirements": [
         {
           "requirement_id": "REQ-001",
-          "title": "Restore free access to basic workouts",
-          "problem": "Users report that the app used to offer free workouts but now most or all features are locked behind a paywall, preventing access to basic exercises without payment.",
+          "title": "Restore Free Core Workouts and End Misleading Free Claims",
+          "problem": "Long-time users report that the app previously offered free workouts but now locks basic workouts behind a subscription while still claiming free use, causing frustration and broken trust.",
           "finding_id": "F-01",
           "source_review_ids": [
             "R-0003",
             "R-0008",
-            "R-0010",
-            "R-0018",
+            "R-0013",
             "R-0025",
-            "R-0032",
-            "R-0034",
-            "R-0035",
-            "R-0039",
-            "R-0045",
-            "R-0047"
+            "R-0035"
           ],
-          "user_need": "I want to access a set of basic workouts for free so that I can stay fit without being forced into a subscription.",
-          "description": "Provide a clearly defined free tier with a meaningful set of basic workouts accessible without payment or payment information. Ensure previously free content is not locked behind a subscription and clearly separate free vs. premium content in the UI.",
+          "user_need": "As a returning non-subscriber, I want to keep accessing a defined set of core free workouts and see accurate, clear labelling so I know what is free before I download or start.",
+          "description": "Provide a clearly identified free tier containing core beginner and maintenance workouts. Ensure all paywalled content is visually labelled with a lock or subscription badge. Remove or revise any 'free' app store or onboarding messaging that implies all content is free.",
           "acceptance_criteria": [
-            "A user without a subscription can access at least one full basic workout without entering payment information.",
-            "The paywall is not displayed before starting or completing a basic free workout.",
-            "The workout library clearly indicates which items are free and which require premium.",
-            "No previously free workout is moved to premium without an equivalent free alternative."
+            "Non-subscribed users can access at least 10 core workouts without encountering a paywall.",
+            "Every paywalled workout displays a lock or subscription badge before the user taps start.",
+            "No onboarding screen or app store description includes unqualified 'free' language if core content requires subscription.",
+            "Existing users who previously had free access are automatically assigned the free tier without requiring a new account."
           ],
           "priority": "P0",
           "target_version_id": "v1.1",
-          "evidence_strength": "medium",
+          "evidence_strength": "high",
           "assumptions": [
-            "Consumers expect at least some free basic workouts; if this conflicts with business strategy, the free tier must be validated with user research."
+            "Assume a free tier is feasible under the current business model; specific free workout selection to be confirmed with product and licensing."
           ]
         },
         {
           "requirement_id": "REQ-002",
-          "title": "Transparent billing and easy cancellation",
-          "problem": "Reviews report unexpected charges after free trials, confusing pricing, difficulty canceling subscriptions, and no cancellation reminders.",
+          "title": "Transparent Billing and Easy Cancellation",
+          "problem": "Users report unexpected charges after free trials, unclear subscription terms, and difficulty finding or completing cancellation. Some accounts are not recognized when managing subscriptions, adding support friction.",
           "finding_id": "F-02",
           "source_review_ids": [
             "R-0005",
@@ -5099,96 +4598,47 @@
             "R-0041",
             "R-0050"
           ],
-          "user_need": "I want clear pricing and an easy way to cancel so that I am not charged unexpectedly and feel in control of my subscription.",
-          "description": "Improve subscription flows to show trial terms, renewal price, and cancellation deadline before purchase. Provide an in-app cancellation path and pre-renewal reminders.",
+          "user_need": "As a subscriber or trial user, I want clear subscription terms before purchase, a simple way to cancel, and confidence that my account is recognized for billing support.",
+          "description": "Clarify subscription terms at the point of purchase and before trial conversion. Provide a visible cancellation path from account settings that follows platform requirements. Improve account lookup for billing support by allowing order or receipt-based lookup.",
           "acceptance_criteria": [
-            "Before a user starts a free trial, the UI displays trial duration, price after trial, and cancellation deadline.",
-            "A user can cancel their subscription from within the app in no more than 3 steps.",
-            "No further charges occur after a user successfully cancels; confirmation is shown and emailed.",
-            "A reminder notification is sent at least 24 hours before a free trial converts to a paid subscription."
+            "At least 48 hours before a free trial converts, users receive a push or email notification with price, date, and cancellation instructions.",
+            "Account settings includes a subscription management link that takes users to the platform subscription page with one tap or click.",
+            "Cancellation from the platform page completes without app-specific barriers; the app opens directly to subscription management.",
+            "Support can locate a user's subscription by app store order ID or receipt."
           ],
           "priority": "P0",
           "target_version_id": "v1.1",
           "evidence_strength": "low",
           "assumptions": [
-            "Low review volume; assumed that billing complaints are representative of a broader user base. Requires validation via support tickets and chargeback data."
+            "Finding has low confidence due to limited review volume, but severity justifies action.",
+            "Exact root cause of unrecognized accounts is unknown; may require platform store integration changes.",
+            "Cancellation flow is partially controlled by Apple and Google."
           ]
         },
         {
           "requirement_id": "REQ-003",
-          "title": "Eliminate deceptive free and trial claims",
-          "problem": "Users feel misled by free access or free trial claims that are not honored; content labeled free requires payment or charges occur immediately.",
-          "finding_id": "F-05",
+          "title": "Improve Content Quality and Restore Non-AI Experience",
+          "problem": "Long-time users perceive a decline in app quality, reporting replacement of original workouts and images with AI-generated content that feels lower quality or off-brand.",
+          "finding_id": "F-04",
           "source_review_ids": [
-            "R-0005",
-            "R-0013",
-            "R-0039",
-            "R-0050"
-          ],
-          "user_need": "I want marketing and in-app labels to accurately reflect what is free and what is paid so that I do not feel tricked.",
-          "description": "Audit all user-facing claims related to free access and trial offers. Ensure any content labeled 'free' is accessible without payment, and trial offers clearly state billing terms.",
-          "acceptance_criteria": [
-            "All content labeled 'free' in marketing or in-app is accessible without entering payment information.",
-            "Marketing and trial offers are audited and match actual access and billing behavior.",
-            "No charge occurs immediately after a user selects a free trial without an explicit consent step that discloses the charge.",
-            "Any reported deceptive claim is corrected within one release cycle."
-          ],
-          "priority": "P0",
-          "target_version_id": "v1.1",
-          "evidence_strength": "low",
-          "assumptions": [
-            "Low evidence volume; assumes the issue is inconsistent labeling rather than intentional deception. A full compliance audit is recommended."
-          ]
-        },
-        {
-          "requirement_id": "REQ-004",
-          "title": "Reverse AI-generated content quality decline",
-          "problem": "Reviews criticize the use of AI for workouts and avatars, saying the app has lost its original quality and feels generic or worse after updates.",
-          "finding_id": "F-06",
-          "source_review_ids": [
-            "R-0003",
-            "R-0006",
             "R-0010",
             "R-0018",
-            "R-0033"
+            "R-0033",
+            "R-0035"
           ],
-          "user_need": "I want high-quality, non-generic workout content so that the app continues to meet my fitness expectations.",
-          "description": "Remove or clearly label AI-generated workouts and avatars. Restore and promote original, human-created workout content, and provide a filter or separate channel for users who prefer non-AI content.",
+          "user_need": "As a long-time user, I want the app's original high-quality content restored or AI content clearly improved and labelled so I can trust workouts.",
+          "description": "Audit current library for AI-generated workouts and images that replace original content. Restore high-quality original content where available, and establish quality standards for any AI-generated content. If AI content remains, label it clearly.",
           "acceptance_criteria": [
-            "AI-generated workout avatars and scripts are either removed or explicitly labeled as AI-generated.",
-            "A filter or channel is available for users to select non-AI workout content only.",
-            "User satisfaction score for workout content returns to the pre-AI-update baseline within 3 months."
+            "All AI-generated workout images or descriptions are tagged with an 'AI-generated' label.",
+            "A content quality checklist is applied before publishing any AI-generated workout; workouts failing the checklist are not published.",
+            "Users can filter or identify non-AI original workouts in the library.",
+            "No AI-generated imagery is used in marketing or as a replacement for original exercise photography."
           ],
           "priority": "P1",
           "target_version_id": "v1.2",
           "evidence_strength": "medium",
           "assumptions": [
-            "Assumes AI-generated content is perceived as lower quality by a significant subset of users; further content audit and user research needed to identify specific quality gaps."
-          ]
-        },
-        {
-          "requirement_id": "REQ-005",
-          "title": "Reduce intrusive ad interruptions",
-          "problem": "Users complain about ads that interrupt workouts, are impossible to exit, or open external websites unexpectedly.",
-          "finding_id": "F-03",
-          "source_review_ids": [
-            "R-0002",
-            "R-0035",
-            "R-0048"
-          ],
-          "user_need": "I want ads that do not disrupt my workout and that I can easily close so that I can focus on exercise.",
-          "description": "Rework ad placement and behavior so ads do not interrupt active workout sessions, all ad units have a working close control, and external navigation is only triggered by explicit user action.",
-          "acceptance_criteria": [
-            "No ad is displayed during an active workout session.",
-            "All ad units include a visible close button that exits the ad within 2 seconds.",
-            "No ad opens an external website or app store without the user tapping the ad's call-to-action.",
-            "Ad-related complaints in support and reviews decrease by at least 50% after release."
-          ],
-          "priority": "P2",
-          "target_version_id": "v1.3",
-          "evidence_strength": "low",
-          "assumptions": [
-            "Low evidence volume; assumes ad behavior is an unintended bug rather than a deliberate ad strategy. Requires analysis of ad implementation and user session logs."
+            "Finding is perception-based; review sample is moderate; content team must validate which items are AI-generated versus originally licensed."
           ]
         }
       ],
@@ -5205,30 +4655,25 @@
           "source_review_ids": [
             "R-0003",
             "R-0008",
-            "R-0010",
-            "R-0018",
+            "R-0013",
             "R-0025",
-            "R-0032",
-            "R-0034",
-            "R-0035",
-            "R-0039",
-            "R-0045",
-            "R-0047"
+            "R-0035"
           ],
-          "title": "Access free basic workout without payment info",
+          "title": "Verify non-subscribed users can access at least 10 core workouts without paywall",
           "preconditions": [
-            "App is freshly installed or user is logged in without any active subscription.",
-            "Workout library is accessible."
+            "User is not subscribed to any paid plan",
+            "App is installed and user is logged in",
+            "Device has network connectivity"
           ],
           "steps": [
-            "Open the app and navigate to the workout library.",
-            "Locate a workout that is marked as 'Free' or 'Basic'.",
-            "Tap on the free workout to open its detail page.",
-            "Tap the 'Start Workout' button."
+            "Navigate to the workout library",
+            "Filter or browse to the core workouts category",
+            "Attempt to start each core workout",
+            "Count the number of core workouts that open successfully without prompting for subscription"
           ],
           "expected_results": [
-            "The workout starts and the user can complete it in full.",
-            "No prompt to enter payment information or subscribe is displayed at any point before or during the workout."
+            "At least 10 distinct core workouts are accessible",
+            "No paywall or subscription prompt appears when starting these workouts"
           ],
           "priority": "P0"
         },
@@ -5239,30 +4684,24 @@
           "source_review_ids": [
             "R-0003",
             "R-0008",
-            "R-0010",
-            "R-0018",
+            "R-0013",
             "R-0025",
-            "R-0032",
-            "R-0034",
-            "R-0035",
-            "R-0039",
-            "R-0045",
-            "R-0047"
+            "R-0035"
           ],
-          "title": "No paywall before starting or completing free workout",
+          "title": "Verify paywalled workouts display lock or subscription badge before user taps start",
           "preconditions": [
-            "User is on a free workout detail page.",
-            "User has not entered any payment information."
+            "User is not subscribed to any paid plan",
+            "App contains at least one paywalled workout",
+            "User is on the workout detail screen of a paywalled workout"
           ],
           "steps": [
-            "Start the free workout.",
-            "Perform the workout as instructed until completion.",
-            "Observe the screen for any paywall or subscription prompt during the session."
+            "Navigate to any paywalled workout",
+            "Observe the workout detail screen before tapping start",
+            "Check for visual indicators such as a lock icon or subscription badge"
           ],
           "expected_results": [
-            "The paywall is not displayed before the workout starts.",
-            "The paywall is not displayed at any point during the workout.",
-            "The paywall is not displayed after the workout is completed."
+            "A lock icon or subscription badge is clearly visible on the paywalled workout detail screen",
+            "The indicator appears before any user action to start the workout"
           ],
           "priority": "P0"
         },
@@ -5273,30 +4712,23 @@
           "source_review_ids": [
             "R-0003",
             "R-0008",
-            "R-0010",
-            "R-0018",
+            "R-0013",
             "R-0025",
-            "R-0032",
-            "R-0034",
-            "R-0035",
-            "R-0039",
-            "R-0045",
-            "R-0047"
+            "R-0035"
           ],
-          "title": "Clear indication of free vs premium content",
+          "title": "Verify no unqualified 'free' language in onboarding and app store description",
           "preconditions": [
-            "App is open and user is viewing the workout library.",
-            "User may or may not be logged in."
+            "App onboarding flow is accessible",
+            "App store listing is accessible"
           ],
           "steps": [
-            "Browse the workout library list.",
-            "Observe each workout entry for labels, icons, or filters indicating free or premium status.",
-            "Use any available filter or toggle to view only free workouts."
+            "Review all onboarding screens and text",
+            "Review the app store description and marketing copy",
+            "Check for any unqualified use of the word 'free'"
           ],
           "expected_results": [
-            "Each workout item clearly displays a 'Free' or 'Premium' label or icon.",
-            "A filter or sorting option allows the user to see only free workouts.",
-            "The labels are consistent and easy to understand."
+            "No onboarding screen contains unqualified 'free' language implying all content is free if core content requires subscription",
+            "App store description does not include unqualified 'free' language in the same context"
           ],
           "priority": "P0"
         },
@@ -5307,29 +4739,24 @@
           "source_review_ids": [
             "R-0003",
             "R-0008",
-            "R-0010",
-            "R-0018",
+            "R-0013",
             "R-0025",
-            "R-0032",
-            "R-0034",
-            "R-0035",
-            "R-0039",
-            "R-0045",
-            "R-0047"
+            "R-0035"
           ],
-          "title": "No free workout moved to premium without alternative",
+          "title": "Verify existing users are automatically assigned free tier without new account",
           "preconditions": [
-            "A list of previously free workouts from before the latest update is available.",
-            "User has access to the current workout library."
+            "User has an existing account from before free access was removed",
+            "User is not currently subscribed",
+            "User logs in to the app"
           ],
           "steps": [
-            "Identify any workouts that were previously free but are now marked as premium.",
-            "For each such workout, search for an equivalent free alternative workout in the library.",
-            "Verify that the alternative covers similar exercise type, duration, and difficulty."
+            "Log in with existing credentials",
+            "Navigate to account settings or subscription status",
+            "Check the assigned tier"
           ],
           "expected_results": [
-            "If a previously free workout is now premium, there exists at least one equivalent free workout.",
-            "The free alternative is accessible to users without a subscription."
+            "User is automatically assigned the free tier",
+            "No prompt to create a new account appears"
           ],
           "priority": "P0"
         },
@@ -5343,20 +4770,20 @@
             "R-0041",
             "R-0050"
           ],
-          "title": "Trial terms displayed before start",
+          "title": "Verify pre-trial notification is sent at least 48 hours before conversion",
           "preconditions": [
-            "App is installed and user is on the screen to start a free trial.",
-            "User has not started the trial yet."
+            "User has started a free trial",
+            "Trial conversion date is set",
+            "User has enabled push notifications and/or email"
           ],
           "steps": [
-            "Navigate to the subscription or trial sign-up screen.",
-            "Observe the information presented about the trial.",
-            "Check for the following details: trial duration, price after trial, and cancellation deadline."
+            "Initiate a free trial",
+            "Simulate time to 48 hours before trial conversion",
+            "Check for push notification or email"
           ],
           "expected_results": [
-            "The UI clearly displays the trial duration (e.g., '7 days free').",
-            "The UI clearly displays the price that will be charged after the trial ends.",
-            "The UI clearly displays the cancellation deadline (e.g., 'Cancel before July 15, 2025 to avoid charge')."
+            "User receives a notification (push or email) at least 48 hours before trial conversion",
+            "Notification includes price, conversion date, and cancellation instructions"
           ],
           "priority": "P0"
         },
@@ -5370,20 +4797,20 @@
             "R-0041",
             "R-0050"
           ],
-          "title": "Cancellation within 3 steps",
+          "title": "Verify subscription management link works from account settings",
           "preconditions": [
-            "User has an active subscription.",
-            "User is logged into the app."
+            "User is logged in",
+            "User has an active subscription",
+            "User is on account settings screen"
           ],
           "steps": [
-            "From the main home screen, navigate to account settings.",
-            "Locate the subscription management section.",
-            "Initiate cancellation and complete the process.",
-            "Count the number of taps or clicks required from the home screen to successful cancellation."
+            "Navigate to account settings",
+            "Locate subscription management link or button",
+            "Tap or click the link"
           ],
           "expected_results": [
-            "The cancellation process is completed in 3 or fewer taps/clicks.",
-            "A confirmation message is displayed after cancellation."
+            "Link opens the platform subscription management page (App Store/Google Play) with one tap/click",
+            "No additional login or navigation required"
           ],
           "priority": "P0"
         },
@@ -5397,21 +4824,20 @@
             "R-0041",
             "R-0050"
           ],
-          "title": "No charges after cancellation",
+          "title": "Verify cancellation from platform page completes and app opens directly to subscription management",
           "preconditions": [
-            "User has an active subscription and cancels it through the app.",
-            "User has access to their payment method statements."
+            "User has an active subscription",
+            "User is on the platform subscription management page",
+            "App is installed"
           ],
           "steps": [
-            "Cancel the subscription using the in-app cancellation flow.",
-            "Note the cancellation date and any confirmation details.",
-            "Wait until the next expected billing date.",
-            "Check the app's subscription status and the user's payment method statement for any charges."
+            "Initiate cancellation from the platform subscription page",
+            "Complete cancellation process",
+            "Return to the app and navigate to subscription management"
           ],
           "expected_results": [
-            "No charge is made after the cancellation date.",
-            "The app shows the subscription as inactive or cancelled.",
-            "A cancellation confirmation email is received."
+            "Cancellation completes without app-specific barriers",
+            "App opens directly to its subscription management screen when accessed"
           ],
           "priority": "P0"
         },
@@ -5425,309 +4851,124 @@
             "R-0041",
             "R-0050"
           ],
-          "title": "Pre-renewal reminder sent",
+          "title": "Verify support can locate subscription by app store order ID or receipt",
           "preconditions": [
-            "User has started a free trial that is about to convert to a paid subscription within 48 hours.",
-            "User has notifications enabled for the app."
+            "A user has a subscription and an app store order ID or receipt",
+            "Support agent has access to billing support tools"
           ],
           "steps": [
-            "Ensure the free trial is scheduled to convert in 24-48 hours.",
-            "Check the device notifications and in-app notifications for any reminder.",
-            "Note the timestamp of the reminder relative to the conversion time."
+            "Provide support agent with app store order ID or receipt",
+            "Agent searches for the user's subscription using that identifier"
           ],
           "expected_results": [
-            "A reminder notification is received at least 24 hours before the trial converts to a paid subscription.",
-            "The reminder includes details about the conversion and upcoming charge."
+            "Subscription is located successfully using order ID or receipt",
+            "Support agent can view subscription details"
           ],
           "priority": "P0"
         },
         {
           "test_case_id": "TC-009",
           "requirement_id": "REQ-003",
-          "finding_id": "F-05",
+          "finding_id": "F-04",
           "source_review_ids": [
-            "R-0005",
-            "R-0013",
-            "R-0039",
-            "R-0050"
+            "R-0010",
+            "R-0018",
+            "R-0033",
+            "R-0035"
           ],
-          "title": "Free content accessible without payment info",
+          "title": "Verify AI-generated content is tagged with AI-generated label",
           "preconditions": [
-            "App is installed and user is logged out or logged in without payment info.",
-            "Marketing materials (ads, app store screenshots) and in-app labels are available for review."
+            "Content library contains AI-generated workout images or descriptions",
+            "User is browsing workout library"
           ],
           "steps": [
-            "Review all marketing materials and in-app elements that claim content is 'free'.",
-            "For each such claim, attempt to access the corresponding content in the app.",
-            "Check whether any payment information is requested during the access attempt."
+            "Open any AI-generated workout",
+            "Inspect the workout images and descriptions",
+            "Check for an 'AI-generated' label"
           ],
           "expected_results": [
-            "All content labeled 'free' is accessible without entering payment information.",
-            "No payment information prompt appears for any content labeled 'free'."
+            "Every AI-generated image or description displays an 'AI-generated' label",
+            "Label is clearly visible and associated with the content"
           ],
-          "priority": "P0"
+          "priority": "P1"
         },
         {
           "test_case_id": "TC-010",
           "requirement_id": "REQ-003",
-          "finding_id": "F-05",
+          "finding_id": "F-04",
           "source_review_ids": [
-            "R-0005",
-            "R-0013",
-            "R-0039",
-            "R-0050"
+            "R-0010",
+            "R-0018",
+            "R-0033",
+            "R-0035"
           ],
-          "title": "Marketing and trial claims match actual behavior",
+          "title": "Verify quality checklist is applied before publishing AI-generated workouts",
           "preconditions": [
-            "A list of all current marketing claims and trial offers is available.",
-            "The app is at the latest released version."
+            "A new AI-generated workout is submitted for publishing",
+            "Quality checklist is available to content reviewers"
           ],
           "steps": [
-            "For each marketing claim (e.g., '7-day free trial', 'free workouts'), test the actual app behavior.",
-            "For trial offers, verify the billing terms shown in the app match the marketing (duration, price, etc.).",
-            "Document any discrepancies between the claim and the actual user experience."
+            "Submit an AI-generated workout for review",
+            "Check that the quality checklist is applied",
+            "Attempt to publish a workout that fails the checklist"
           ],
           "expected_results": [
-            "All marketing claims accurately reflect actual access and billing behavior.",
-            "Any identified discrepancy is logged and assigned for correction."
+            "Quality checklist is used to evaluate the workout",
+            "Workouts failing the checklist are not published"
           ],
-          "priority": "P0"
+          "priority": "P1"
         },
         {
           "test_case_id": "TC-011",
           "requirement_id": "REQ-003",
-          "finding_id": "F-05",
+          "finding_id": "F-04",
           "source_review_ids": [
-            "R-0005",
-            "R-0013",
-            "R-0039",
-            "R-0050"
+            "R-0010",
+            "R-0018",
+            "R-0033",
+            "R-0035"
           ],
-          "title": "Explicit consent before trial charge",
+          "title": "Verify users can filter or identify non-AI original workouts",
           "preconditions": [
-            "User is on the free trial sign-up screen.",
-            "The free trial includes a subsequent charge if not cancelled."
+            "Content library includes both AI and non-AI original workouts",
+            "User is on the workout library screen"
           ],
           "steps": [
-            "Begin the free trial sign-up process.",
-            "Observe each step for any explicit disclosure of the charge that will occur after the trial.",
-            "Check for a clear consent mechanism (e.g., a checkbox, confirm button, or separate screen) that requires user action to acknowledge the charge.",
-            "Verify that no immediate charge occurs before the explicit consent is given."
+            "Look for filter or sorting options",
+            "Apply filter to show only non-AI original workouts",
+            "Observe the results"
           ],
           "expected_results": [
-            "The app does not charge the user immediately upon starting the free trial without an explicit consent step.",
-            "A clear consent step discloses the charge that will occur and requires the user to agree."
+            "A filter or identification mechanism exists to distinguish non-AI original workouts",
+            "Applying the filter shows only non-AI original workouts"
           ],
-          "priority": "P0"
+          "priority": "P1"
         },
         {
           "test_case_id": "TC-012",
           "requirement_id": "REQ-003",
-          "finding_id": "F-05",
+          "finding_id": "F-04",
           "source_review_ids": [
-            "R-0005",
-            "R-0013",
-            "R-0039",
-            "R-0050"
-          ],
-          "title": "Deceptive claims corrected within one release cycle",
-          "preconditions": [
-            "There is at least one previously reported deceptive claim (from user reviews or internal audits).",
-            "A new app version is released after the claim is reported."
-          ],
-          "steps": [
-            "Identify the reported deceptive claim from previous release.",
-            "Update the app to the new release.",
-            "Check the specific feature or content associated with the claim.",
-            "Verify that the claim has been corrected or removed."
-          ],
-          "expected_results": [
-            "The deceptive claim is no longer present or has been modified to accurately reflect the user experience.",
-            "The correction is implemented within one release cycle of the report."
-          ],
-          "priority": "P0"
-        },
-        {
-          "test_case_id": "TC-013",
-          "requirement_id": "REQ-004",
-          "finding_id": "F-06",
-          "source_review_ids": [
-            "R-0003",
-            "R-0006",
             "R-0010",
             "R-0018",
-            "R-0033"
+            "R-0033",
+            "R-0035"
           ],
-          "title": "AI-generated content removed or labeled",
+          "title": "Verify no AI-generated imagery in marketing or as replacement for original photography",
           "preconditions": [
-            "App is open and workout content is accessible.",
-            "A list of all workout avatars and scripts is available."
+            "Marketing materials and app screens are accessible",
+            "Content library includes workouts with images"
           ],
           "steps": [
-            "Browse through a representative sample of workout avatars and scripts.",
-            "For each, determine if it is AI-generated (by visual inspection, metadata, or developer-provided list).",
-            "Check if such content is either completely absent or has a clear 'AI-generated' label."
+            "Review all marketing materials (app store screenshots, ads, etc.)",
+            "Check if any imagery appears AI-generated",
+            "Check if any original exercise photography has been replaced with AI imagery"
           ],
           "expected_results": [
-            "All AI-generated workout avatars and scripts are either removed or explicitly labeled.",
-            "No unlabeled AI-generated content is found."
+            "No AI-generated imagery is used in marketing materials",
+            "No original exercise photography is replaced with AI-generated imagery"
           ],
           "priority": "P1"
-        },
-        {
-          "test_case_id": "TC-014",
-          "requirement_id": "REQ-004",
-          "finding_id": "F-06",
-          "source_review_ids": [
-            "R-0003",
-            "R-0006",
-            "R-0010",
-            "R-0018",
-            "R-0033"
-          ],
-          "title": "Filter for non-AI content available",
-          "preconditions": [
-            "App is open and user is on the workout library screen.",
-            "Both AI-generated and non-AI content exist in the library."
-          ],
-          "steps": [
-            "Look for a filter, toggle, or channel that allows selecting only non-AI workouts.",
-            "Apply the filter or switch to the non-AI channel.",
-            "Observe the list of workouts displayed."
-          ],
-          "expected_results": [
-            "A clear filter or channel is available.",
-            "After applying, only non-AI workouts are shown.",
-            "The filter works correctly and can be deactivated."
-          ],
-          "priority": "P1"
-        },
-        {
-          "test_case_id": "TC-015",
-          "requirement_id": "REQ-004",
-          "finding_id": "F-06",
-          "source_review_ids": [
-            "R-0003",
-            "R-0006",
-            "R-0010",
-            "R-0018",
-            "R-0033"
-          ],
-          "title": "User satisfaction returns to baseline",
-          "preconditions": [
-            "The fix for AI content has been released.",
-            "Baseline user satisfaction score for workout content from before the AI update is known.",
-            "User satisfaction data collection mechanisms are in place (e.g., app store ratings, in-app surveys)."
-          ],
-          "steps": [
-            "Monitor user satisfaction scores for workout content over a period of three months after the release.",
-            "Collect data from relevant sources (app store reviews, survey responses).",
-            "Compare the rolling average satisfaction score to the pre-AI-update baseline."
-          ],
-          "expected_results": [
-            "The satisfaction score returns to or exceeds the pre-AI-update baseline within three months."
-          ],
-          "priority": "P1"
-        },
-        {
-          "test_case_id": "TC-016",
-          "requirement_id": "REQ-005",
-          "finding_id": "F-03",
-          "source_review_ids": [
-            "R-0002",
-            "R-0035",
-            "R-0048"
-          ],
-          "title": "No ads during active workout session",
-          "preconditions": [
-            "User is logged in (free or premium).",
-            "A workout is selected and ready to start."
-          ],
-          "steps": [
-            "Start the workout.",
-            "Perform the workout for its entire duration.",
-            "Observe the screen at all times for any ad display."
-          ],
-          "expected_results": [
-            "No advertisement is displayed at any point during the active workout session."
-          ],
-          "priority": "P2"
-        },
-        {
-          "test_case_id": "TC-017",
-          "requirement_id": "REQ-005",
-          "finding_id": "F-03",
-          "source_review_ids": [
-            "R-0002",
-            "R-0035",
-            "R-0048"
-          ],
-          "title": "Ad close button visible and functional",
-          "preconditions": [
-            "An ad unit is displayed (e.g., between workouts or on a free content screen).",
-            "The ad has a close control."
-          ],
-          "steps": [
-            "When the ad appears, observe the ad for a close button.",
-            "Verify the close button is visible and tappable.",
-            "Tap the close button.",
-            "Measure the time from tapping the close button to the ad disappearing."
-          ],
-          "expected_results": [
-            "The close button is visible on the ad.",
-            "The ad exits within 2 seconds of tapping the close button."
-          ],
-          "priority": "P2"
-        },
-        {
-          "test_case_id": "TC-018",
-          "requirement_id": "REQ-005",
-          "finding_id": "F-03",
-          "source_review_ids": [
-            "R-0002",
-            "R-0035",
-            "R-0048"
-          ],
-          "title": "External navigation only on explicit tap",
-          "preconditions": [
-            "An ad unit is displayed.",
-            "The ad contains a call-to-action button or link."
-          ],
-          "steps": [
-            "Observe the ad without interacting with it.",
-            "Check if any external navigation (e.g., opening a website or app store) occurs automatically.",
-            "Then, tap on the ad's call-to-action button.",
-            "Observe the behavior."
-          ],
-          "expected_results": [
-            "No external navigation occurs without tapping the call-to-action.",
-            "Tapping the call-to-action opens the external destination as expected."
-          ],
-          "priority": "P2"
-        },
-        {
-          "test_case_id": "TC-019",
-          "requirement_id": "REQ-005",
-          "finding_id": "F-03",
-          "source_review_ids": [
-            "R-0002",
-            "R-0035",
-            "R-0048"
-          ],
-          "title": "Ad-related complaints decrease by 50%",
-          "preconditions": [
-            "The ad reduction changes have been released.",
-            "Baseline data on ad-related complaints (from support tickets and app store reviews) from before the release is available."
-          ],
-          "steps": [
-            "Monitor support tickets and app store reviews for ad-related complaints for a defined period after release (e.g., one month).",
-            "Count the number of ad-related complaints.",
-            "Compare the post-release complaint count to the pre-release baseline."
-          ],
-          "expected_results": [
-            "The number of ad-related complaints after release is at least 50% lower than the pre-release baseline."
-          ],
-          "priority": "P2"
         }
       ],
       "method": "model",
@@ -5743,7 +4984,7 @@
           "id": "F-01",
           "to": "Reviews",
           "valid": true,
-          "detail": "11 valid reviews"
+          "detail": "13 valid reviews"
         },
         {
           "from": "Finding",
@@ -5757,28 +4998,21 @@
           "id": "F-03",
           "to": "Reviews",
           "valid": true,
-          "detail": "3 valid reviews"
+          "detail": "2 valid reviews"
         },
         {
           "from": "Finding",
           "id": "F-04",
           "to": "Reviews",
           "valid": true,
-          "detail": "2 valid reviews"
+          "detail": "5 valid reviews"
         },
         {
           "from": "Finding",
           "id": "F-05",
           "to": "Reviews",
           "valid": true,
-          "detail": "4 valid reviews"
-        },
-        {
-          "from": "Finding",
-          "id": "F-06",
-          "to": "Reviews",
-          "valid": true,
-          "detail": "5 valid reviews"
+          "detail": "2 valid reviews"
         },
         {
           "from": "Requirement",
@@ -5799,21 +5033,7 @@
           "id": "REQ-003",
           "to": "Finding",
           "valid": true,
-          "detail": "F-05"
-        },
-        {
-          "from": "Requirement",
-          "id": "REQ-004",
-          "to": "Finding",
-          "valid": true,
-          "detail": "F-06"
-        },
-        {
-          "from": "Requirement",
-          "id": "REQ-005",
-          "to": "Finding",
-          "valid": true,
-          "detail": "F-03"
+          "detail": "F-04"
         },
         {
           "from": "Test Case",
@@ -5876,90 +5096,41 @@
           "id": "TC-009",
           "to": "Requirement",
           "valid": true,
-          "detail": "REQ-003 -> F-05"
+          "detail": "REQ-003 -> F-04"
         },
         {
           "from": "Test Case",
           "id": "TC-010",
           "to": "Requirement",
           "valid": true,
-          "detail": "REQ-003 -> F-05"
+          "detail": "REQ-003 -> F-04"
         },
         {
           "from": "Test Case",
           "id": "TC-011",
           "to": "Requirement",
           "valid": true,
-          "detail": "REQ-003 -> F-05"
+          "detail": "REQ-003 -> F-04"
         },
         {
           "from": "Test Case",
           "id": "TC-012",
           "to": "Requirement",
           "valid": true,
-          "detail": "REQ-003 -> F-05"
-        },
-        {
-          "from": "Test Case",
-          "id": "TC-013",
-          "to": "Requirement",
-          "valid": true,
-          "detail": "REQ-004 -> F-06"
-        },
-        {
-          "from": "Test Case",
-          "id": "TC-014",
-          "to": "Requirement",
-          "valid": true,
-          "detail": "REQ-004 -> F-06"
-        },
-        {
-          "from": "Test Case",
-          "id": "TC-015",
-          "to": "Requirement",
-          "valid": true,
-          "detail": "REQ-004 -> F-06"
-        },
-        {
-          "from": "Test Case",
-          "id": "TC-016",
-          "to": "Requirement",
-          "valid": true,
-          "detail": "REQ-005 -> F-03"
-        },
-        {
-          "from": "Test Case",
-          "id": "TC-017",
-          "to": "Requirement",
-          "valid": true,
-          "detail": "REQ-005 -> F-03"
-        },
-        {
-          "from": "Test Case",
-          "id": "TC-018",
-          "to": "Requirement",
-          "valid": true,
-          "detail": "REQ-005 -> F-03"
-        },
-        {
-          "from": "Test Case",
-          "id": "TC-019",
-          "to": "Requirement",
-          "valid": true,
-          "detail": "REQ-005 -> F-03"
+          "detail": "REQ-003 -> F-04"
         }
       ],
       "summary": {
         "reviews_total": 21,
         "reviews_covered_by_findings": 21,
         "review_coverage": 1,
-        "findings_total": 6,
-        "findings_with_requirements": 5,
-        "findings_covered_share": 0.833,
-        "requirements_total": 5,
-        "requirements_with_tests": 5,
+        "findings_total": 5,
+        "findings_with_requirements": 3,
+        "findings_covered_share": 0.6,
+        "requirements_total": 3,
+        "requirements_with_tests": 3,
         "requirements_covered_share": 1,
-        "tests_total": 19,
+        "tests_total": 12,
         "issues_total": 0
       }
     }
@@ -5967,82 +5138,83 @@
   "logs": [
     {
       "type": "info",
-      "message": "Parsed 50 reviews from uploaded JSON.",
-      "time": "2026-08-14T10:18:18.921Z"
+      "message": "已解析上传的 JSON 文件，共 50 条评论。",
+      "time": "2026-08-14T11:36:41.595Z"
     },
     {
       "type": "info",
-      "message": "Cleaning complete: 50 raw, 50 valid, 0 duplicates removed, 0 invalid.",
-      "time": "2026-08-14T10:18:18.926Z"
+      "message": "清洗完成：原始 50 条，有效 50 条，去重 0 条，无效 0 条。",
+      "time": "2026-08-14T11:36:41.601Z"
     },
     {
       "type": "scope_llm",
       "message": "Scope refined by model.",
-      "time": "2026-08-14T10:18:45.415Z",
+      "time": "2026-08-14T11:37:22.996Z",
       "focus_areas": [
-        "Subscription paywall & forced upgrade complaints",
-        "Billing, trial, and cancellation support issues",
-        "Ad experience and navigation blockers",
-        "Workout content quality (AI-generated, consistency, effectiveness)",
-        "Personalization and usability gaps (injury/customization mismatch)"
+        "Paywall and loss of free access blocking workouts (R-0003, R-0008, R-0013, R-0025, R-0032, R-0034, R-0035, R-0039)",
+        "Subscription billing and trial problems (R-0005, R-0024)",
+        "Ad-related usability issues (R-0002)",
+        "AI-generated content and declining app quality (R-0006, R-0010, R-0018, R-0033, R-0035)"
       ]
     },
     {
       "type": "info",
-      "message": "Scope ready: model-refined with 21 reviews after filters.",
-      "time": "2026-08-14T10:18:45.415Z"
+      "message": "范围就绪：模型精化，过滤后剩余 21 条评论。",
+      "time": "2026-08-14T11:37:22.997Z"
     },
     {
       "type": "classification_batch",
       "message": "",
-      "time": "2026-08-14T10:20:28.387Z",
+      "time": "2026-08-14T11:39:11.429Z",
       "start": 0,
-      "count": 21,
+      "count": 19,
       "errors": 0
     },
     {
       "type": "info",
-      "message": "Semantic analysis complete: 6 topics, 21 reviews classified.",
-      "time": "2026-08-14T10:20:28.387Z"
+      "message": "语义分析完成：5 个主题，21 条评论完成分类。",
+      "time": "2026-08-14T11:39:11.429Z"
     },
     {
       "type": "info",
-      "message": "Findings generated: 6 findings (model).",
-      "time": "2026-08-14T10:22:11.311Z"
+      "message": "问题发现生成：5 条（方式：model）。",
+      "time": "2026-08-14T11:40:43.557Z"
     },
     {
       "type": "info",
-      "message": "Evidence validation complete: 0 rejected/revised, 1 marked as assumptions.",
-      "time": "2026-08-14T10:23:01.238Z"
+      "message": "证据验证完成：0 条被拒绝/修订，2 条标记为假设。",
+      "time": "2026-08-14T11:41:17.559Z"
     },
     {
       "type": "info",
-      "message": "Version planning complete: 3 versions (model).",
-      "time": "2026-08-14T10:24:17.446Z"
+      "message": "版本规划完成：2 个版本（方式：model）。",
+      "time": "2026-08-14T11:41:31.495Z"
     },
     {
       "type": "info",
-      "message": "PRD generated: 5 requirements.",
-      "time": "2026-08-14T10:25:25.327Z"
+      "message": "PRD 生成：3 条需求。",
+      "time": "2026-08-14T11:42:08.581Z"
     },
     {
       "type": "info",
-      "message": "Test cases generated: 19.",
-      "time": "2026-08-14T10:26:59.820Z"
+      "message": "测试用例生成：12 条。",
+      "time": "2026-08-14T11:42:43.825Z"
     },
     {
       "type": "info",
-      "message": "Traceability validated: 0 issues, all links valid.",
-      "time": "2026-08-14T10:26:59.821Z"
+      "message": "可追溯性验证：0 个问题，所有链接有效。",
+      "time": "2026-08-14T11:42:43.826Z"
     }
   ],
-  "warnings": [],
+  "warnings": [
+    "分类降级："
+  ],
   "errors": [],
   "revisions": [],
-  "completed_at": "2026-08-14T10:26:59.822Z",
-  "duration_ms": 520907,
+  "completed_at": "2026-08-14T11:42:43.826Z",
+  "duration_ms": 362234,
   "has_fatal_errors": false,
   "cached_label": "CACHED SAMPLE",
-  "cached_at": "2026-08-14T10:26:59.822Z",
+  "cached_at": "2026-08-14T11:42:43.826Z",
   "cached_note": "Precomputed from the official U.S. App Store RSS feed using the configured model. This is offline demo data, not a live run."
 }

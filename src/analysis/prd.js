@@ -59,6 +59,7 @@ export async function runPrdGeneration({ findings, versionPlan, scoped, llm, onE
           summary: f.summary,
           support_count: f.deterministic_evidence?.support_count,
           confidence: f.confidence,
+          severity: f.severity,
           evidence_status: f.evidence_status,
           review_ids: f.review_ids,
         })),
@@ -78,4 +79,3 @@ export async function runPrdGeneration({ findings, versionPlan, scoped, llm, onE
   }
   return { requirements, method, error, validation_issues: validationIssues };
 }
-

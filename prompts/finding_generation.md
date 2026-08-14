@@ -27,6 +27,7 @@ Schema:
       "excerpts": ["R-0001: actual quote"],
       "support_count": 1,
       "confidence": "high|medium|low",
+      "severity": "P0|P1|P2|P3",
       "conflicting_review_ids": ["R-0002"],
       "statistical_basis": {
         "average_rating": 1.4,
@@ -38,4 +39,3 @@ Schema:
   ],
   "rationale": "string"
 }
-

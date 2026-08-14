@@ -1,9 +1,10 @@
 function scoreFinding(finding) {
   const evidence = finding.deterministic_evidence ?? {};
   const confidenceWeight = { high: 1, medium: 0.6, low: 0.3 }[finding.confidence] ?? 0.3;
+  const severityWeight = { P0: 1, P1: 0.75, P2: 0.5, P3: 0.25 }[finding.severity] ?? 0.5;
   const support = Math.min(evidence.support_count ?? 0, 50) / 50;
   const conflictPenalty = 1 - (evidence.conflict_share ?? 0);
-  return Number(((confidenceWeight * 0.5 + support * 0.35 + conflictPenalty * 0.15) * 100).toFixed(1));
+  return Number(((confidenceWeight * 0.35 + severityWeight * 0.25 + support * 0.25 + conflictPenalty * 0.15) * 100).toFixed(1));
 }
 
 export function validateVersionPlan(plan, findingIds) {
@@ -65,6 +66,7 @@ export async function runVersionPlanning({ findings, llm, onEvent }) {
           title: f.title,
           summary: f.summary,
           confidence: f.confidence,
+          severity: f.severity,
           support_count: f.deterministic_evidence?.support_count,
           conflict_share: f.deterministic_evidence?.conflict_share,
           evidence_status: f.evidence_status,
@@ -98,4 +100,3 @@ export async function runVersionPlanning({ findings, llm, onEvent }) {
     scoring: findings.map((f) => ({ finding_id: f.finding_id, score: scoreFinding(f) })),
   };
 }
-

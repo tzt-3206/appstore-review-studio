@@ -30,6 +30,7 @@ the environment or `.env`; `.env` is gitignored.
 
 Every model call requests JSON. The application then validates:
 
+- Finding severity is one of P0/P1/P2/P3
 - Referenced review IDs exist in the cleaned dataset
 - `support_count` equals the actual list length
 - Findings reference real topics
@@ -79,4 +80,3 @@ The model owns:
 
 If a stage requires the model and the model fails, the pipeline records the error,
 keeps deterministic outputs, and lets the user retry or switch data source.
-
