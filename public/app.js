@@ -791,10 +791,11 @@ async function init() {
     const response = await fetch('/api/config');
     state.config = await response.json();
     const cfg = state.config;
-    $('#model-status').innerHTML = '<i data-lucide="cpu"></i><span>' + esc(`${cfg.llmProvider} · ${cfg.ollamaModel}`) + '</span>';
+    const modelName = cfg.llmProvider === 'openai' ? cfg.openaiModel : cfg.ollamaModel;
+    $('#model-status').innerHTML = '<i data-lucide="cpu"></i><span>' + esc(`${cfg.llmProvider} · ${modelName}`) + '</span>';
     $('#model-detail').innerHTML = `
       <div><dt>Provider</dt><dd>${esc(cfg.llmProvider)}</dd></div>
-      <div><dt>Model</dt><dd>${esc(cfg.ollamaModel)}</dd></div>
+      <div><dt>Model</dt><dd>${esc(modelName)}</dd></div>
       <div><dt>Structured output</dt><dd>JSON</dd></div>
       <div><dt>Max reviews</dt><dd>${esc(cfg.maxReviews)}</dd></div>
       <div><dt>Min finding support</dt><dd>${esc(cfg.minFindingSupport)}</dd></div>`;
