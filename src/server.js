@@ -10,6 +10,19 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC_DIR = path.join(ROOT_DIR, 'public');
 const jobs = new JobStore();
 
+function saveLiveResult(jobId, result) {
+  try {
+    const dir = path.join(ROOT_DIR, 'data', 'cache', 'live');
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(
+      path.join(dir, `${jobId}.json`),
+      JSON.stringify({ ...result, job_id: jobId, cached: true, cached_label: 'LIVE RUN CACHE' }, null, 2),
+    );
+  } catch (error) {
+    console.error('Could not save live result:', error.message);
+  }
+}
+
 const MIME = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -141,7 +154,10 @@ function handleAnalyze(req, res) {
         rootDir: ROOT_DIR,
         onEvent: (event) => jobs.recordEvent(job.id, { ...event, job_id: job.id }),
       })
-        .then((result) => jobs.finish(job.id, result))
+        .then((result) => {
+          jobs.finish(job.id, result);
+          saveLiveResult(job.id, result);
+        })
         .catch((error) => jobs.finish(job.id, null, { message: error.message }));
     })
     .catch((error) => {
@@ -203,6 +219,10 @@ const server = http.createServer((req, res) => {
     return;
   }
   serveStatic(req, res, pathname);
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error('Unhandled rejection:', reason?.message ?? reason);
 });
 
 server.listen(config.port, config.host, () => {

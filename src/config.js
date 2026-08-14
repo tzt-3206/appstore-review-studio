@@ -45,7 +45,7 @@ export const config = {
   modelMaxReviews: num('MODEL_MAX_REVIEWS', 160),
   classifyBatchSize: num('CLASSIFY_BATCH_SIZE', 24),
   minFindingSupport: num('MIN_FINDING_SUPPORT', 3),
-  llmTimeoutMs: num('LLM_TIMEOUT_MS', 180000),
+  llmTimeoutMs: num('LLM_TIMEOUT_MS', 300000),
   llmMaxRetries: num('LLM_MAX_RETRIES', 3),
   requestDelayMs: num('REQUEST_DELAY_MS', 1100),
   llm: {
@@ -71,4 +71,3 @@ export function publicConfig() {
     minFindingSupport: config.minFindingSupport,
   };
 }
-

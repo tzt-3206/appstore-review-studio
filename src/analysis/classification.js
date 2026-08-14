@@ -39,7 +39,7 @@ export async function runClassification({ scoped, topics, llm, onEvent, batchSiz
             version: r.version,
             language: r.language,
             title: r.title,
-            content: r.content.slice(0, 260),
+            content: r.content.slice(0, 160),
             votes: r.vote_count,
           })),
         }, 'classify');
@@ -115,4 +115,3 @@ export async function runClassification({ scoped, topics, llm, onEvent, batchSiz
     }),
   };
 }
-
