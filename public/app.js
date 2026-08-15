@@ -22,8 +22,8 @@ const TABS = [
   ['findings', '问题发现'],
   ['evidence', '证据验证'],
   ['versions', '版本规划'],
-  ['prd', 'PRD'],
-  ['tests', '测试用例'],
+  ['prd', 'PRD 草案'],
+  ['tests', '测试用例草案'],
   ['trace', '可追溯性'],
   ['model', '模型与提示词'],
 ];
@@ -455,6 +455,7 @@ function renderOverview(result) {
     ['问题发现', a.findings?.findings?.length ?? 0],
     ['产品需求', a.requirements?.length ?? 0],
     ['测试用例', a.test_cases?.length ?? 0],
+    ['修订记录', result.revisions?.length ?? 0],
     ['追溯问题', trace.issues_total ?? '—'],
   ]);
   const limitations = [];
