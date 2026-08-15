@@ -225,6 +225,21 @@ process.on('unhandledRejection', (reason) => {
   console.error('Unhandled rejection:', reason?.message ?? reason);
 });
 
-server.listen(config.port, config.host, () => {
-  console.log(`App Store Review Studio running at http://${config.host}:${config.port}`);
-});
+function listenWithFallback(port, host, attempt = 0) {
+  const onError = (error) => {
+    if (error.code === 'EADDRINUSE' && attempt < 10) {
+      console.warn(`端口 ${port} 已被占用，自动尝试端口 ${port + 1}...`);
+      server.removeListener('error', onError);
+      listenWithFallback(port + 1, host, attempt + 1);
+      return;
+    }
+    console.error(error);
+    process.exit(1);
+  };
+  server.once('error', onError);
+  server.listen(port, host, () => {
+    console.log(`App Store Review Studio running at http://${host}:${port}`);
+  });
+}
+
+listenWithFallback(config.port, config.host);
