@@ -63,6 +63,8 @@ Implementation details are documented in [docs/DATA_COLLECTION.md](docs/DATA_COL
   `apps.apple.com/cn/...` URL for app information.
 - Pagination, request rate limiting, retries, soft-block detection, and duplicate
   removal are deterministic.
+- When Apple temporarily returns an empty feed, the collector retries both sort
+  orders and the UI offers Retry / JSON / CSV / Demo recovery actions.
 - Apple's feed exposes a limited, recent subset of reviews. For the sample app, the
   feed returned 50 unique reviews even though the app has hundreds of thousands of
   ratings. This limitation is surfaced in the UI and in the cached result.

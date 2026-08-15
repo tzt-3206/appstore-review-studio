@@ -39,15 +39,15 @@ function mapFeedEntry(entry, sort) {
   };
 }
 
-export async function lookupAppMetadata(appId) {
-  const url = `https://itunes.apple.com/lookup?id=${encodeURIComponent(appId)}&country=us`;
+export async function lookupAppMetadata(appId, country = 'us') {
+  const url = `https://itunes.apple.com/lookup?id=${encodeURIComponent(appId)}&country=${encodeURIComponent(country)}`;
   const data = await fetchJson(url, {
     timeoutMs: 20000,
     retries: 3,
     delayMs: 1000,
   });
   const result = data && data.results && data.results[0];
-  if (!result) throw new Error(`App Store lookup returned no app for id ${appId}.`);
+  if (!result) throw new Error(`App Store lookup returned no app for id ${appId} in ${country.toUpperCase()} store.`);
   return {
     track_id: result.trackId,
     name: result.trackName,
@@ -92,6 +92,8 @@ export async function collectAppStoreReviews(appId, options = {}) {
     maxReviews = 300,
     maxPages = 10,
     requestDelayMs = 1100,
+    softBlockRetries = 3,
+    softBlockDelayMs = 8000,
     sorts = ['mostRecent', 'mostHelpful'],
     onProgress,
   } = options;
@@ -110,16 +112,36 @@ export async function collectAppStoreReviews(appId, options = {}) {
           onProgress,
           requestDelayMs,
         });
-        if (entries.length === 0) {
-          if (page === 1) {
-            warnings.push(`${sort} feed returned no reviews for app ${appId}.`);
+        if (entries.length === 0 && page === 1) {
+          let recovered = false;
+          for (let attempt = 1; attempt <= softBlockRetries; attempt += 1) {
             onProgress?.({
               type: 'warning',
               sort,
               page,
-              message: `No reviews returned for ${sort}.`,
+              attempt,
+              message: `Empty ${sort} page; Apple feed may be rate-limited. Retrying in ${softBlockDelayMs / 1000}s...`,
             });
+            await sleep(softBlockDelayMs);
+            const retried = await fetchReviewPage(appId, sort, page, { onProgress, requestDelayMs });
+            if (retried.length > 0) {
+              entries.length = 0;
+              entries.push(...retried);
+              recovered = true;
+              break;
+            }
           }
+          if (!recovered) {
+            warnings.push(`${sort} feed returned no reviews for app ${appId} after ${softBlockRetries + 1} attempts.`);
+            onProgress?.({
+              type: 'warning',
+              sort,
+              page,
+              message: `No reviews returned for ${sort} after retries.`,
+            });
+            break;
+          }
+        } else if (entries.length === 0) {
           break;
         }
         fetchedAny = true;
@@ -165,10 +187,13 @@ export async function collectAppStoreReviews(appId, options = {}) {
         break;
       }
     }
-    if (rawReviews.length === 0 && sort === 'mostRecent') {
-      throw new Error(`App Store review feed returned no reviews for app ${appId}.`);
-    }
     await sleep(requestDelayMs);
+  }
+
+  if (rawReviews.length === 0) {
+    throw new Error(
+      `App Store review feed returned no reviews for app ${appId} after retries. Apple may be temporarily rate-limiting the feed.`,
+    );
   }
 
   return {

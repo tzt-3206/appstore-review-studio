@@ -142,16 +142,33 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
     if (input.source?.type === 'url') {
       urlInfo = parseAppStoreUrl(input.source.url);
       if (!urlInfo.ok) throw new Error(urlInfo.error);
-      metadata = await lookupAppMetadata(urlInfo.appId);
-      emitArtifact('scope_pre', {
-        url_info: urlInfo,
-        metadata,
-        country_note:
-          urlInfo.country === 'us'
-            ? '已确认美国区页面；评论按题目要求从美国区商店采集。'
-            : `页面来自 ${urlInfo.country.toUpperCase()} 区；评论仍从美国区商店采集。`,
-      });
-      emit('info', `已解析应用“${metadata.name}”（ID ${urlInfo.appId}），将使用美国区评论分析。`);
+      try {
+        metadata = await lookupAppMetadata(urlInfo.appId, 'us');
+        emitArtifact('scope_pre', {
+          url_info: urlInfo,
+          metadata,
+          country_note:
+            urlInfo.country === 'us'
+              ? '已确认美国区页面；评论按题目要求从美国区商店采集。'
+              : `页面来自 ${urlInfo.country.toUpperCase()} 区；评论仍从美国区商店采集。`,
+        });
+        emit('info', `已解析应用“${metadata.name}”（ID ${urlInfo.appId}），将使用美国区评论分析。`);
+      } catch (usError) {
+        if (urlInfo.country === 'us') throw usError;
+        try {
+          metadata = await lookupAppMetadata(urlInfo.appId, urlInfo.country);
+          warnings.push(`应用在美国区商店不存在（${usError.message}），已使用 ${urlInfo.country.toUpperCase()} 区页面元数据。美国区评论可能为空。`);
+          emitArtifact('scope_pre', {
+            url_info: urlInfo,
+            metadata,
+            us_lookup_failed: true,
+            country_note: `该应用在美国区商店中不存在，元数据取自 ${urlInfo.country.toUpperCase()} 区页面；评论仍按题目要求尝试从美国区商店采集，若没有美国区评论会明确提示。`,
+          });
+          emit('info', `应用在美国区商店不存在，已使用 ${urlInfo.country.toUpperCase()} 区元数据；将尝试采集美国区评论。`);
+        } catch (fallbackError) {
+          throw new Error(`App Store lookup failed in both U.S. and ${urlInfo.country.toUpperCase()} stores.`);
+        }
+      }
     } else {
       emitArtifact('scope_pre', {
         url_info: null,
@@ -173,6 +190,8 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       const collection = await collectAppStoreReviews(urlInfo.appId, {
         maxReviews: input.options?.max_reviews ?? config.maxReviews,
         requestDelayMs: config.requestDelayMs,
+        softBlockRetries: config.collectionSoftBlockRetries,
+        softBlockDelayMs: config.collectionSoftBlockDelayMs,
         onProgress: (event) => {
           const sortLabel = event.sort === 'mostRecent' ? '最新评论' : '最有帮助';
           const message =
@@ -204,10 +223,17 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
     }
     finishStage('collect');
   } catch (error) {
-    errors.push({ stage: 'collect', message: error.message });
-    warnings.push(`采集失败：${error.message}`);
-    finishStage('collect', 'failed', error.message);
-    emit('error', `评论采集失败：${error.message}`);
+    const usUnavailable = artifacts.scope_pre?.us_lookup_failed;
+    const noReviews = /returned no reviews/i.test(error.message);
+    const friendlyMessage = usUnavailable
+      ? '该应用在美国区 App Store 中没有可用评论，无法按题目要求提供美国区评论数据。'
+      : noReviews
+        ? '美国区评论 Feed 暂时返回空数据（可能是 Apple 临时限流），请等待几分钟后重试，或导入 JSON/CSV、使用离线演示。'
+        : error.message;
+    errors.push({ stage: 'collect', message: friendlyMessage });
+    warnings.push(`采集失败：${friendlyMessage}`);
+    finishStage('collect', 'failed', friendlyMessage);
+    emit('error', `评论采集失败：${friendlyMessage}`);
     return finalize(result);
   }
 

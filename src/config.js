@@ -48,6 +48,8 @@ export const config = {
   llmTimeoutMs: num('LLM_TIMEOUT_MS', 300000),
   llmMaxRetries: num('LLM_MAX_RETRIES', 3),
   requestDelayMs: num('REQUEST_DELAY_MS', 1100),
+  collectionSoftBlockRetries: num('COLLECTION_SOFT_BLOCK_RETRIES', 3),
+  collectionSoftBlockDelayMs: num('COLLECTION_SOFT_BLOCK_DELAY_MS', 8000),
   llm: {
     provider: env('LLM_PROVIDER', 'ollama'),
     temperature: num('LLM_TEMPERATURE', 0.2),

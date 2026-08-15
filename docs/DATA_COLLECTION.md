@@ -27,6 +27,10 @@ automation.
 - The collector walks pages until a page is empty or repeats the same review IDs.
 - The feed is rate-limited in code: a minimum delay of 1.1 seconds between page
   requests (configurable via `REQUEST_DELAY_MS`).
+- If page 1 returns no entries (Apple soft rate limiting), the collector retries
+  both `mostRecent` and `mostHelpful` with a configurable cooldown
+  (`COLLECTION_SOFT_BLOCK_RETRIES`, `COLLECTION_SOFT_BLOCK_DELAY_MS`) before
+  reporting a clear collection failure.
 - Each page request has 3 retries with backoff.
 - If page 1 returns no entries, the collector retries the other sort and reports a
   clear collection failure so the UI can offer retry, import, or demo mode.
@@ -49,4 +53,3 @@ review data.
 `CACHED SAMPLE`. `data/sample/cached_result.json` is the precomputed pipeline result
 for offline demo and interview review. Both files are inputs to demo mode and are not
 substitutes for live collection when network and model access are available.
-
