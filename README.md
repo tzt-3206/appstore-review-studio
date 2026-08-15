@@ -5,6 +5,11 @@ evidence-grounded product plan:
 
 `Review -> Finding -> Requirement -> Test Case`
 
+中文简介：这是一个可本地运行的 App Store 评论智能分析工具。输入任意美国区 App
+链接、JSON/CSV 评论数据或离线演示数据后，系统会自动完成采集、清洗、模型语义
+分析、证据验证、版本规划、PRD 与测试用例生成，并在中文 Web 界面中展示全过程。
+所有产品结论都可以追溯到真实用户评论。
+
 The app accepts any valid U.S. App Store URL, a JSON/CSV review import, or a clearly
 labeled cached sample, then runs this workflow in the browser:
 
@@ -102,6 +107,8 @@ Field aliases are accepted (`id`, `review`, `body`, `comment`, `updated`,
 ## AI Usage
 
 The model is the semantic engine; deterministic code owns data integrity and validation.
+Stage-by-stage rationale for choosing rules, statistics, or the model is documented in
+[docs/METHODOLOGY.md](docs/METHODOLOGY.md).
 
 Default configuration used to generate the cached demo:
 
@@ -145,6 +152,17 @@ npm test
 The test suite covers language detection, normalization, cleaning/deduplication,
 JSON/CSV import, scope parsing and filtering, evidence validation, traceability, and a
 full pipeline run with a deterministic mock provider.
+
+## Evaluation Criteria Mapping
+
+- Real, repeatable data: official U.S. App Store RSS feed with documented limits
+- Cleaning and analysis: deterministic cleaning plus model-driven topic discovery
+- Generalization: no app-specific hardcoded taxonomy, findings, requirements, or tests
+- Evidence grounding: every finding/requirement/test case carries source review IDs
+- Contradictions and uncertainty: conflicting evidence, confidence, and assumptions
+- Traceability: Review -> Finding -> Requirement -> Test is validated automatically
+- Local run: `npm start`, demo mode works without API access
+- Full history: multi-commit Git history shows implementation and iteration
 
 ## API
 

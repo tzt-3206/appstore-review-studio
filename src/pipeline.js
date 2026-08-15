@@ -372,6 +372,7 @@ export async function runPipeline(input, { config, rootDir, onEvent }) {
       findings: supportedFindings,
       llm,
       onEvent: (event) => emit('versions', event.message ?? '', event),
+      goal: scoped.scope?.summary ?? input.goal ?? '',
     });
     emitArtifact('version_planning', versionResult);
     emit('info', `版本规划完成：${versionResult.version_plan.versions.length} 个版本（方式：${versionResult.method}）。`);

@@ -19,30 +19,24 @@ const LANGUAGE_ALIASES = {
   thai: 'th',
 };
 
-const FOCUS_WORDS = [
-  'subscription',
-  'conversion',
-  'pricing',
-  'paywall',
-  'trial',
-  'onboarding',
-  'workout',
-  'timer',
-  'navigation',
-  'usability',
-  'crash',
-  'ads',
-  'sync',
-  'bug',
-  'performance',
-  'design',
-  'feature',
-  'content',
-  'personalization',
-  'account',
-  'notification',
-  'offline',
-];
+const GOAL_STOPWORDS = new Set([
+  'a', 'an', 'the', 'and', 'or', 'for', 'to', 'of', 'on', 'in', 'with', 'from',
+  'focus', 'analysis', 'analyze', 'review', 'reviews', 'app', 'apps', 'user',
+  'users', 'please', 'about', 'issues', 'issue', 'problems', 'problem', 'focus',
+]);
+
+function extractFocusPhrases(text) {
+  const phrases = text
+    .split(/[,.，。;；:：\n]+/)
+    .map((p) => p.trim().replace(/\s+/g, ' '))
+    .filter(Boolean);
+  const out = [];
+  for (const phrase of phrases) {
+    const words = phrase.split(/\s+/).filter((word) => !GOAL_STOPWORDS.has(word.toLowerCase()));
+    if (words.length) out.push(words.join(' ').slice(0, 80));
+  }
+  return out;
+}
 
 function matches(text, regex) {
   const m = text.match(regex);
@@ -108,7 +102,7 @@ export function parseGoalFilters(goalText = '', constraints = {}) {
     applied.push(`max_reviews=${count[1]}`);
   }
 
-  const focus = FOCUS_WORDS.filter((word) => new RegExp(`\\b${word}`, 'i').test(text));
+  const focus = extractFocusPhrases(text);
   filters.focus_hints = [...new Set(focus)];
   return { filters, applied, focus_hints: filters.focus_hints };
 }
@@ -220,4 +214,3 @@ export async function runScopeAnalysis({ url, goal, constraints, metadata, clean
     errors: [],
   };
 }
-

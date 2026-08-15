@@ -7,6 +7,8 @@ Rules:
 - requirement_id, finding_id, and source_review_ids must exist in the provided data.
 - The finding_id must match the finding linked to the requirement.
 - Preconditions, steps, and expected results must be concrete and verifiable.
+- Expected results must verify that the specific user problem in the source review
+  excerpts is actually resolved, not just that a generic action was performed.
 - Return valid JSON only, with no markdown fences.
 
 Schema:
@@ -25,4 +27,3 @@ Schema:
     }
   ]
 }
-

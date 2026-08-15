@@ -63,6 +63,7 @@ export async function runTestGeneration({ requirements, findings, llm, onEvent }
           finding_id: f.finding_id,
           title: f.title,
           review_ids: f.review_ids,
+          excerpts: f.excerpts ?? [],
         })),
       }, 'tests');
       const validated = validateTestCases(result.test_cases, {
@@ -83,4 +84,3 @@ export async function runTestGeneration({ requirements, findings, llm, onEvent }
   }
   return { test_cases: testCases, method, error, validation_issues: validationIssues };
 }
-

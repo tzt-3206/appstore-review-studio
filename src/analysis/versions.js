@@ -51,7 +51,7 @@ function fallbackVersionPlan(findings) {
   return { versions };
 }
 
-export async function runVersionPlanning({ findings, llm, onEvent }) {
+export async function runVersionPlanning({ findings, llm, onEvent, goal }) {
   const findingIds = new Set(findings.map((f) => f.finding_id));
   let versionPlan = null;
   let method = 'model';
@@ -61,6 +61,7 @@ export async function runVersionPlanning({ findings, llm, onEvent }) {
   if (llm && llm.available() && findings.length > 0) {
     try {
       const result = await llm.completeJSON('version_planning', {
+        goal,
         findings: findings.map((f) => ({
           finding_id: f.finding_id,
           title: f.title,
