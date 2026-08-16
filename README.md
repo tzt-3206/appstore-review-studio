@@ -46,6 +46,34 @@ Set `LLM_PROVIDER`, `OPENAI_BASE_URL`, `OPENAI_API_KEY`, and `OPENAI_MODEL` in `
 to enable model-driven semantic analysis. The bundled demo mode works without an API
 key because it reads a precomputed cached result.
 
+### Switching Models
+
+No source code change is required. The LLM layer is OpenAI-compatible and also
+supports local Ollama:
+
+```env
+# OpenAI
+LLM_PROVIDER=openai
+OPENAI_BASE_URL=https://api.openai.com/v1
+OPENAI_API_KEY=sk-xxx
+OPENAI_MODEL=gpt-4o-mini
+```
+
+```env
+# DeepSeek
+LLM_PROVIDER=openai
+OPENAI_BASE_URL=https://api.deepseek.com
+OPENAI_API_KEY=sk-xxx
+OPENAI_MODEL=deepseek-v4-pro
+```
+
+```env
+# Local Ollama
+LLM_PROVIDER=ollama
+OLLAMA_BASE_URL=http://127.0.0.1:11434
+OLLAMA_MODEL=qwen2.5:7b
+```
+
 The repository already ships:
 
 - Real U.S. App Store review sample: `data/sample/raw_reviews.json`
@@ -163,6 +191,30 @@ full pipeline run with a deterministic mock provider.
 - Traceability: Review -> Finding -> Requirement -> Test is validated automatically
 - Local run: `npm start`, demo mode works without API access
 - Full history: multi-commit Git history shows implementation and iteration
+
+## Job Description Alignment
+
+The project directly exercises the AI Agent and product-research skills from the
+LaienTech internship description:
+
+- Prompt Engineering: 8 externalized prompt files with structured JSON contracts
+- Model APIs: OpenAI-compatible provider works with OpenAI, DeepSeek, Qwen, Moonshot,
+  and local Ollama without code changes
+- Agent / automation workflow: a 10-stage pipeline coordinates collection, cleaning,
+  semantic analysis, validation, PRD, and test generation
+- Tool chain: RSS collector, deterministic validators, evidence checks, and
+  traceability graph validation form an explicit tool/validation loop
+- Product research: real App Store reviews become prioritized PRD requirements and
+  test cases grounded in source review IDs
+- Data analysis: rating distributions, topic stats, support counts, conflicts, and
+  confidence are computed deterministically and separated from model conclusions
+
+## Development History
+
+The repository keeps iterative commits rather than a single snapshot. `git log
+--oneline` shows scaffold, collector, cleaning, model-driven analysis, pipeline,
+UI, tests, cached demo, and follow-up fixes for real edge cases such as Apple feed
+soft-blocking, CN-only apps, model timeouts, and port conflicts.
 
 ## API
 
