@@ -81,6 +81,32 @@ The repository already ships:
 - Prompt definitions: `prompts/*.md`
 - Example environment file: `.env.example`
 
+## Screenshots
+
+### 首页
+
+![Review Studio 首页](docs/screenshots/home.png)
+
+### 分析总览
+
+![分析总览](docs/screenshots/overview.png)
+
+### 问题发现
+
+![问题发现](docs/screenshots/findings.png)
+
+### PRD 草案
+
+![PRD 草案](docs/screenshots/prd.png)
+
+### 测试用例草案
+
+![测试用例草案](docs/screenshots/tests.png)
+
+### 可追溯性
+
+![可追溯性](docs/screenshots/trace.png)
+
 ## Data Collection
 
 Live mode uses Apple's official iTunes RSS customer reviews feed, not page scraping:
